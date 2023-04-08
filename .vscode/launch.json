@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main"
+    },
+    {
+      "name": "Launch development",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "args": [
+        "--flavor",
+        "development",
+        "--target",
+        "lib/main_development.dart"
+      ]
+    },
+    {
+      "name": "Launch staging",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_staging.dart",
+      "args": ["--flavor", "staging", "--target", "lib/main_staging.dart"]
+    },
+    {
+      "name": "Launch production",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "args": ["--flavor", "production", "--target", "lib/main_production.dart"]
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_production.dart"
+      ],
+      "stopAtEntry": true,
+      "externalConsole": false,
+      "cwd": "/Users/hesham/wyca",
+      "program": "/Users/hesham/wyca/build/Debug/outDebug",
+      "MIMode": "gdb"
+    }
+  ]
+}

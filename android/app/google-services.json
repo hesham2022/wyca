@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "449531267886",
+    "project_id": "wyca-4b445",
+    "storage_bucket": "wyca-4b445.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449531267886:android:43de7cc423242189cdc8bf",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.wyca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449531267886-ks3q56l9175h7qmkicpgd87r9is7umt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQVTDYOCH6_i6PFzIhBCN-pBj_5mCsxt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449531267886-ks3q56l9175h7qmkicpgd87r9is7umt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
