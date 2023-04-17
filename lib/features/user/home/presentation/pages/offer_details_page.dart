@@ -8,10 +8,17 @@ import 'package:wyca/imports.dart';
 
 class OfferDetailsPage extends StatelessWidget {
   const OfferDetailsPage({super.key, required this.package});
+
   final Package package;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: appBar(context, package.name, titleColor: ColorName.textColor3),
+        // appBar: appBar(context, package.name, titleColor: ColorName.textColor3),
+        appBar: AppBar(
+          title: Text(
+            package.name,
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: kPadding,

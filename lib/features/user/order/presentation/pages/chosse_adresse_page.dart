@@ -26,7 +26,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
   late Address _currentAdress;
   @override
   void initState() {
-    _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
+       _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
         .user
         .addresses
         .last;

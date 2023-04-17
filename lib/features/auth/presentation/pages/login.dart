@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool p = true;
   bool disappear = true;
+
   @override
   Widget build(BuildContext context) {
     final starterPosition = p ? (250.h) : 250.h;
@@ -54,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         p = !p;
                         disappear = !p;
-
                         // showConfirmPassword = !showConfirmPassword;
                       });
                     },
