@@ -11,6 +11,7 @@ bool kAceeptedScreen = false;
 
 class CompleteRequestPage extends StatelessWidget {
   const CompleteRequestPage({super.key, required this.requestClass});
+
   final RequestClass requestClass;
 
   @override
@@ -25,13 +26,12 @@ class CompleteRequestPage extends StatelessWidget {
         listener: (context, state) {
           if (state is PNCubitStateLoaded) {
             showAboutDialog(context: context, children: [const Text('done')]);
-
             if (state.requests
                 .map((e) => e.id)
                 .toList()
                 .contains(requestClass.id)) {
               context.router.pushAndPopUntil(
-                 HomePAGE(),
+                HomePAGE(),
                 predicate: (r) => false,
               );
               context.router.push(
@@ -59,15 +59,8 @@ class CompleteRequestPage extends StatelessWidget {
           }
         },
         child: Scaffold(
-          appBar: appBar(
-            context,
-            'Request Completed',
-            back: () {
-              AutoRouter.of(context).pushAndPopUntil(
-                 HomePAGE(),
-                predicate: (route) => false,
-              );
-            },
+          appBar: AppBar(
+            title: Text(context.l10n.request_complete),
           ),
           body: Center(
             child: Padding(
@@ -125,7 +118,7 @@ class CompleteRequestPage extends StatelessWidget {
                           onPressed: () {
                             Future<void>.delayed(Duration.zero, () {
                               AutoRouter.of(context).pushAndPopUntil(
-                                 HomePAGE(),
+                                HomePAGE(),
                                 predicate: (route) => false,
                               );
                             });

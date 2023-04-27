@@ -217,349 +217,297 @@ class _HomePAGEState extends State<HomePAGE> {
             );
           }
           final currentState = state as PackagesCubitStateLoaded;
-          return CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    welcomeUser(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+          return Column(
+            children: [
+              welcomeUser(),
+              Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                context.l10n.ourPorividersOnYourWay,
-                                style: kHead1Style.copyWith(
-                                  fontSize: 16.sp,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              AppButton(
-                                w: 224.w,
-                                h: 36.h,
-                                title: context.l10n.details,
-                                onPressed: () {
-                                  Navigator.push<void>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NearesProviderScreen(),
-                                      // const AboutUsPage(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),SizedBox(
-                            width: MediaQuery.of(context).size.width * .30,
-                            child:
-                            Lottie.asset('assets/lottie/car_wash.json'),
-
-                            // LoadingIndicator(
-                            //   indicatorType: Indicator.pacman,
-                            //   colors: [ColorName.primaryColor],
-                            // ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: SectionTitile(
-                        context.l10n.offers,
-                        color: Colors.black,
-                      ),
-                    ),
-
-                    Container(
-                      height: 180,
-                      child: const HomeCursorSlider(),
-                    ),
-
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: SectionTitile(
-                        context.l10n.orderNow,
-                        color: Colors.black,
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: BlocBuilder<PackagesCubit, PackagesCubitState>(
-                        builder: (context, state) {
-                          final items =
-                              (state as PackagesCubitStateLoaded).packages;
-                          return PackageDropDownField(
-                            package: context
-                                    .read<OrderBloc>()
-                                    .idControoler
-                                    .text
-                                    .isEmpty
-                                ? null
-                                : items.firstWhere(
-                                    (element) =>
-                                        element.id ==
-                                        context
-                                            .read<OrderBloc>()
-                                            .idControoler
-                                            .text,
-                                  ),
-                            initialValue: context
-                                    .read<OrderBloc>()
-                                    .idControoler
-                                    .text
-                                    .isEmpty
-                                ? null
-                                : items.firstWhere(
-                                    (element) =>
-                                        element.id ==
-                                        context
-                                            .read<OrderBloc>()
-                                            .idControoler
-                                            .text,
-                                  ),
-                            items: [...items],
-                            onChanged: (value) {
-                              context.read<OrderBloc>().idControoler.text =
-                                  value!.id;
-                            },
-                            hint: context.l10n.chooseService,
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: AppButton(
-                              title: context.l10n.orderNow,
-                              onPressed: () {
-                                if (context
-                                    .read<OrderBloc>()
-                                    .idControoler
-                                    .text
-                                    .isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        context.l10n.pleaseSelectOnePackage,
-                                      ),
-                                    ),
-                                  );
-                                  return;
-                                }
-                                Navigator.push<void>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChosseAdressePage(
-                                      packageId: context
-                                          .read<OrderBloc>()
-                                          .idControoler
-                                          .text,
-                                    ),
-                                  ),
-                                );
-                              },
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Flexible(
-                            child: AppButton(
-                              color: Colors.white,
-                              titleColor: ColorName.primaryColor,
-                              title: context.l10n.orderLater,
-                              onPressed: () {
-                                Navigator.push<void>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OrderLaterScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: SectionTitile(
-                        context.l10n.packages,
-                        color: Colors.black,
-                      ),
-                    ),
-
-                    Column(
-                      children: [
-                        ...currentState.packages
-                            .map(
-                              (e) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 25,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
                                 ),
-                                clipBehavior: Clip.hardEdge,
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                height: 100,
-                                child: Stack(
-                                  alignment : AlignmentDirectional.centerEnd,
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    ListTile(
-                                      onTap: () {
-                                        try {
-                                          var currentAdress =
-                                              (context.read<UserCubit>().state
-                                                      as UserCubitStateLoaded)
-                                                  .user
-                                                  .addresses
-                                                  .last;
-
-                                          if (currentAdress != null) {
-                                            Navigator.push<void>(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PackageScreen(
-                                                  package: e,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        } catch (e) {
-                                          showMyDialog(context);
-                                        }
-                                      },
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 25,
-                                      ),
-                                      leading: SizedBox(
-                                        height: 50,
-                                        width: 50,
-                                        child: cashedImage(
-                                          url: kImagePackage + e.image,
-                                        ),
-                                      ),
-                                      title: autoSizeText(
-                                        text: e.description,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                      subtitle: autoSizeText(
-                                        text: '${e.price} ${context.l10n.le}',
-                                        fontWeight: FontWeight.w700,
-                                        size: 15,
+                                    Text(
+                                      context.l10n.ourPorividersOnYourWay,
+                                      style: kHead1Style.copyWith(
+                                        fontSize: 16.sp,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                    Positioned(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 4),
-                                        clipBehavior: Clip.hardEdge,
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                        child: const Text(
-                                          'Hot',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    )
+                                    AppButton(
+                                      w: 224.w,
+                                      h: 36.h,
+                                      title: context.l10n.details,
+                                      onPressed: () {
+                                        Navigator.push<void>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NearesProviderScreen(),
+                                            // const AboutUsPage(),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ],
                                 ),
-                              ),
-                            )
-                            .toList()
-                      ],
-                    ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * .30,
+                                  child: Lottie.asset(
+                                      'assets/lottie/car_wash.json'),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: SectionTitile(
+                              context.l10n.offers,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Container(
+                            height: 180,
+                            child: const HomeCursorSlider(),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: SectionTitile(
+                              context.l10n.orderNow,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child:
+                                BlocBuilder<PackagesCubit, PackagesCubitState>(
+                              builder: (context, state) {
+                                final items =
+                                    (state as PackagesCubitStateLoaded)
+                                        .packages;
+                                return PackageDropDownField(
+                                  package: context
+                                          .read<OrderBloc>()
+                                          .idControoler
+                                          .text
+                                          .isEmpty
+                                      ? null
+                                      : items.firstWhere(
+                                          (element) =>
+                                              element.id ==
+                                              context
+                                                  .read<OrderBloc>()
+                                                  .idControoler
+                                                  .text,
+                                        ),
+                                  initialValue: context
+                                          .read<OrderBloc>()
+                                          .idControoler
+                                          .text
+                                          .isEmpty
+                                      ? null
+                                      : items.firstWhere(
+                                          (element) =>
+                                              element.id ==
+                                              context
+                                                  .read<OrderBloc>()
+                                                  .idControoler
+                                                  .text,
+                                        ),
+                                  items: [...items],
+                                  onChanged: (value) {
+                                    context
+                                        .read<OrderBloc>()
+                                        .idControoler
+                                        .text = value!.id;
+                                  },
+                                  hint: context.l10n.chooseService,
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: AppButton(
+                                    title: context.l10n.orderNow,
+                                    onPressed: () {
+                                      if (context
+                                          .read<OrderBloc>()
+                                          .idControoler
+                                          .text
+                                          .isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              context
+                                                  .l10n.pleaseSelectOnePackage,
+                                            ),
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      Navigator.push<void>(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChosseAdressePage(
+                                            packageId: context
+                                                .read<OrderBloc>()
+                                                .idControoler
+                                                .text,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Flexible(
+                                  child: AppButton(
+                                    color: Colors.white,
+                                    titleColor: ColorName.primaryColor,
+                                    title: context.l10n.orderLater,
+                                    onPressed: () {
+                                      Navigator.push<void>(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const OrderLaterScreen(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: SectionTitile(
+                              context.l10n.packages,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              ...currentState.packages
+                                  .map(
+                                    (e) => Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                        horizontal: 15,
+                                      ),
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        // border: Border.all(
+                                        //   color: Colors.grey.shade300,
+                                        // ),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      height: 100,
+                                      child: ListTile(
+                                        onTap: () {
+                                          try {
+                                            var currentAdress =
+                                                (context.read<UserCubit>().state
+                                                        as UserCubitStateLoaded)
+                                                    .user
+                                                    .addresses
+                                                    .last;
 
-                    // Packages
-                    // SizedBox(
-                    //   height: 200.h,
-                    //   // width: double.infinity,
-                    //   child: ListView.builder(
-                    //     scrollDirection: Axis.vertical,
-                    //     itemBuilder: (context, index) => InkWell(
-                    //       onTap: () {
-                    //         Navigator.push<void>(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //             builder: (context) => PackageScreen(
-                    //               package: currentState.packages[index],
-                    //             ),
-                    //           ),
-                    //         );
-                    //       },
-                    //       child: Container(
-                    //         child: ListTile(
-                    //           leading: SizedBox(
-                    //             height: 60,
-                    //             width: 60,
-                    //             child: cashedImage(
-                    //               url: kImagePackage +
-                    //                   currentState.packages[index].image,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     itemCount: currentState.packages.length,
-                    //   ),
-                    // ),
-
-                    SizedBox(
-                      height: 40.h,
+                                            if (currentAdress != null) {
+                                              Navigator.push<void>(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PackageScreen(
+                                                    package: e,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            showMyDialog(context);
+                                          }
+                                        },
+                                        leading: Container(
+                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          height: 100.sp,
+                                          width: 100.sp,
+                                          child: cashedImage(
+                                            url: kImagePackage + e.image,
+                                          ),
+                                        ),
+                                        title: autoSizeText(
+                                          text: e.description,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        subtitle: autoSizeText(
+                                          text: '${e.price} ${context.l10n.le}',
+                                          fontWeight: FontWeight.w700,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList()
+                            ],
+                          ),
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -595,8 +543,7 @@ class _HomePAGEState extends State<HomePAGE> {
 
 Future<void> showMyDialog(BuildContext context) async {
   return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
+    context: context, barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(

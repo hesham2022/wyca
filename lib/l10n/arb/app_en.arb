@@ -125,9 +125,12 @@
   "selectLocation":" Select location ",
   "cancel":" Cancel ",
   "choosePhoto": "Choose a photo",
+  "chose_address":"Chose address",
+  "remain":"The number of remaining car washes",
   "noPhotoSelectedYet": "No photo selected yet",
   "numberMustNotBeEmpty": "Number must not be empty",
   "colorMustNotBeEmty": "Color must not be emty",
+  "request_complete": "Request complete",
   "@counterAppBarTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
   }

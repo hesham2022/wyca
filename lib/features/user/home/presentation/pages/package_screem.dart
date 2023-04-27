@@ -6,13 +6,12 @@ import 'package:wyca/imports.dart';
 
 class PackageScreen extends StatelessWidget {
   const PackageScreen({super.key, required this.package});
+
   final Package package;
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: appBar(
-          context,
-          package.name,
-          titleColor: ColorName.textColor3,
+        appBar: AppBar(
+          title: Text(package.name),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -21,13 +20,27 @@ class PackageScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  textBaseline: TextBaseline.alphabetic,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  children: [
+                    const SectionTitile('Wash Number'),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '${package.washNumber} Wash',
+                      style: kBody1Style.copyWith(color: kPrimaryColor),
+                    ),
+                  ],
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '${package.price} LE',
+                            text: '${package.price} ${context.l10n.le}',
                             style: kHead1Style.copyWith(
                               fontSize: ScreenUtil().setSp(20),
                             ),
@@ -65,36 +78,21 @@ class PackageScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const SectionTitile('Wash Number'),
-                Text(
-                  '${package.washNumber} Wash',
-                  style: kBody1Style.copyWith(color: kPrimaryColor),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
                 if (isPackageExist(context, package.id) &&
                     restOfWash(context, package.id) != 0)
-                  Column(
-                    children: [
-                      const SectionTitile('You Have '),
-                      Row(
-                        children: [
-                          Text(
-                            '${restOfWash(context, package.id)} Wash',
-                            style: kBody1Style.copyWith(color: kPrimaryColor),
-                          ),
-                        ],
-                      ),
-                    ],
+                  autoSizeText(
+                    text:
+                        '${context.l10n.remain} : ${restOfWash(context, package.id)}',
+                    fontWeight: FontWeight.w700,maxLines: 2,
                   ),
                 SizedBox(
                   height: 20.h,
                 ),
                 if (package.features.isNotEmpty)
-                  SectionTitile(context.l10n.features),
+                  autoSizeText(
+                      text: context.l10n.features, fontWeight: FontWeight.w700),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 ...List.generate(
                   package.features.length,
@@ -111,7 +109,9 @@ class PackageScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 10.h),
-                SectionTitile(context.l10n.moreAboutPackage),
+                autoSizeText(
+                    text: context.l10n.moreAboutPackage,
+                    fontWeight: FontWeight.w700),
                 Text(
                   package.description,
                   style: kSemiBoldStyle.copyWith(
@@ -122,21 +122,23 @@ class PackageScreen extends StatelessWidget {
                 SizedBox(
                   height: 25.h,
                 ),
-                AppButton(
-                  title: (isPackageExist(context, package.id) &&
-                          restOfWash(context, package.id) != 0)
-                      ? context.l10n.serviceRequest
-                      : context.l10n.buy,
-                  onPressed: () {
-                    Navigator.push<void>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChosseAdressePage(
-                          packageId: package.id,
+                Center(
+                  child: AppButton(
+                    title: (isPackageExist(context, package.id) &&
+                            restOfWash(context, package.id) != 0)
+                        ? context.l10n.serviceRequest
+                        : context.l10n.buy,
+                    onPressed: () {
+                      Navigator.push<void>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChosseAdressePage(
+                            packageId: package.id,
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 40.h,
