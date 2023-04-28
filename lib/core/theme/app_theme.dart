@@ -141,6 +141,7 @@ Widget autoSizeText({
       fontWeight: fontWeight,
       color: color,
       decoration: decoration,
+      height: 1.3,
     ),
     minFontSize: size,
     maxFontSize: size,

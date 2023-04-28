@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wyca/app/app.dart';
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
@@ -17,6 +18,7 @@ import 'package:wyca/imports.dart';
 
 class ChosseAdressePage extends StatefulWidget {
   const ChosseAdressePage({super.key, this.date, required this.packageId});
+
   final DateTime? date;
   final String packageId;
   @override
@@ -27,7 +29,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
   late Address _currentAdress;
   @override
   void initState() {
-       _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
+    _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
         .user
         .addresses
         .last;
@@ -38,9 +40,10 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
   Widget build(BuildContext context) {
     print(_currentAdress.description);
     return Scaffold(
-
       appBar: AppBar(
-        title: Text(context.l10n.chose_address,),
+        title: Text(
+          context.l10n.chose_address,
+        ),
       ),
       body: BlocConsumer<UserCubit, UserCubitState>(
         listener: (context, state) {
@@ -55,8 +58,11 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .25,
+                  child: Lottie.asset('assets/lottie/location.json'),
+                ),
                 SizedBox(height: 15.h),
                 ...(state as UserCubitStateLoaded)
                     .user
@@ -135,8 +141,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                                           .id,
                                     ),
                                   );
-                            }
-                            else {
+                            } else {
                               Navigator.push<void>(
                                 context,
                                 MaterialPageRoute(

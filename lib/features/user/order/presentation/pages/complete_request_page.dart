@@ -67,13 +67,12 @@ class CompleteRequestPage extends StatelessWidget {
               padding: kPadding,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 150.h,
-                  ),
                   LottieBuilder.asset(
-                    Assets.lottie.animation14,
-                    height: 144.h,
-                    width: 144.h,
+                    'assets/lottie/search.json',
+                    height: MediaQuery.of(context).size.width * .35,
+                  ),
+                  const SizedBox(
+                    height: 50,
                   ),
                   Text(
                     'Service Request Completed Successfully',

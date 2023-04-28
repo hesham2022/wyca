@@ -63,6 +63,8 @@ class _HomeCursorSliderState extends State<HomeCursorSlider> {
                       builder: (BuildContext context) {
                         return GestureDetector(
                             onTap: () {
+                              
+
                               Navigator.push<void>(
                                 context,
                                 CupertinoPageRoute(

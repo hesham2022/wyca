@@ -69,7 +69,6 @@ class _HomePAGEState extends State<HomePAGE> {
         leading: IconButton(
           padding: EdgeInsets.zero,
           onPressed: () {
-            // Scaffold.of(context).openDrawer();
             scaffoldKey.currentState?.openDrawer();
           },
           icon: Assets.svg.menu.svg(
@@ -434,74 +433,99 @@ class _HomePAGEState extends State<HomePAGE> {
                               color: Colors.black,
                             ),
                           ),
-                          Column(
-                            children: [
-                              ...currentState.packages
-                                  .map(
-                                    (e) => Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 15,
-                                      ),
-                                      clipBehavior: Clip.hardEdge,
-                                      decoration: BoxDecoration(
-                                        // border: Border.all(
-                                        //   color: Colors.grey.shade300,
-                                        // ),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      height: 100,
-                                      child: ListTile(
-                                        onTap: () {
-                                          try {
-                                            var currentAdress =
-                                                (context.read<UserCubit>().state
-                                                        as UserCubitStateLoaded)
-                                                    .user
-                                                    .addresses
-                                                    .last;
+                          SizedBox(
+                            height: 230,
+                            child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                              ),
+                              itemCount: currentState.packages.length,
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  try {
+                                    var currentAdress = (context
+                                            .read<UserCubit>()
+                                            .state as UserCubitStateLoaded)
+                                        .user
+                                        .addresses
+                                        .last;
 
-                                            if (currentAdress != null) {
-                                              Navigator.push<void>(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PackageScreen(
-                                                    package: e,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                          } catch (e) {
-                                            showMyDialog(context);
-                                          }
-                                        },
-                                        leading: Container(
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          height: 100.sp,
-                                          width: 100.sp,
-                                          child: cashedImage(
-                                            url: kImagePackage + e.image,
+                                    if (currentAdress != null) {
+                                      Navigator.push<void>(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PackageScreen(
+                                            package:
+                                                currentState.packages[index],
                                           ),
                                         ),
-                                        title: autoSizeText(
-                                          text: e.description,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        subtitle: autoSizeText(
-                                          text: '${e.price} ${context.l10n.le}',
-                                          fontWeight: FontWeight.w700,
-                                          size: 15,
+                                      );
+                                    }
+                                  } catch (e) {
+                                    showLocationDialog(context);
+                                  }
+                                },
+                                child: Card(
+                                  clipBehavior: Clip.hardEdge,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      6,
+                                    ),
+                                  ),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 4,
+                                        child: cashedImage(
+                                          url: kImagePackage +
+                                              currentState
+                                                  .packages[index].image,
                                         ),
                                       ),
-                                    ),
-                                  )
-                                  .toList()
-                            ],
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: autoSizeText(
+                                            text: currentState
+                                                .packages[index].description,
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          child: autoSizeText(
+                                            text:
+                                                '${currentState.packages[index].price} ${context.l10n.le}',
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorName.primaryColor,
+                                            size: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 40.h,
@@ -541,7 +565,7 @@ class _HomePAGEState extends State<HomePAGE> {
   }
 }
 
-Future<void> showMyDialog(BuildContext context) async {
+Future<void> showLocationDialog(BuildContext context) async {
   return showDialog<void>(
     context: context, barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {

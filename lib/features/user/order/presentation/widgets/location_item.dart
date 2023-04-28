@@ -26,7 +26,7 @@ class LocationItem extends StatefulWidget {
 class _LocationItemState extends State<LocationItem> {
   @override
   Widget build(BuildContext context) => RadioListTile<Address>(
-        activeColor: ColorName.primaryColor,
+        activeColor: Colors.black,
         title: Text(widget.description ?? widget.adresses),
         value: widget.value,
         groupValue: widget.groupValue,
