@@ -124,6 +124,7 @@
   "wash_num":"عدد الغسلات",
   "you_have":"لديك",
   "description":"وصف الخدمة",
+  "select_user_type":"الرجاء تحديد نوع المستخدم",
 "noPhotoSelectedYet":"ليس هناك صوره بعد",
 "numberMustNotBeEmpty":"الرقم لا يجب ان يكون فارغا",
 "colorMustNotBeEmty":"اللون لا يجب ان يكون فارغا",

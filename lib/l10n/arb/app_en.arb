@@ -133,6 +133,7 @@
   "wash_num":"Wash Numbers",
   "you_have":"You Have",
   "description":"Description",
+  "select_user_type":"Please select user type",
   "request_complete": "Request complete",
   "@counterAppBarTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
