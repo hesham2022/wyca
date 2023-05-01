@@ -16,15 +16,15 @@ class LogoBar extends StatelessWidget {
     return Column(
       children: [
         Lottie.asset(
-          Assets.lottie.animation15,
-          width: 102.h,
-          height: 102.h,
+          'assets/lottie/user.json',
+          width: 120.h,
+          height: 120.h,
         ),
         SizedBox(
           height: 20.h,
         ),
         Text(
-          "${context.l10n.wlcomeBack}!",
+          '${context.l10n.wlcomeBack}!',
           style: kHead1Style.copyWith(
             fontSize: 22.sp,
             color: Colors.black,

@@ -368,7 +368,7 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
             duration: const Duration(milliseconds: 250),
             left: 0,
             right: 0,
-            top: widget.topPosition(!begin ? 2 : 6) - 5.h,
+            top: widget.topPosition(!begin ? 2 : 5) - 5.h,
             child: AnimatedOpacity(
               opacity: !end ? 0 : 1,
               duration: const Duration(milliseconds: 250),

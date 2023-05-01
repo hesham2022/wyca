@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     double topPosition(int index) =>
         starterPosition + ((textFiedHeight * index) + (space * index));
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: MultiBlocProvider(
         providers: [
           BlocProvider<LoginBloc>(
