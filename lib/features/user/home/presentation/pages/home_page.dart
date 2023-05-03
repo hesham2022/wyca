@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wyca/app/view/app.dart';
 import 'package:wyca/core/theme/theme.dart';
@@ -11,7 +10,6 @@ import 'package:wyca/core/widgets/widget.dart';
 import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/about_us.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/calling_page.dart';
-import 'package:wyca/features/provider/about_us/presentation/pages/about_us_page.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/user/adresses/presentation/pages/adresses_page.dart';
 import 'package:wyca/features/user/home/presentation/packages_bloc/packages_bloc.dart';
@@ -167,18 +165,6 @@ class _HomePAGEState extends State<HomePAGE> {
             ),
             page: const MyCarsPage(),
           ),
-          AppDrawerModel(
-            title: context.l10n.language,
-            iconBoxColor: Colors.white,
-            //  icon: Assets.drawerIcons.icons8GoogleTranslate.svg(),
-            icon: Assets.drawerIcons.languageIcon.image(),
-            onTap: () {
-              showDialog<void>(
-                context: context,
-                builder: (_) => const LanguageDialuge(),
-              );
-            },
-          ),
 
           AppDrawerModel(
             title: context.l10n.contactUs,
@@ -193,6 +179,17 @@ class _HomePAGEState extends State<HomePAGE> {
               color: Colors.white,
             ),
             page: const AboutUs(),
+          ),
+          AppDrawerModel(
+            title: context.l10n.language,
+            iconBoxColor: Colors.white,
+            icon: Assets.drawerIcons.languageIcon.image(),
+            onTap: () {
+              showDialog<void>(
+                context: context,
+                builder: (_) => const LanguageDialuge(),
+              );
+            },
           ),
           // AppDrawerModel(
           //   title: 'Wash Control',
@@ -268,7 +265,8 @@ class _HomePAGEState extends State<HomePAGE> {
                                   width:
                                       MediaQuery.of(context).size.width * .30,
                                   child: Lottie.asset(
-                                      'assets/lottie/car_wash.json'),
+                                    'assets/lottie/car_wash.json',
+                                  ),
                                 ),
                               ],
                             ),

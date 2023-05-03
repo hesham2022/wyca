@@ -53,6 +53,7 @@ class _LanguageDialugeState extends State<LanguageDialuge> {
                       children: [
                         Text(e.name),
                         Radio<String>(
+                          activeColor: ColorName.primaryColor,
                           value: e.local,
                           groupValue: _currenLocal,
                           onChanged: (value) {

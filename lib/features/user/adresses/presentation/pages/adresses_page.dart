@@ -17,9 +17,8 @@ class _AdressesPageState extends State<AdressesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(
-        context,
-        context.l10n.myAdresses,
+      appBar: AppBar(
+        title: Text(context.l10n.myAdresses),
       ),
       body: BlocBuilder<UserCubit, UserCubitState>(
         builder: (context, state) {
@@ -29,12 +28,7 @@ class _AdressesPageState extends State<AdressesPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SectionTitile(
-                      context.l10n.myAdresses,
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
+
                     for (var i in state.user.addresses)
                       Column(
                         children: [

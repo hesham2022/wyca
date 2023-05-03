@@ -31,7 +31,9 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                   (element) => element.byPoint != null,
                 );
                 return Scaffold(
-                  appBar: appBar(context, context.l10n.myPoints),
+                  appBar: AppBar(
+                    title: Text(context.l10n.myPoints),
+                  ),
                   body: Padding(
                     padding: kPadding,
                     child: Column(

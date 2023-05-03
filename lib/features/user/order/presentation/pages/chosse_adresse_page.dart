@@ -119,8 +119,8 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                           h: 36.h,
                           title: (exist &&
                                   restOfWash(context, widget.packageId) != 0)
-                              ? 'Service Requests'
-                              : 'Next',
+                              ? context.l10n.serviceRequest
+                              : context.l10n.next,
                           onPressed: () {
                             // context.read<OrderBloc>().idControoler.text
                             // if(){

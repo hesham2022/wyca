@@ -132,6 +132,7 @@ Widget autoSizeText({
   Color color = Colors.black,
   TextDecoration decoration = TextDecoration.none,
   double size = 20,
+  TextAlign align = TextAlign.start,
 }) {
   return AutoSizeText(
     text,
@@ -143,6 +144,7 @@ Widget autoSizeText({
       decoration: decoration,
       height: 1.3,
     ),
+    textAlign: align,
     minFontSize: size,
     maxFontSize: size,
     maxLines: maxLines,

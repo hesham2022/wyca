@@ -135,6 +135,11 @@
   "description":"Description",
   "select_user_type":"Please select user type",
   "request_complete": "Request complete",
+  "active_packages":"Active packages",
+  "no_previous_orders":"No previous orders",
+  "contact_us":"Contact us",
+   "mail":"You can reach us anytime via\n wyca.online@gmail.com",
+  "no_active_orders":"No active orders",
   "@counterAppBarTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
   }

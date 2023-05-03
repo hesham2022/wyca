@@ -87,7 +87,7 @@ class OfferDetailsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            '${package.price - package.priceDiscount} LE',
+                            '${package.price - package.priceDiscount} ${context.l10n.le}',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
@@ -98,7 +98,7 @@ class OfferDetailsPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            '${package.price} LE',
+                            '${package.price} ${context.l10n.le}',
                             style: TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.red,
@@ -218,7 +218,7 @@ class OfferDetailsPage extends StatelessWidget {
                   height: 50.h,
                 ),
                 AppButton(
-                  title: 'Service Request',
+                  title: context.l10n.serviceRequest,
                   onPressed: () {
                     try {
                       Address? currentAdress = (context.read<UserCubit>().state
