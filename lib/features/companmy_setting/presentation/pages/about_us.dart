@@ -5,8 +5,6 @@ import 'package:wyca/core/widgets/widget.dart';
 import 'package:wyca/features/companmy_setting/presentation/bloc/calling_bloc.dart';
 import 'package:wyca/l10n/l10n.dart';
 
-import '../../../../l10n/arb/terms_ar.dart';
-
 class AboutUs extends StatefulWidget {
   const AboutUs({super.key});
 

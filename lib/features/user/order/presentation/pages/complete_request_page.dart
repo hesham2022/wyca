@@ -75,7 +75,7 @@ class CompleteRequestPage extends StatelessWidget {
                     height: 50,
                   ),
                   Text(
-                    'Service Request Completed Successfully',
+                    context.l10n.request_completed,
                     textAlign: TextAlign.center,
                     style: kHead1Style.copyWith(
                       color: Colors.black,
@@ -83,7 +83,7 @@ class CompleteRequestPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Selecting A Service Provider',
+                    context.l10n.select_provider,
                     textAlign: TextAlign.center,
                     style: kHead1Style.copyWith(fontSize: 16.sp),
                   ),
@@ -98,7 +98,7 @@ class CompleteRequestPage extends StatelessWidget {
                             color: Colors.white,
                             fontSize: 14.sp,
                           ),
-                          title: 'Cancel',
+                          title: context.l10n.cancel,
                           onPressed: () {},
                         ),
                       ),
@@ -113,7 +113,7 @@ class CompleteRequestPage extends StatelessWidget {
                             fontSize: 14.sp,
                           ),
                           titleColor: ColorName.primaryColor,
-                          title: 'Home',
+                          title: context.l10n.home,
                           onPressed: () {
                             Future<void>.delayed(Duration.zero, () {
                               AutoRouter.of(context).pushAndPopUntil(

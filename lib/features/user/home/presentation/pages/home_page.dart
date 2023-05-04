@@ -545,13 +545,19 @@ class _HomePAGEState extends State<HomePAGE> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          autoSizeText(
+            text: '${context.l10n.hello} ',
+            fontWeight: FontWeight.w600,
+          ),
           BlocBuilder<UserCubit, UserCubitState>(
             builder: (context, state) {
               if (state is UserCubitStateLoaded) {
-                return SectionTitile(
-                  '${context.l10n.hello}  ${state.user.name} ',
-                  color: Colors.black,
+                return autoSizeText(
+                  text: state.user.name,
+                  color: ColorName.primaryColor,
+                  fontWeight: FontWeight.w600,
                 );
               }
               return const Loader();
