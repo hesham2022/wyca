@@ -132,6 +132,7 @@
   "request_completed":"اكتمل طلب الخدمة بنجاح",
   "select_provider":"اختيار مقدم الخدمة",
   "home":"الرئسية",
+  "customer_service":"خدمة العملاء",
   "mail":"يمكنك الوصل الينت عن طريق البريد الالكتروني\n wyca.online@gmail.com",
 "noPhotoSelectedYet":"ليس هناك صوره بعد",
 "numberMustNotBeEmpty":"الرقم لا يجب ان يكون فارغا",

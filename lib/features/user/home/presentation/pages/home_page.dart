@@ -26,6 +26,7 @@ import 'package:wyca/gen/assets.gen.dart';
 import 'package:wyca/gen/colors.gen.dart';
 import 'package:wyca/l10n/l10n.dart';
 
+import '../../../../../app/customer_service/view/customer_service_view.dart';
 import '../../../../../core/api_config/api_constants.dart';
 import '../../../order/presentation/pages/chosse_adresse_page.dart';
 import '../../../order/presentation/pages/order_later_screen.dart';
@@ -535,6 +536,23 @@ class _HomePAGEState extends State<HomePAGE> {
                 ),
               ),
             ],
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorName.primaryColor,
+        child: const Icon(
+          Icons.message_rounded,
+          color: Colors.white,
+          size: 30,
+        ),
+        onPressed: () {
+          Navigator.push<void>(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CustomerService(),
+              // const AboutUsPage(),
+            ),
           );
         },
       ),
