@@ -6,6 +6,7 @@ import 'package:wyca/core/widgets/widget.dart';
 import 'package:wyca/features/auth/presentation/pages/user_type_screen.dart';
 import 'package:wyca/features/introduction/widget/intro_bottom_bar.dart';
 import 'package:wyca/features/introduction/widget/page_widget.dart';
+import 'package:wyca/l10n/l10n.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -54,22 +55,20 @@ class _IntroScreenState extends State<IntroScreen> {
                     height: 50.h,
                   ),
                   Text(
-                    'Welcome To Wyca',
+                    context.l10n.welcome_to_wyca,
                     style: kHead1Style,
                   ),
                   Expanded(
                     child: PageView(
                       controller: _pageController,
-                      children: const [
+                      children: [
                         PageWidget(
-                          title: 'DIRTY CAR',
-                          bodyText: '''
-LOREM IPSUM DOLOR SIT AMET, CONSECTETUER ADIPISCING ELIT, SED DIAM NONUMMY''',
+                          title: context.l10n.need_to_wash,
+                          bodyText: context.l10n.into_text,
                         ),
                         PageWidget(
-                          title: 'WYCA AT YOUR SERVICE',
-                          bodyText: '''
-LOREM IPSUM DOLOR SIT AMET, CONSECTETUER ADIPISCING ELIT, SED DIAM NONUMMY''',
+                          title: context.l10n.wyca_in_your_service,
+                          bodyText: context.l10n.into_text,
                         ),
                       ],
                     ),
@@ -98,7 +97,7 @@ LOREM IPSUM DOLOR SIT AMET, CONSECTETUER ADIPISCING ELIT, SED DIAM NONUMMY''',
                   // intro screen row
                   if (showStateButton)
                     AppButton(
-                      title: 'Start',
+                      title: context.l10n.start,
                       onPressed: () {
                         Navigator.of(context).push<void>(
                           MaterialPageRoute(

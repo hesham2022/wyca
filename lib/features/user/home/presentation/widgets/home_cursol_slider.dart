@@ -42,6 +42,7 @@ class _HomeCursorSliderState extends State<HomeCursorSlider> {
           }
           final currentState = state as PackagesCubitStateLoaded;
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 150,
@@ -62,79 +63,75 @@ class _HomeCursorSliderState extends State<HomeCursorSlider> {
                     return Builder(
                       builder: (BuildContext context) {
                         return GestureDetector(
-                            onTap: () {
-                              
-
-                              Navigator.push<void>(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => OfferDetailsPage(
-                                    package: i,
+                          onTap: () {
+                            Navigator.push<void>(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => OfferDetailsPage(
+                                  package: i,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: cashedImage(
+                                    url: kImagePackage + i.image,
                                   ),
                                 ),
-                              );
-                            },
-                            child: Container(
-                              clipBehavior: Clip.hardEdge,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: cashedImage(
-                                      url: kImagePackage + i.image,
+                                Expanded(
+                                  flex: 3,
+                                  child: ListTile(
+                                    title: autoSizeText(
+                                      text: i.name,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        autoSizeText(
+                                          text: i.description,
+                                          fontWeight: FontWeight.w600,
+                                          size: 16,
+                                          maxLines: 2,
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        autoSizeText(
+                                          text:
+                                              '${context.l10n.with_price} ${i.price - i.priceDiscount} ${context.l10n.le}',
+                                          size: 14,
+                                        ),
+                                        autoSizeText(
+                                          text:
+                                              '${context.l10n.instead_of} ${i.price} ${context.l10n.le}  ',
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          color: Colors.red,
+                                          size: 14,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: ListTile(
-                                      // ignore: use_named_constants
-                                      // contentPadding: const EdgeInsets.all(0),
-                                      title: autoSizeText(
-                                        text: i.name,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          autoSizeText(
-                                            text: i.description,
-                                            fontWeight: FontWeight.w400,
-                                            maxLines: 2,
-                                          ),
-                                          Row(
-                                            children: [
-                                              autoSizeText(
-                                                text:
-                                                    '${i.price} ${context.l10n.le}  ',
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                color: Colors.red,
-                                              ),
-                                              autoSizeText(
-                                                text:
-                                                    '${i.price - i.priceDiscount} ${context.l10n.le}',
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-
-                            //  HomeItem(
-                            //   package: i,
-                            // ),
-                            );
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
                       },
                     );
                   }).toList(),

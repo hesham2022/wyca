@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wyca/core/theme/theme.dart';
 import 'package:wyca/features/auth/presentation/pages/user_type_screen.dart';
 import 'package:wyca/gen/colors.gen.dart';
+import 'package:wyca/l10n/l10n.dart';
 
 class IntroBottomBar extends StatelessWidget {
   const IntroBottomBar({
@@ -25,7 +26,7 @@ class IntroBottomBar extends StatelessWidget {
             );
           },
           child: Text(
-            'Skip',
+            context.l10n.skip,
             style: kBody1Style.copyWith(
               color: ColorName.textColor1,
               fontWeight: FontWeight.w600,
@@ -43,7 +44,7 @@ class IntroBottomBar extends StatelessWidget {
             );
           },
           child: Text(
-            'Next',
+            context.l10n.next,
             style: kBody1Style.copyWith(
               color: ColorName.primaryColor,
               fontWeight: FontWeight.w600,
