@@ -107,6 +107,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       },
                     )
                   else
+
                     IntroBottomBar(pageController: _pageController),
                 ],
               ),
