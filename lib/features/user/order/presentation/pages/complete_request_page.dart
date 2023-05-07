@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/request/presentation/provider_notification_cubit.dart';
+import 'package:wyca/features/request/presentation/request_cubit.dart';
 import 'package:wyca/imports.dart';
 
 bool kAceeptedScreen = false;
@@ -24,23 +26,39 @@ class CompleteRequestPage extends StatelessWidget {
       child: BlocListener<PNCubit, PNCubitState>(
         listener: (context, state) {
           if (state is PNCubitStateLoaded) {
-            showAboutDialog(context: context, children: [const Text('done')]);
+            // showAboutDialog(context: context, children: [const Text('done')]);
 
             if (state.requests
                 .map((e) => e.id)
                 .toList()
                 .contains(requestClass.id)) {
               context.router.pushAndPopUntil(
-                 HomePAGE(),
+                HomePAGE(),
                 predicate: (r) => false,
               );
-              context.router.push(
-                NearesProviderScreenRoute(
-                  request: state.requests.firstWhere(
-                    (element) => element.id == requestClass.id,
+              //  context.router.popUntilRoot();
+
+              final request = state.requests
+                  .firstWhere((element) => element.id == requestClass.id);
+              if (request.status == 4) {
+                Fluttertoast.showToast(
+                  msg: 'No Provider Found',
+                );
+
+                context.router.push(
+                  TryAgainRoute(
+                    requestClass: request,
                   ),
-                ),
-              );
+                );
+                return;
+              } else {
+                context.router.push(
+                  NearesProviderScreenRoute(
+                    request: request,
+                  ),
+                );
+              }
+
               // Navigator.push<void>(
               //   context,
               //   MaterialPageRoute(
@@ -58,83 +76,106 @@ class CompleteRequestPage extends StatelessWidget {
             }
           }
         },
-        child: Scaffold(
-          appBar: appBar(
-            context,
-            'Request Completed',
-            back: () {
+        child: BlocListener<RequestCubit, RequestCubitState>(
+          listener: (context, state) {
+            if (state is RequestCubitStateCanceled) {
               AutoRouter.of(context).pushAndPopUntil(
-                 HomePAGE(),
+                HomePAGE(),
                 predicate: (route) => false,
               );
-            },
-          ),
-          body: Center(
-            child: Padding(
-              padding: kPadding,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150.h,
-                  ),
-                  LottieBuilder.asset(
-                    Assets.lottie.animation14,
-                    height: 144.h,
-                    width: 144.h,
-                  ),
-                  Text(
-                    'Service Request Completed Successfully',
-                    textAlign: TextAlign.center,
-                    style: kHead1Style.copyWith(
-                      color: Colors.black,
-                      fontSize: 16.sp,
+              Fluttertoast.showToast(
+                msg: 'Request Canceled Successfully',
+              );
+            }
+            if (state is RequestCubitStateError) {
+              Fluttertoast.showToast(
+                msg: state.error.errorMessege,
+              );
+            }
+          },
+          child: Scaffold(
+            appBar: appBar(
+              context,
+              'Request Completed',
+              back: () {
+                AutoRouter.of(context).pushAndPopUntil(
+                  HomePAGE(),
+                  predicate: (route) => false,
+                );
+              },
+            ),
+            body: Center(
+              child: Padding(
+                padding: kPadding,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 150.h,
                     ),
-                  ),
-                  Text(
-                    'Selecting A Service Provider',
-                    textAlign: TextAlign.center,
-                    style: kHead1Style.copyWith(fontSize: 16.sp),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppButton(
-                          titleStyle: kHead1Style.copyWith(
+                    LottieBuilder.asset(
+                      Assets.lottie.animation14,
+                      height: 144.h,
+                      width: 144.h,
+                    ),
+                    Text(
+                      'Service Request Completed Successfully',
+                      textAlign: TextAlign.center,
+                      style: kHead1Style.copyWith(
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    Text(
+                      'Selecting A Service Provider',
+                      textAlign: TextAlign.center,
+                      style: kHead1Style.copyWith(fontSize: 16.sp),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            titleStyle: kHead1Style.copyWith(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                            ),
+                            title: 'Cancel',
+                            onPressed: () {
+                              // cancelRequest(context, requestClass);
+                              context.read<RequestCubit>().cancelRequest(
+                                    requestClass.id,
+                                  );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Expanded(
+                          child: AppButton(
                             color: Colors.white,
-                            fontSize: 14.sp,
+                            titleStyle: kHead1Style.copyWith(
+                              color: ColorName.primaryColor,
+                              fontSize: 14.sp,
+                            ),
+                            titleColor: ColorName.primaryColor,
+                            title: 'Home',
+                            onPressed: () {
+                              Future<void>.delayed(Duration.zero, () {
+                                AutoRouter.of(context).pushAndPopUntil(
+                                  HomePAGE(),
+                                  predicate: (route) => false,
+                                );
+                              });
+                            },
                           ),
-                          title: 'Cancel',
-                          onPressed: () {},
                         ),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Expanded(
-                        child: AppButton(
-                          color: Colors.white,
-                          titleStyle: kHead1Style.copyWith(
-                            color: ColorName.primaryColor,
-                            fontSize: 14.sp,
-                          ),
-                          titleColor: ColorName.primaryColor,
-                          title: 'Home',
-                          onPressed: () {
-                            Future<void>.delayed(Duration.zero, () {
-                              AutoRouter.of(context).pushAndPopUntil(
-                                 HomePAGE(),
-                                predicate: (route) => false,
-                              );
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

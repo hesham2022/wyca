@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wyca/core/api_config/index.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/request/data/models/request_response.dart';
@@ -49,8 +50,8 @@ class RequestRemote extends IRequestRemote {
   @override
   Future<RequestClass> cancelRequest(String params) async {
     print('$kRequest/$params/cancel');
-
     final result = await apiConfig.patch('$kRequest/$params/cancel');
+
     return RequestClass.fromMap(result.data as Map<String, dynamic>);
   }
 

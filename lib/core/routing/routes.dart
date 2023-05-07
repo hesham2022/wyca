@@ -16,6 +16,7 @@ import 'package:wyca/features/provider/new_request/presentation/pages/new_reques
 import 'package:wyca/features/provider/new_request/presentation/pages/request_details_page.dart';
 import 'package:wyca/features/user/home/presentation/pages/home_page.dart';
 import 'package:wyca/features/user/notifications/presentation/pages/notifications_page.dart';
+import 'package:wyca/features/user/notifications/presentation/pages/try_again.dart';
 import 'package:wyca/features/user/order/presentation/pages/complete_request_page.dart';
 import 'package:wyca/features/user/request_accepted/presentaion/pages/chat_screen.dart';
 import 'package:wyca/features/user/request_accepted/presentaion/pages/neares_provider_screen.dart';
@@ -43,6 +44,8 @@ import 'package:wyca/features/user/request_accepted/presentaion/pages/neares_pro
     AutoRoute<dynamic>(page: CompleteRequestPage),
 
     AutoRoute<dynamic>(page: ProviderSignUpPage),
+        AutoRoute<dynamic>(page: TryAgain, name: 'TryAgainRoute'),
+
     AutoRoute<dynamic>(page: IntroScreen),
     AutoRoute<dynamic>(page: ConfirmLocationPage),
     AutoRoute<dynamic>(page: ForgotPasswordPage),
@@ -61,3 +64,4 @@ import 'package:wyca/features/user/request_accepted/presentaion/pages/neares_pro
   ],
 )
 class $AppRouter {}
+// flutter pub run build_runner watch --delete-conflicting-outputs

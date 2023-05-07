@@ -11,15 +11,15 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i21;
-import 'package:flutter/material.dart' as _i22;
-import 'package:geocoding/geocoding.dart' as _i25;
-import 'package:google_maps_flutter/google_maps_flutter.dart' as _i24;
+import 'package:auto_route/auto_route.dart' as _i22;
+import 'package:flutter/material.dart' as _i23;
+import 'package:geocoding/geocoding.dart' as _i26;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as _i25;
 
 import '../../features/auth/presentation/pages/confirm_location_page.dart'
-    as _i13;
-import '../../features/auth/presentation/pages/forgot_password_page.dart'
     as _i14;
+import '../../features/auth/presentation/pages/forgot_password_page.dart'
+    as _i15;
 import '../../features/auth/presentation/pages/login.dart' as _i4;
 import '../../features/auth/presentation/pages/provider/provider_login.dart'
     as _i7;
@@ -30,10 +30,10 @@ import '../../features/auth/presentation/pages/provider/sign_up_second.dart'
 import '../../features/auth/presentation/pages/provider/success_sign.dart'
     as _i6;
 import '../../features/auth/presentation/pages/reset_password_page.dart'
-    as _i15;
-import '../../features/auth/presentation/pages/user_type_screen.dart' as _i19;
-import '../../features/auth/presentation/pages/verification_page.dart' as _i17;
-import '../../features/introduction/pages/intro_screen.dart' as _i12;
+    as _i16;
+import '../../features/auth/presentation/pages/user_type_screen.dart' as _i20;
+import '../../features/auth/presentation/pages/verification_page.dart' as _i18;
+import '../../features/introduction/pages/intro_screen.dart' as _i13;
 import '../../features/introduction/pages/splash_screen.dart' as _i1;
 import '../../features/provider/home/presentation/pages/provider_home_page.dart'
     as _i2;
@@ -41,31 +41,33 @@ import '../../features/provider/new_request/presentation/pages/new_request_page.
     as _i8;
 import '../../features/provider/new_request/presentation/pages/request_details_page.dart'
     as _i9;
-import '../../features/request/data/models/request_model.dart' as _i23;
+import '../../features/request/data/models/request_model.dart' as _i24;
 import '../../features/user/home/presentation/pages/home_page.dart' as _i3;
 import '../../features/user/notifications/presentation/pages/notifications_page.dart'
-    as _i16;
+    as _i17;
+import '../../features/user/notifications/presentation/pages/try_again.dart'
+    as _i12;
 import '../../features/user/order/presentation/pages/complete_request_page.dart'
     as _i10;
 import '../../features/user/request_accepted/presentaion/pages/chat_screen.dart'
-    as _i20;
+    as _i21;
 import '../../features/user/request_accepted/presentaion/pages/neares_provider_screen.dart'
-    as _i18;
+    as _i19;
 
-class AppRouter extends _i21.RootStackRouter {
-  AppRouter([_i22.GlobalKey<_i22.NavigatorState>? navigatorKey])
+class AppRouter extends _i22.RootStackRouter {
+  AppRouter([_i23.GlobalKey<_i23.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i21.PageFactory> pagesMap = {
+  final Map<String, _i22.PageFactory> pagesMap = {
     SplashScreen.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashScreen(),
       );
     },
     ProviderHomeRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.ProviderHomePage(),
       );
@@ -73,7 +75,7 @@ class AppRouter extends _i21.RootStackRouter {
     HomePAGE.name: (routeData) {
       final args =
           routeData.argsAs<HomePAGEArgs>(orElse: () => const HomePAGEArgs());
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i3.HomePAGE(
           key: args.key,
@@ -82,32 +84,32 @@ class AppRouter extends _i21.RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.LoginPage(),
       );
     },
     SignUpSecond.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.SignUpSecond(),
       );
     },
     ProviderSuccessSignUp.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i6.ProviderSuccessSignUp(),
       );
     },
     ProviderLogin.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i7.ProviderLogin(),
       );
     },
     ProviderNewRequestPageRoute.name: (routeData) {
       final args = routeData.argsAs<ProviderNewRequestPageRouteArgs>();
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i8.ProviderNewRequestPage(
           key: args.key,
@@ -117,7 +119,7 @@ class AppRouter extends _i21.RootStackRouter {
     },
     RequestDetailsPageRoute.name: (routeData) {
       final args = routeData.argsAs<RequestDetailsPageRouteArgs>();
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i9.RequestDetailsPage(
           key: args.key,
@@ -127,7 +129,7 @@ class AppRouter extends _i21.RootStackRouter {
     },
     CompleteRequestRoute.name: (routeData) {
       final args = routeData.argsAs<CompleteRequestRouteArgs>();
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i10.CompleteRequestPage(
           key: args.key,
@@ -136,74 +138,84 @@ class AppRouter extends _i21.RootStackRouter {
       );
     },
     ProviderSignUpRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i11.ProviderSignUpPage(),
       );
     },
-    IntroScreen.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+    TryAgainRoute.name: (routeData) {
+      final args = routeData.argsAs<TryAgainRouteArgs>();
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.IntroScreen(),
+        child: _i12.TryAgain(
+          key: args.key,
+          requestClass: args.requestClass,
+        ),
+      );
+    },
+    IntroScreen.name: (routeData) {
+      return _i22.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i13.IntroScreen(),
       );
     },
     ConfirmLocationRoute.name: (routeData) {
       final args = routeData.argsAs<ConfirmLocationRouteArgs>(
           orElse: () => const ConfirmLocationRouteArgs());
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i13.ConfirmLocationPage(
+        child: _i14.ConfirmLocationPage(
           key: args.key,
           onConfirm: args.onConfirm,
         ),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i14.ForgotPasswordPage(),
+        child: const _i15.ForgotPasswordPage(),
       );
     },
     ReserPasswordRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i15.ReserPasswordPage(),
+        child: const _i16.ReserPasswordPage(),
       );
     },
     NotificationsPageRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i16.NotificationsPage(),
+        child: const _i17.NotificationsPage(),
       );
     },
     VerificationRoute.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i17.VerificationPage(),
+        child: const _i18.VerificationPage(),
       );
     },
     NearesProviderScreenRoute.name: (routeData) {
       final args = routeData.argsAs<NearesProviderScreenRouteArgs>(
           orElse: () => const NearesProviderScreenRouteArgs());
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i18.NearesProviderScreen(
+        child: _i19.NearesProviderScreen(
           key: args.key,
           request: args.request,
         ),
       );
     },
     UserTypeScreen.name: (routeData) {
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i19.UserTypeScreen(),
+        child: const _i20.UserTypeScreen(),
       );
     },
     ChatScreenRoute.name: (routeData) {
       final args = routeData.argsAs<ChatScreenRouteArgs>();
-      return _i21.MaterialPageX<dynamic>(
+      return _i22.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i20.ChatScreen(
+        child: _i21.ChatScreen(
           key: args.key,
           recieverId: args.recieverId,
           recieverImage: args.recieverImage,
@@ -216,88 +228,92 @@ class AppRouter extends _i21.RootStackRouter {
   };
 
   @override
-  List<_i21.RouteConfig> get routes => [
-        _i21.RouteConfig(
+  List<_i22.RouteConfig> get routes => [
+        _i22.RouteConfig(
           SplashScreen.name,
           path: '/',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderHomeRoute.name,
           path: '/provider-home-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           HomePAGE.name,
           path: '/home-pa-gE',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           LoginRoute.name,
           path: '/login-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           SignUpSecond.name,
           path: '/sign-up-second',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderSuccessSignUp.name,
           path: '/provider-success-sign-up',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderLogin.name,
           path: '/provider-login',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderNewRequestPageRoute.name,
           path: '/provider-new-request-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           RequestDetailsPageRoute.name,
           path: '/request-details-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           CompleteRequestRoute.name,
           path: '/complete-request-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderSignUpRoute.name,
           path: '/provider-sign-up-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
+          TryAgainRoute.name,
+          path: '/try-again',
+        ),
+        _i22.RouteConfig(
           IntroScreen.name,
           path: '/intro-screen',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ConfirmLocationRoute.name,
           path: '/confirm-location-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ForgotPasswordRoute.name,
           path: '/forgot-password-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ReserPasswordRoute.name,
           path: '/reser-password-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           NotificationsPageRoute.name,
           path: '/notifications-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           VerificationRoute.name,
           path: '/verification-page',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           NearesProviderScreenRoute.name,
           path: '/neares-provider-screen',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ProviderSuccessSignUp.name,
           path: '/provider-success-sign-up',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           UserTypeScreen.name,
           path: '/user-type-screen',
         ),
-        _i21.RouteConfig(
+        _i22.RouteConfig(
           ChatScreenRoute.name,
           path: '/chat-screen',
         ),
@@ -306,7 +322,7 @@ class AppRouter extends _i21.RootStackRouter {
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashScreen extends _i21.PageRouteInfo<void> {
+class SplashScreen extends _i22.PageRouteInfo<void> {
   const SplashScreen()
       : super(
           SplashScreen.name,
@@ -318,7 +334,7 @@ class SplashScreen extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ProviderHomePage]
-class ProviderHomeRoute extends _i21.PageRouteInfo<void> {
+class ProviderHomeRoute extends _i22.PageRouteInfo<void> {
   const ProviderHomeRoute()
       : super(
           ProviderHomeRoute.name,
@@ -330,10 +346,10 @@ class ProviderHomeRoute extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.HomePAGE]
-class HomePAGE extends _i21.PageRouteInfo<HomePAGEArgs> {
+class HomePAGE extends _i22.PageRouteInfo<HomePAGEArgs> {
   HomePAGE({
-    _i22.Key? key,
-    _i23.RequestClass? requestClass,
+    _i23.Key? key,
+    _i24.RequestClass? requestClass,
   }) : super(
           HomePAGE.name,
           path: '/home-pa-gE',
@@ -352,9 +368,9 @@ class HomePAGEArgs {
     this.requestClass,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
-  final _i23.RequestClass? requestClass;
+  final _i24.RequestClass? requestClass;
 
   @override
   String toString() {
@@ -364,7 +380,7 @@ class HomePAGEArgs {
 
 /// generated route for
 /// [_i4.LoginPage]
-class LoginRoute extends _i21.PageRouteInfo<void> {
+class LoginRoute extends _i22.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -376,7 +392,7 @@ class LoginRoute extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.SignUpSecond]
-class SignUpSecond extends _i21.PageRouteInfo<void> {
+class SignUpSecond extends _i22.PageRouteInfo<void> {
   const SignUpSecond()
       : super(
           SignUpSecond.name,
@@ -388,7 +404,7 @@ class SignUpSecond extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.ProviderSuccessSignUp]
-class ProviderSuccessSignUp extends _i21.PageRouteInfo<void> {
+class ProviderSuccessSignUp extends _i22.PageRouteInfo<void> {
   const ProviderSuccessSignUp()
       : super(
           ProviderSuccessSignUp.name,
@@ -400,7 +416,7 @@ class ProviderSuccessSignUp extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.ProviderLogin]
-class ProviderLogin extends _i21.PageRouteInfo<void> {
+class ProviderLogin extends _i22.PageRouteInfo<void> {
   const ProviderLogin()
       : super(
           ProviderLogin.name,
@@ -413,10 +429,10 @@ class ProviderLogin extends _i21.PageRouteInfo<void> {
 /// generated route for
 /// [_i8.ProviderNewRequestPage]
 class ProviderNewRequestPageRoute
-    extends _i21.PageRouteInfo<ProviderNewRequestPageRouteArgs> {
+    extends _i22.PageRouteInfo<ProviderNewRequestPageRouteArgs> {
   ProviderNewRequestPageRoute({
-    _i22.Key? key,
-    required _i23.RequestClass request,
+    _i23.Key? key,
+    required _i24.RequestClass request,
   }) : super(
           ProviderNewRequestPageRoute.name,
           path: '/provider-new-request-page',
@@ -435,9 +451,9 @@ class ProviderNewRequestPageRouteArgs {
     required this.request,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
-  final _i23.RequestClass request;
+  final _i24.RequestClass request;
 
   @override
   String toString() {
@@ -448,10 +464,10 @@ class ProviderNewRequestPageRouteArgs {
 /// generated route for
 /// [_i9.RequestDetailsPage]
 class RequestDetailsPageRoute
-    extends _i21.PageRouteInfo<RequestDetailsPageRouteArgs> {
+    extends _i22.PageRouteInfo<RequestDetailsPageRouteArgs> {
   RequestDetailsPageRoute({
-    _i22.Key? key,
-    required _i23.RequestClass request,
+    _i23.Key? key,
+    required _i24.RequestClass request,
   }) : super(
           RequestDetailsPageRoute.name,
           path: '/request-details-page',
@@ -470,9 +486,9 @@ class RequestDetailsPageRouteArgs {
     required this.request,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
-  final _i23.RequestClass request;
+  final _i24.RequestClass request;
 
   @override
   String toString() {
@@ -483,10 +499,10 @@ class RequestDetailsPageRouteArgs {
 /// generated route for
 /// [_i10.CompleteRequestPage]
 class CompleteRequestRoute
-    extends _i21.PageRouteInfo<CompleteRequestRouteArgs> {
+    extends _i22.PageRouteInfo<CompleteRequestRouteArgs> {
   CompleteRequestRoute({
-    _i22.Key? key,
-    required _i23.RequestClass requestClass,
+    _i23.Key? key,
+    required _i24.RequestClass requestClass,
   }) : super(
           CompleteRequestRoute.name,
           path: '/complete-request-page',
@@ -505,9 +521,9 @@ class CompleteRequestRouteArgs {
     required this.requestClass,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
-  final _i23.RequestClass requestClass;
+  final _i24.RequestClass requestClass;
 
   @override
   String toString() {
@@ -517,7 +533,7 @@ class CompleteRequestRouteArgs {
 
 /// generated route for
 /// [_i11.ProviderSignUpPage]
-class ProviderSignUpRoute extends _i21.PageRouteInfo<void> {
+class ProviderSignUpRoute extends _i22.PageRouteInfo<void> {
   const ProviderSignUpRoute()
       : super(
           ProviderSignUpRoute.name,
@@ -528,8 +544,42 @@ class ProviderSignUpRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.IntroScreen]
-class IntroScreen extends _i21.PageRouteInfo<void> {
+/// [_i12.TryAgain]
+class TryAgainRoute extends _i22.PageRouteInfo<TryAgainRouteArgs> {
+  TryAgainRoute({
+    _i23.Key? key,
+    required _i24.RequestClass requestClass,
+  }) : super(
+          TryAgainRoute.name,
+          path: '/try-again',
+          args: TryAgainRouteArgs(
+            key: key,
+            requestClass: requestClass,
+          ),
+        );
+
+  static const String name = 'TryAgainRoute';
+}
+
+class TryAgainRouteArgs {
+  const TryAgainRouteArgs({
+    this.key,
+    required this.requestClass,
+  });
+
+  final _i23.Key? key;
+
+  final _i24.RequestClass requestClass;
+
+  @override
+  String toString() {
+    return 'TryAgainRouteArgs{key: $key, requestClass: $requestClass}';
+  }
+}
+
+/// generated route for
+/// [_i13.IntroScreen]
+class IntroScreen extends _i22.PageRouteInfo<void> {
   const IntroScreen()
       : super(
           IntroScreen.name,
@@ -540,14 +590,14 @@ class IntroScreen extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ConfirmLocationPage]
+/// [_i14.ConfirmLocationPage]
 class ConfirmLocationRoute
-    extends _i21.PageRouteInfo<ConfirmLocationRouteArgs> {
+    extends _i22.PageRouteInfo<ConfirmLocationRouteArgs> {
   ConfirmLocationRoute({
-    _i22.Key? key,
+    _i23.Key? key,
     void Function(
-      _i24.LatLng,
-      _i25.Placemark,
+      _i25.LatLng,
+      _i26.Placemark,
       String,
     )?
         onConfirm,
@@ -569,11 +619,11 @@ class ConfirmLocationRouteArgs {
     this.onConfirm,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final void Function(
-    _i24.LatLng,
-    _i25.Placemark,
+    _i25.LatLng,
+    _i26.Placemark,
     String,
   )? onConfirm;
 
@@ -584,8 +634,8 @@ class ConfirmLocationRouteArgs {
 }
 
 /// generated route for
-/// [_i14.ForgotPasswordPage]
-class ForgotPasswordRoute extends _i21.PageRouteInfo<void> {
+/// [_i15.ForgotPasswordPage]
+class ForgotPasswordRoute extends _i22.PageRouteInfo<void> {
   const ForgotPasswordRoute()
       : super(
           ForgotPasswordRoute.name,
@@ -596,8 +646,8 @@ class ForgotPasswordRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.ReserPasswordPage]
-class ReserPasswordRoute extends _i21.PageRouteInfo<void> {
+/// [_i16.ReserPasswordPage]
+class ReserPasswordRoute extends _i22.PageRouteInfo<void> {
   const ReserPasswordRoute()
       : super(
           ReserPasswordRoute.name,
@@ -608,8 +658,8 @@ class ReserPasswordRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.NotificationsPage]
-class NotificationsPageRoute extends _i21.PageRouteInfo<void> {
+/// [_i17.NotificationsPage]
+class NotificationsPageRoute extends _i22.PageRouteInfo<void> {
   const NotificationsPageRoute()
       : super(
           NotificationsPageRoute.name,
@@ -620,8 +670,8 @@ class NotificationsPageRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.VerificationPage]
-class VerificationRoute extends _i21.PageRouteInfo<void> {
+/// [_i18.VerificationPage]
+class VerificationRoute extends _i22.PageRouteInfo<void> {
   const VerificationRoute()
       : super(
           VerificationRoute.name,
@@ -632,12 +682,12 @@ class VerificationRoute extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.NearesProviderScreen]
+/// [_i19.NearesProviderScreen]
 class NearesProviderScreenRoute
-    extends _i21.PageRouteInfo<NearesProviderScreenRouteArgs> {
+    extends _i22.PageRouteInfo<NearesProviderScreenRouteArgs> {
   NearesProviderScreenRoute({
-    _i22.Key? key,
-    _i23.RequestClass? request,
+    _i23.Key? key,
+    _i24.RequestClass? request,
   }) : super(
           NearesProviderScreenRoute.name,
           path: '/neares-provider-screen',
@@ -656,9 +706,9 @@ class NearesProviderScreenRouteArgs {
     this.request,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
-  final _i23.RequestClass? request;
+  final _i24.RequestClass? request;
 
   @override
   String toString() {
@@ -667,8 +717,8 @@ class NearesProviderScreenRouteArgs {
 }
 
 /// generated route for
-/// [_i19.UserTypeScreen]
-class UserTypeScreen extends _i21.PageRouteInfo<void> {
+/// [_i20.UserTypeScreen]
+class UserTypeScreen extends _i22.PageRouteInfo<void> {
   const UserTypeScreen()
       : super(
           UserTypeScreen.name,
@@ -679,10 +729,10 @@ class UserTypeScreen extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i20.ChatScreen]
-class ChatScreenRoute extends _i21.PageRouteInfo<ChatScreenRouteArgs> {
+/// [_i21.ChatScreen]
+class ChatScreenRoute extends _i22.PageRouteInfo<ChatScreenRouteArgs> {
   ChatScreenRoute({
-    _i22.Key? key,
+    _i23.Key? key,
     required String recieverId,
     required String recieverImage,
     required String senderId,
@@ -714,7 +764,7 @@ class ChatScreenRouteArgs {
     required this.recieverType,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final String recieverId;
 

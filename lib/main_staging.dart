@@ -11,3 +11,5 @@ import 'package:wyca/bootstrap.dart';
 void main() {
   bootstrap(() => const App());
 }
+
+// socket io class
