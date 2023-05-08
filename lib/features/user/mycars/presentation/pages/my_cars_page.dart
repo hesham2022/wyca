@@ -11,14 +11,14 @@ class MyCarsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, context.l10n.myCars),
+      appBar: AppBar(title: Text(context.l10n.myCars)),
       body: BlocBuilder<UserCubit, UserCubitState>(
         builder: (context, state) {
           return Padding(
             padding: kPadding,
             child: Column(
               children: [
-                SectionTitile(context.l10n.myCars),
+
                 const SizedBox(
                   height: 5,
                 ),

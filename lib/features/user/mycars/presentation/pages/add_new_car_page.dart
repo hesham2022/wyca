@@ -33,7 +33,7 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, context.l10n.myCars),
+      appBar: AppBar(title: Text(context.l10n.myCars)),
       body: SingleChildScrollView(
         child: Form(
           key: _formContoller,
@@ -122,7 +122,7 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
                   height: 15,
                 ),
                 AppButton(
-                  title: 'Add',
+                  title: context.l10n.addNewCar,
                   onPressed: () {
                     if (_formContoller.currentState!.validate()) {
                       final car = Car(

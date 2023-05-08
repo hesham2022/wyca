@@ -11,6 +11,7 @@ class LocationItem extends StatefulWidget {
     required this.groupValue,
     this.description,
   });
+
   final String adresses;
   final String? description;
 
@@ -24,42 +25,17 @@ class LocationItem extends StatefulWidget {
 
 class _LocationItemState extends State<LocationItem> {
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.location_pin,
-                color: ColorName.primaryColor,
-              ),
-              SizedBox(width: 10.w),
-              Expanded(
-                child: Text(
-                  widget.description ?? widget.adresses,
-                  style: kHead1Style.copyWith(
-                    fontSize: 14.sp,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Radio<Address>(
-                fillColor:
-                    MaterialStateProperty.all<Color>(ColorName.primaryColor),
-                value: widget.value,
-                groupValue: widget.groupValue,
-                onChanged: (v) {
-                  if (widget.onChanged != null) {
-                    widget.onChanged!.call(v);
-                  }
-                  setState(() {});
-                },
-              )
-            ],
-          ),
-          SizedBox(height: 10.h),
-        ],
+  Widget build(BuildContext context) => RadioListTile<Address>(
+        activeColor: Colors.black,
+        title: Text(widget.description ?? widget.adresses),
+        value: widget.value,
+        groupValue: widget.groupValue,
+        onChanged: (v) {
+          if (widget.onChanged != null) {
+            widget.onChanged!.call(v);
+          }
+          setState(() {});
+        },
       );
 }
 
@@ -73,6 +49,7 @@ class AppRadioListTile extends StatelessWidget {
     this.titleWidget,
     required this.leadingIcon,
   });
+
   final String title;
   final Widget? titleWidget;
 

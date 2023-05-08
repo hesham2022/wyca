@@ -37,18 +37,13 @@ class _YouBalancePageState extends State<YouBalancePage> {
                     .where((element) => element.washNumber > 0)
                     .toList();
                 return Scaffold(
-                  appBar: appBar(
-                    context,
-                    context.l10n.myBalace,
+                  appBar: AppBar(
+                    title: Text(context.l10n.currentBalance),
                   ),
                   body: Padding(
                     padding: kPadding,
                     child: Column(
                       children: [
-                        SectionTitile(context.l10n.currentBalance),
-                        SizedBox(
-                          height: 40.h,
-                        ),
                         Column(
                           children: [
                             Text(
@@ -97,7 +92,7 @@ class _YouBalancePageState extends State<YouBalancePage> {
                             ),
                             Expanded(
                               child: AppButton(
-                                title: 'Active Packages',
+                                title: context.l10n.active_packages,
                                 titleColor: !pev ? null : primaryColor,
                                 color: !pev ? null : Colors.white,
                                 onPressed: () {
@@ -113,12 +108,12 @@ class _YouBalancePageState extends State<YouBalancePage> {
                           height: 20,
                         ),
                         if (pev && prevOrders.isEmpty)
-                          const Center(
-                            child: Text('No Pervious Orders'),
+                          Center(
+                            child: Text(context.l10n.no_previous_orders),
                           ),
                         if (!pev && activeOrders.isEmpty)
-                          const Center(
-                            child: Text('No Active Orders'),
+                          Center(
+                            child: Text(context.l10n.no_active_orders),
                           ),
                         Expanded(
                           child: ListView.builder(

@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 // import screenUtil library
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wyca/core/theme/colors.dart';
@@ -73,6 +75,13 @@ final theme = ThemeData(
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: Color(0xff000000)),
     color: Colors.white,
+    centerTitle: true,
+    titleTextStyle: TextStyle(
+      fontFamily: 'Cairo',
+      color: ColorName.textColor3,
+      fontWeight: FontWeight.w700,
+      fontSize: 22,
+    ),
     elevation: 0,
   ),
   colorScheme: const ColorScheme.light(
@@ -104,6 +113,7 @@ final textStyleWithPrimarySemiBold = TextStyle(
   fontWeight: FontWeight.w400,
   color: primaryColor,
 );
+
 TextStyle textStyleWithSecondBold({double? s}) => TextStyle(
       fontSize: s ?? 20.sp,
       fontWeight: FontWeight.bold,
@@ -114,3 +124,30 @@ final textStyleWithSecondSemiBold = TextStyle(
   fontWeight: FontWeight.w400,
   color: seocondColor,
 );
+
+Widget autoSizeText({
+  required String text,
+  int maxLines = 1,
+  FontWeight fontWeight = FontWeight.w500,
+  Color color = Colors.black,
+  TextDecoration decoration = TextDecoration.none,
+  double size = 20,
+  TextAlign align = TextAlign.start,
+}) {
+  return AutoSizeText(
+    text,
+    style: TextStyle(
+      fontSize: size,
+      fontFamily: 'Cairo',
+      fontWeight: fontWeight,
+      color: color,
+      decoration: decoration,
+      height: 1.3,
+    ),
+    textAlign: align,
+    minFontSize: size,
+    maxFontSize: size,
+    maxLines: maxLines,
+    overflow: TextOverflow.ellipsis,
+  );
+}

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:wyca/app/app.dart';
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
 import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
@@ -16,6 +18,7 @@ import 'package:wyca/imports.dart';
 
 class ChosseAdressePage extends StatefulWidget {
   const ChosseAdressePage({super.key, this.date, required this.packageId});
+
   final DateTime? date;
   final String packageId;
   @override
@@ -37,9 +40,10 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
   Widget build(BuildContext context) {
     print(_currentAdress.description);
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: LocationAppBar(),
+      appBar: AppBar(
+        title: Text(
+          context.l10n.chose_address,
+        ),
       ),
       body: BlocConsumer<UserCubit, UserCubitState>(
         listener: (context, state) {
@@ -53,74 +57,75 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
         },
         builder: (context, state) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: kPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SectionTitile('All Addresses', color: Colors.black),
-                  SizedBox(height: 15.h),
-                  ...(state as UserCubitStateLoaded)
-                      .user
-                      .addresses
-                      .map(
-                        (e) => LocationItem(
-                          adresses: e.address,
-                          description: e.description,
-                          value: e,
-                          groupValue: _currentAdress,
-                          onChanged: (value) {
-                            setState(() {
-                              _currentAdress = value!;
-                            });
-                          },
-                        ),
-                      )
-                      .toList(),
-                  LocationItem(
-                    adresses: 'add new address',
-                    value: Address(coordinates: const [], address: '', id: ''),
-                    groupValue: _currentAdress,
-                    onChanged: (value) async {
-                      await Navigator.push<String>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SelectAdressScreen(),
-                        ),
-                      );
-                      // setState(() {});
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                  BlocBuilder<OrderBloc, OrderState>(
-                    builder: (context, state) {
-                      final orders = (state as GetOrdersLoaded).orders.results;
-                      print(orders);
-                      final packages = orders.map((e) => e.package).toList();
-                      final exist = packages.contains(
-                        widget.packageId ??
-                            context.read<OrderBloc>().idControoler.text,
-                      );
-                      return BlocListener<RequestCubit, RequestCubitState>(
-                        listener: (context, state) {
-                          if (state is RequestCubitStateSent) {
-                            context.router.pushAndPopUntil(
-                              CompleteRequestRoute(requestClass: state.request),
-                              predicate: (r) => false,
-                            );
-                          }
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .25,
+                  child: Lottie.asset('assets/lottie/location.json'),
+                ),
+                SizedBox(height: 15.h),
+                ...(state as UserCubitStateLoaded)
+                    .user
+                    .addresses
+                    .map(
+                      (e) => LocationItem(
+                        adresses: e.address,
+                        description: e.description,
+                        value: e,
+                        groupValue: _currentAdress,
+                        onChanged: (value) {
+                          setState(() {
+                            _currentAdress = value!;
+                          });
                         },
+                      ),
+                    )
+                    .toList(),
+                LocationItem(
+                  adresses: 'add new address',
+                  value: Address(coordinates: const [], address: '', id: ''),
+                  groupValue: _currentAdress,
+                  onChanged: (value) async {
+                    await Navigator.push<String>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SelectAdressScreen(),
+                      ),
+                    );
+                    // setState(() {});
+                  },
+                ),
+                SizedBox(height: 20.h),
+                BlocBuilder<OrderBloc, OrderState>(
+                  builder: (context, state) {
+                    final orders = (state as GetOrdersLoaded).orders.results;
+                    print(orders);
+                    final packages = orders.map((e) => e.package).toList();
+                    final exist = packages.contains(
+                      widget.packageId ??
+                          context.read<OrderBloc>().idControoler.text,
+                    );
+                    return BlocListener<RequestCubit, RequestCubitState>(
+                      listener: (context, state) {
+                        if (state is RequestCubitStateSent) {
+                          context.router.pushAndPopUntil(
+                            CompleteRequestRoute(requestClass: state.request),
+                            predicate: (r) => false,
+                          );
+                        }
+                      },
+                      child: Center(
                         child: AppButton(
                           h: 36.h,
                           title: (exist &&
                                   restOfWash(context, widget.packageId) != 0)
-                              ? 'Service Requests'
-                              : 'Next',
+                              ? context.l10n.serviceRequest
+                              : context.l10n.next,
                           onPressed: () {
                             // context.read<OrderBloc>().idControoler.text
                             // if(){
-
                             // }
+                            ///
                             if (exist &&
                                 restOfWash(context, widget.packageId) != 0) {
                               context.read<RequestCubit>().createRequest(
@@ -151,11 +156,11 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                             }
                           },
                         ),
-                      );
-                    },
-                  )
-                ],
-              ),
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
           );
         },

@@ -13,6 +13,7 @@ bool kAceeptedScreen = false;
 
 class CompleteRequestPage extends StatelessWidget {
   const CompleteRequestPage({super.key, required this.requestClass});
+
   final RequestClass requestClass;
 
   @override
@@ -26,7 +27,7 @@ class CompleteRequestPage extends StatelessWidget {
       child: BlocListener<PNCubit, PNCubitState>(
         listener: (context, state) {
           if (state is PNCubitStateLoaded) {
-            // showAboutDialog(context: context, children: [const Text('done')]);
+            showAboutDialog(context: context, children: [const Text('done')]);
 
             if (state.requests
                 .map((e) => e.id)
@@ -76,106 +77,83 @@ class CompleteRequestPage extends StatelessWidget {
             }
           }
         },
-        child: BlocListener<RequestCubit, RequestCubitState>(
-          listener: (context, state) {
-            if (state is RequestCubitStateCanceled) {
+        child: Scaffold(
+          appBar: appBar(
+            context,
+            'Request Completed',
+            back: () {
               AutoRouter.of(context).pushAndPopUntil(
-                HomePAGE(),
+                 HomePAGE(),
                 predicate: (route) => false,
               );
-              Fluttertoast.showToast(
-                msg: 'Request Canceled Successfully',
-              );
-            }
-            if (state is RequestCubitStateError) {
-              Fluttertoast.showToast(
-                msg: state.error.errorMessege,
-              );
-            }
-          },
-          child: Scaffold(
-            appBar: appBar(
-              context,
-              'Request Completed',
-              back: () {
-                AutoRouter.of(context).pushAndPopUntil(
-                  HomePAGE(),
-                  predicate: (route) => false,
-                );
-              },
-            ),
-            body: Center(
-              child: Padding(
-                padding: kPadding,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 150.h,
+            },
+          ),
+          body: Center(
+            child: Padding(
+              padding: kPadding,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 150.h,
+                  ),
+                  LottieBuilder.asset(
+                    Assets.lottie.animation14,
+                    height: 144.h,
+                    width: 144.h,
+                  ),
+                  Text(
+                    'Service Request Completed Successfully',
+                    textAlign: TextAlign.center,
+                    style: kHead1Style.copyWith(
+                      color: Colors.black,
+                      fontSize: 16.sp,
                     ),
-                    LottieBuilder.asset(
-                      Assets.lottie.animation14,
-                      height: 144.h,
-                      width: 144.h,
-                    ),
-                    Text(
-                      'Service Request Completed Successfully',
-                      textAlign: TextAlign.center,
-                      style: kHead1Style.copyWith(
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    Text(
-                      'Selecting A Service Provider',
-                      textAlign: TextAlign.center,
-                      style: kHead1Style.copyWith(fontSize: 16.sp),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppButton(
-                            titleStyle: kHead1Style.copyWith(
-                              color: Colors.white,
-                              fontSize: 14.sp,
-                            ),
-                            title: 'Cancel',
-                            onPressed: () {
-                              // cancelRequest(context, requestClass);
-                              context.read<RequestCubit>().cancelRequest(
-                                    requestClass.id,
-                                  );
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Expanded(
-                          child: AppButton(
+                  ),
+                  Text(
+                    'Selecting A Service Provider',
+                    textAlign: TextAlign.center,
+                    style: kHead1Style.copyWith(fontSize: 16.sp),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppButton(
+                          titleStyle: kHead1Style.copyWith(
                             color: Colors.white,
-                            titleStyle: kHead1Style.copyWith(
-                              color: ColorName.primaryColor,
-                              fontSize: 14.sp,
-                            ),
-                            titleColor: ColorName.primaryColor,
-                            title: 'Home',
-                            onPressed: () {
-                              Future<void>.delayed(Duration.zero, () {
-                                AutoRouter.of(context).pushAndPopUntil(
-                                  HomePAGE(),
-                                  predicate: (route) => false,
-                                );
-                              });
-                            },
+                            fontSize: 14.sp,
                           ),
+                          title: 'Cancel',
+                          onPressed: () {},
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Expanded(
+                        child: AppButton(
+                          color: Colors.white,
+                          titleStyle: kHead1Style.copyWith(
+                            color: ColorName.primaryColor,
+                            fontSize: 14.sp,
+                          ),
+                          titleColor: ColorName.primaryColor,
+                          title: 'Home',
+                          onPressed: () {
+                            Future<void>.delayed(Duration.zero, () {
+                              AutoRouter.of(context).pushAndPopUntil(
+                                 HomePAGE(),
+                                predicate: (route) => false,
+                              );
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),

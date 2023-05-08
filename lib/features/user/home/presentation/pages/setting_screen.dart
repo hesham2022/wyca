@@ -9,7 +9,6 @@ import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
 import 'package:wyca/features/auth/presentation/login_bloc/login_bloc.dart';
 import 'package:wyca/features/user/home/presentation/widgets/setting_field_widget.dart';
 import 'package:wyca/imports.dart';
-import 'package:wyca/l10n/l10n.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -23,6 +22,7 @@ class _SettingPageState extends State<SettingPage> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   @override
   void initState() {
     Storage.getPassword().then((value) {
@@ -60,14 +60,13 @@ class _SettingPageState extends State<SettingPage> {
         }
 
         return Scaffold(
-          appBar: appBar(
-            context,
-            context.l10n.settings,
+          appBar: AppBar(
+            title: Text(context.l10n.settings),
           ),
           body: Padding(
             padding: kPadding,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SettingFieldWidget(
                   hint: context.l10n.name,

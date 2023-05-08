@@ -31,6 +31,7 @@ final selectedList = <String>[];
 
 class ContactMethod {
   ContactMethod({required this.icon, this.info, required this.url, this.func});
+
   final String url;
   final String icon;
   final String? info;
@@ -72,8 +73,10 @@ class _CallingPageState extends State<CallingPage> {
                   ),
                   child: Container(
                     padding: const EdgeInsets.all(20),
-                    height: 500, // Change as per your requirement
-                    width: 500, // Change as per your requirement
+                    height: 500,
+                    // Change as per your requirement
+                    width: 500,
+                    // Change as per your requirement
                     child: phones.isEmpty
                         ? const Center(
                             child: Text('No Phone Number'),
@@ -127,7 +130,9 @@ class _CallingPageState extends State<CallingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, ''),
+      appBar: AppBar(
+        title: Text(context.l10n.contact_us),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -183,36 +188,19 @@ class _CallingPageState extends State<CallingPage> {
                                 //     color: const Color(0xff1AA9A0),
                                 //   ),
                                 // ),
-                                Text(
-                                  'Contact us',
-                                  textAlign: TextAlign.center,
-                                  style: textStyleWithPrimaryBold.copyWith(
-                                    fontSize: 30,
-                                    color: kPrimaryColor,
-                                  ),
+
+                                autoSizeText(
+                                  text: context.l10n.mail,
+                                  maxLines:4,
+                                  size: 18,
+                                  align: TextAlign.center,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'You can reach us anytime via\n wyca.online@gmail.com',
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      style:
-                                          textStyleWithSecondSemiBold.copyWith(
-                                        color: kPrimaryColor,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                )
                               ],
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    // SizedBox(
+                    ), // SizedBox(
                     //   height: 20.h,
                     // ),
                     SizedBox(
@@ -287,8 +275,7 @@ class _CallingPageState extends State<CallingPage> {
                           );
                         },
                       ),
-                    ),
-                    // const Text(
+                    ), // const Text(
                     //   'Add Compalint',
                     // ), //
 
@@ -427,8 +414,7 @@ class _AddCompliantState extends State<AddCompliant> {
                                 ],
                               ),
                             ),
-                          ),
-                          // const SizedBox(
+                          ), // const SizedBox(
                           //   height: 20,
                           // ),
                           Button1(
