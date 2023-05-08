@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/request/presentation/request_cubit.dart';
-import 'package:wyca/features/user/request_accepted/presentaion/pages/neares_provider_screen.dart';
 import 'package:wyca/imports.dart';
 
 class TryAgain extends StatefulWidget {
@@ -60,9 +59,10 @@ class _TryAgainState extends State<TryAgain> {
         }
         // 01021539249
         return _req.status < 4
-            ? NearesProviderScreen(
-                request: _req,
-              )
+            ? Text(_req.status.toString())
+            // NearesProviderScreen(
+            //     request: _req,
+            //   )
             : Scaffold(
                 appBar: appBar(context, 'Keep Trying'),
                 body: Padding(
@@ -89,7 +89,7 @@ class _TryAgainState extends State<TryAgain> {
                                       .read<RequestCubit>()
                                       .tryAgainRequest(_req.id);
                                 },
-                                child: Container(
+                                child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: kPrimaryColor,
