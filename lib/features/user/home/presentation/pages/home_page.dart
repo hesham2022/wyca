@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wyca/app/customer_service/view/customer_service_view.dart';
 import 'package:wyca/app/view/app.dart';
+import 'package:wyca/core/api_config/api_constants.dart';
 import 'package:wyca/core/theme/theme.dart';
 import 'package:wyca/core/widgets/language_dialouge.dart';
 import 'package:wyca/core/widgets/package_dropdown.dart';
@@ -10,28 +12,25 @@ import 'package:wyca/core/widgets/widget.dart';
 import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/about_us.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/calling_page.dart';
+import 'package:wyca/features/provider/about_us/presentation/pages/about_us_page.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/user/adresses/presentation/pages/adresses_page.dart';
 import 'package:wyca/features/user/home/presentation/packages_bloc/packages_bloc.dart';
 import 'package:wyca/features/user/home/presentation/pages/package_screem.dart';
 import 'package:wyca/features/user/home/presentation/pages/setting_screen.dart';
 import 'package:wyca/features/user/home/presentation/widgets/home_cursol_slider.dart';
+import 'package:wyca/features/user/home/presentation/widgets/home_item.dart';
 import 'package:wyca/features/user/mycars/presentation/pages/my_cars_page.dart';
 import 'package:wyca/features/user/notifications/presentation/pages/notifications_page.dart';
 import 'package:wyca/features/user/order/presentation/bloc/order_bloc.dart';
+import 'package:wyca/features/user/order/presentation/pages/chosse_adresse_page.dart';
+import 'package:wyca/features/user/order/presentation/pages/order_later_screen.dart';
 import 'package:wyca/features/user/points/presentaion/pages/my_points_screen.dart';
 import 'package:wyca/features/user/request_accepted/presentaion/pages/washing_done_page.dart';
 import 'package:wyca/features/user/your_balance/presentation/pages/you_balance_page.dart';
 import 'package:wyca/gen/assets.gen.dart';
 import 'package:wyca/gen/colors.gen.dart';
 import 'package:wyca/l10n/l10n.dart';
-
-import '../../../../../app/customer_service/view/customer_service_view.dart';
-import '../../../../../core/api_config/api_constants.dart';
-import '../../../order/presentation/pages/chosse_adresse_page.dart';
-import '../../../order/presentation/pages/order_later_screen.dart';
-import '../../../request_accepted/presentaion/pages/neares_provider_screen.dart';
-import '../widgets/home_item.dart';
 
 class HomePAGE extends StatefulWidget {
   const HomePAGE({super.key, this.requestClass});
@@ -43,7 +42,7 @@ class HomePAGE extends StatefulWidget {
 }
 
 class _HomePAGEState extends State<HomePAGE> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -230,7 +229,6 @@ class _HomePAGEState extends State<HomePAGE> {
                               horizontal: 10,
                             ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   width: 10.w,
@@ -250,12 +248,21 @@ class _HomePAGEState extends State<HomePAGE> {
                                       h: 36.h,
                                       title: context.l10n.details,
                                       onPressed: () {
+                                        // commented for now
+                                        // Navigator.push<void>(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const NearesProviderScreen(),
+                                        //     // const AboutUsPage(),
+                                        //   ),
+                                        // );
                                         Navigator.push<void>(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const NearesProviderScreen(),
-                                            // const AboutUsPage(),
+                                                // const NearesProviderScreen(),
+                                                const AboutUsPage(),
                                           ),
                                         );
                                       },
@@ -282,9 +289,9 @@ class _HomePAGEState extends State<HomePAGE> {
                               color: Colors.black,
                             ),
                           ),
-                          Container(
+                          const SizedBox(
                             height: 180,
-                            child: const HomeCursorSlider(),
+                            child: HomeCursorSlider(),
                           ),
                           SizedBox(
                             height: 10.h,
@@ -444,24 +451,21 @@ class _HomePAGEState extends State<HomePAGE> {
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
                                   try {
-                                    var currentAdress = (context
+                                    final currentAdress = (context
                                             .read<UserCubit>()
                                             .state as UserCubitStateLoaded)
                                         .user
                                         .addresses
                                         .last;
 
-                                    if (currentAdress != null) {
-                                      Navigator.push<void>(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PackageScreen(
-                                            package:
-                                                currentState.packages[index],
-                                          ),
+                                    Navigator.push<void>(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PackageScreen(
+                                          package: currentState.packages[index],
                                         ),
-                                      );
-                                    }
+                                      ),
+                                    );
                                   } catch (e) {
                                     showLocationDialog(context);
                                   }
@@ -495,7 +499,8 @@ class _HomePAGEState extends State<HomePAGE> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                            horizontal: 10,
+                                          ),
                                           child: autoSizeText(
                                             text: currentState
                                                 .packages[index].description,
@@ -506,7 +511,6 @@ class _HomePAGEState extends State<HomePAGE> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 1,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 10,
@@ -514,7 +518,6 @@ class _HomePAGEState extends State<HomePAGE> {
                                           child: autoSizeText(
                                             text:
                                                 '${currentState.packages[index].price} ${context.l10n.le}',
-                                            fontWeight: FontWeight.w500,
                                             color: ColorName.primaryColor,
                                             size: 15,
                                           ),
