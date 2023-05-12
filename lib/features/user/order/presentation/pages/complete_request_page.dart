@@ -78,83 +78,78 @@ class CompleteRequestPage extends StatelessWidget {
           }
         },
         child: Scaffold(
-          appBar: appBar(
-            context,
-            'Request Completed',
-            back: () {
-              AutoRouter.of(context).pushAndPopUntil(
-                 HomePAGE(),
-                predicate: (route) => false,
-              );
-            },
+          appBar: AppBar(
+            title: Text(context.l10n.request_complete),
+            leading: IconButton(
+              onPressed: () {},
+              icon: Icon(null),
+            ),
           ),
-          body: Center(
-            child: Padding(
-              padding: kPadding,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150.h,
+          body: Padding(
+            padding: kPadding,
+            child: Column(
+              children: [
+                LottieBuilder.asset(
+                  'assets/lottie/search.json',
+                  height: 144.h,
+                  width: 144.h,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Text(
+                  context.l10n.request_completed,
+                  textAlign: TextAlign.center,
+                  style: kHead1Style.copyWith(
+                    color: Colors.black,
+                    fontSize: 16.sp,
                   ),
-                  LottieBuilder.asset(
-                    Assets.lottie.animation14,
-                    height: 144.h,
-                    width: 144.h,
-                  ),
-                  Text(
-                    'Service Request Completed Successfully',
-                    textAlign: TextAlign.center,
-                    style: kHead1Style.copyWith(
-                      color: Colors.black,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  Text(
-                    'Selecting A Service Provider',
-                    textAlign: TextAlign.center,
-                    style: kHead1Style.copyWith(fontSize: 16.sp),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppButton(
-                          titleStyle: kHead1Style.copyWith(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                          ),
-                          title: 'Cancel',
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Expanded(
-                        child: AppButton(
+                ),
+                Text(
+                  context.l10n.select_provider,
+                  textAlign: TextAlign.center,
+                  style: kHead1Style.copyWith(fontSize: 16.sp),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        titleStyle: kHead1Style.copyWith(
                           color: Colors.white,
-                          titleStyle: kHead1Style.copyWith(
-                            color: ColorName.primaryColor,
-                            fontSize: 14.sp,
-                          ),
-                          titleColor: ColorName.primaryColor,
-                          title: 'Home',
-                          onPressed: () {
-                            Future<void>.delayed(Duration.zero, () {
-                              AutoRouter.of(context).pushAndPopUntil(
-                                 HomePAGE(),
-                                predicate: (route) => false,
-                              );
-                            });
-                          },
+                          fontSize: 14.sp,
                         ),
+                        title: context.l10n.cancel,
+                        onPressed: () {},
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Expanded(
+                      child: AppButton(
+                        color: Colors.white,
+                        titleStyle: kHead1Style.copyWith(
+                          color: ColorName.primaryColor,
+                          fontSize: 14.sp,
+                        ),
+                        titleColor: ColorName.primaryColor,
+                        title: context.l10n.home,
+                        onPressed: () {
+                          Future<void>.delayed(Duration.zero, () {
+                            AutoRouter.of(context).pushAndPopUntil(
+                              HomePAGE(),
+                              predicate: (route) => false,
+                            );
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
