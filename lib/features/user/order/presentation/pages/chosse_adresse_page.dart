@@ -82,7 +82,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                     )
                     .toList(),
                 LocationItem(
-                  adresses: 'add new address',
+                  adresses: context.l10n.addNewAdress,
                   value: Address(coordinates: const [], address: '', id: ''),
                   groupValue: _currentAdress,
                   onChanged: (value) async {

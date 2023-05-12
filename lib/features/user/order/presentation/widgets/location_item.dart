@@ -26,8 +26,8 @@ class LocationItem extends StatefulWidget {
 class _LocationItemState extends State<LocationItem> {
   @override
   Widget build(BuildContext context) => RadioListTile<Address>(
-        activeColor: Colors.black,
         title: Text(widget.description ?? widget.adresses),
+        activeColor: Colors.black,
         value: widget.value,
         groupValue: widget.groupValue,
         onChanged: (v) {
@@ -61,7 +61,7 @@ class AppRadioListTile extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               leadingIcon,
               SizedBox(width: 16.w),

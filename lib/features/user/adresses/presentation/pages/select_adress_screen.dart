@@ -81,7 +81,7 @@ class _SelectAdressScreenState extends State<SelectAdressScreen> {
               children: [
                 Expanded(
                   child: AppButton(
-                    title: 'Current location',
+                    title: context.l10n.current_location,
                     onPressed: () async {
                       final position = await determinePosition();
                       mapHelper.addMarker(
@@ -100,7 +100,7 @@ class _SelectAdressScreenState extends State<SelectAdressScreen> {
                 ),
                 Expanded(
                   child: AppButton(
-                    title: 'Work Area',
+                    title: context.l10n.work_area,
                     onPressed: () async {
                       mapHelper.addMarker(
                         const LatLng(30.22555111681319, 31.465171657209957),
@@ -117,7 +117,7 @@ class _SelectAdressScreenState extends State<SelectAdressScreen> {
             ),
           ),
           Text(
-            'Please Note The Area Of Our Work Is Obour Area',
+            context.l10n.obour_Area,
             style: kBody1Style,
           ),
           const SizedBox(
@@ -162,7 +162,7 @@ class _SelectAdressScreenState extends State<SelectAdressScreen> {
                       (mapHelper.markers.last.position.longitude > t1 ||
                           mapHelper.markers.last.position.longitude < t2)) {
                     await Fluttertoast.showToast(
-                      msg: 'this area out of our work',
+                      msg: context.l10n.out_area,
                     );
                     return;
                   }
