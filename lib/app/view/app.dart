@@ -270,11 +270,13 @@ class _AppState extends State<App> {
                       await _appRouter.pushAndPopUntil(
                         router.ConfirmLocationRoute(
                           onConfirm: (p0, p1, p2) {
+                            Fluttertoast.showToast(msg: p0.latitude.toString());
                             context.read<AuthenticationBloc>().add(
                                   UpdateAddresses(
                                     Address(
                                       id: '',
                                       address: p2,
+                                      description: p2,
                                       coordinates: [p0.latitude, p0.longitude],
                                     ),
                                   ),
