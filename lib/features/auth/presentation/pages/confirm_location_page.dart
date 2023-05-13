@@ -10,7 +10,7 @@ import 'package:wyca/imports.dart';
 
 class ConfirmLocationPage extends StatefulWidget {
   const ConfirmLocationPage({super.key, this.onConfirm});
-  final void Function(LatLng, Placemark placemark, String address)? onConfirm;
+  final void Function(LatLng, Placemark placemark, String address,)? onConfirm;
 
   @override
   State<ConfirmLocationPage> createState() => _ConfirmLocationPageState();

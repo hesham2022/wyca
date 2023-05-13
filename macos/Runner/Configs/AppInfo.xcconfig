@@ -8,6 +8,7 @@
 PRODUCT_NAME = wyca
 
 // The application's bundle identifier
+
 PRODUCT_BUNDLE_IDENTIFIER = com.example.verygoodcore.wyca
 
 // The copyright displayed in application information
