@@ -155,6 +155,8 @@
   "work_area":"Work area",
   "obour_Area":"Please Note The Area Of Our Work Is Obour Area",
   "out_area":"this area out of our work ",
+  "try_again":"Try again",
+  "no_worker_found":"No workers found now , you can keep trying again until your request is successfully executed",
   "all_need_to_do":"All you have to do is request the service and our representative will reach you",
    "mail":"You can reach us anytime via\n wyca.online@gmail.com",
   "no_active_orders":"No active orders",

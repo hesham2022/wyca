@@ -64,63 +64,64 @@ class _TryAgainState extends State<TryAgain> {
             //     request: _req,
             //   )
             : Scaffold(
-                appBar: appBar(context, 'Keep Trying'),
+                appBar: AppBar(title: Text(context.l10n.try_again)),
                 body: Padding(
                   padding: const EdgeInsets.all(40),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              const Icon(
-                                Icons.loop_outlined,
-                                size: 100,
-                                color: kPrimaryColor,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset('assets/images/sorry.png'),
+                            const SizedBox(
+                              height: 100,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              context.l10n.no_worker_found,
+                              style: kHead1Style.copyWith(
+                                fontSize: 16.sp,
+                                color: Colors.black,
                               ),
-                              const SizedBox(
-                                height: 100,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  context
-                                      .read<RequestCubit>()
-                                      .tryAgainRequest(_req.id);
-                                },
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: kPrimaryColor,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Try Now',
-                                        style: kHead1Style.copyWith(
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    ],
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                context
+                                    .read<RequestCubit>()
+                                    .tryAgainRequest(_req.id);
+                              },
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: kPrimaryColor,
+                                ),
+                                child: SizedBox(
+                                  height: 45,
+                                  child: Center(
+                                    child: Text(
+                                      context.l10n.try_again,
+                                      style: kHead1Style.copyWith(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                'No workers found now, keep trying again until your request is successfully executed',
-                                style: kHead1Style,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               );
