@@ -237,6 +237,7 @@ class _HomePAGEState extends State<HomePAGE> {
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
+                                  
                                   children: [
                                     Text(
                                       context.l10n.ourPorividersOnYourWay,

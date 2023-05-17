@@ -41,7 +41,7 @@ class OfferDetailsPage extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
-                              fontSize: ScreenUtil().setSp(24),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                           ),
                           const SizedBox(
@@ -52,7 +52,7 @@ class OfferDetailsPage extends StatelessWidget {
                             style: TextStyle(
                               color: ColorName.primaryColor,
                               fontWeight: FontWeight.w500,
-                              fontSize: ScreenUtil().setSp(20),
+                              fontSize: ScreenUtil().setSp(16),
                             ),
                           ),
                         ],
@@ -67,7 +67,7 @@ class OfferDetailsPage extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
-                                fontSize: ScreenUtil().setSp(24),
+                                fontSize: ScreenUtil().setSp(18),
                               ),
                             ),
                             const SizedBox(
@@ -78,7 +78,7 @@ class OfferDetailsPage extends StatelessWidget {
                               style: TextStyle(
                                 color: ColorName.primaryColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(20),
+                                fontSize: ScreenUtil().setSp(16),
                               ),
                             ),
                           ],
@@ -91,7 +91,7 @@ class OfferDetailsPage extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
-                              fontSize: ScreenUtil().setSp(24),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                           ),
                           const SizedBox(
@@ -103,7 +103,7 @@ class OfferDetailsPage extends StatelessWidget {
                               decoration: TextDecoration.lineThrough,
                               color: Colors.red,
                               fontWeight: FontWeight.w500,
-                              fontSize: ScreenUtil().setSp(20),
+                              fontSize: ScreenUtil().setSp(16),
                             ),
                           ),
                         ],
@@ -115,7 +115,7 @@ class OfferDetailsPage extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '${package.price} LE',
+                          text: '${package.price} ${context.l10n.le}',
                           style: kHead1Style.copyWith(
                             fontSize: ScreenUtil().setSp(20),
                           ),
@@ -140,7 +140,7 @@ class OfferDetailsPage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: ScreenUtil().setSp(24),
+                    fontSize: ScreenUtil().setSp(22),
                   ),
                 ),
                 SizedBox(
@@ -168,7 +168,7 @@ class OfferDetailsPage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: ScreenUtil().setSp(24),
+                    fontSize: ScreenUtil().setSp(22),
                   ),
                 ),
                 SizedBox(
