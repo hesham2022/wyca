@@ -139,13 +139,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               (element) => element.id == widget.packageId,
             );
     return Scaffold(
-      appBar: appBar(context, context.l10n.paymentMethods),
+      appBar: AppBar(title: Text(context.l10n.paymentMethods)),
       body: Padding(
-        padding: kPadding,
+        padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
             SectionTitile(
               context.l10n.addCoupon,
+              color: Colors.black,
             ),
             SizedBox(
               height: 15.h,
@@ -156,9 +157,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   fontSize: 12.sp,
                   color: const Color(0xff363636),
                 ),
-
                 hintText: context.l10n.addYourCoupon,
-                // suffixText: 'Submit',
                 suffixIcon: Padding(
                   padding: EdgeInsets.all(13.sp),
                   child: RichText(
@@ -178,7 +177,13 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             SizedBox(
               height: 25.h,
             ),
-            SectionTitile(context.l10n.paymentMethods),
+            SectionTitile(
+              context.l10n.paymentMethods,
+              color: Colors.black,
+            ),
+            SizedBox(
+              height: 12.5.h,
+            ),
             _paymentMethodWidget(),
             // AnimatedSwitcher(
             //   duration: const Duration(milliseconds: 300),
@@ -191,10 +196,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             ),
             SectionTitile(
               context.l10n.orderSummary,
+              color: Colors.black,
+            ),
+            SizedBox(
+              height: 12.5.h,
             ),
             TotoalWisget(
-              title: context.l10n.totalAmount,
-              price: '${package.price} LE',
+              title: context.l10n.amount,
+              price: '${package.price} ${context.l10n.le}',
             ),
             SizedBox(
               height: 10.h,
@@ -202,7 +211,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             if (package.priceDiscount > 0)
               TotoalWisget(
                 title: context.l10n.discount,
-                price: '${package.priceDiscount} LE',
+                price: '${package.priceDiscount} ${context.l10n.le}',
               ),
             SizedBox(
               height: 10.h,
@@ -214,8 +223,9 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               height: 10.h,
             ),
             TotoalWisget.total(
-              title: 'Total',
-              price: '${package.price - package.priceDiscount} LE',
+              title: context.l10n.totalAmount,
+              price:
+                  '${package.price - package.priceDiscount} ${context.l10n.le}',
             ),
             SizedBox(
               height: 25.h,

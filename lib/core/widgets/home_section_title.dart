@@ -13,7 +13,13 @@ class SectionTitile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title, style: kHead1Style.copyWith(fontSize: 22.sp, color: color)),
+        Text(
+          title,
+          style: kHead1Style.copyWith(
+            fontSize: 18.sp,
+            color: color,
+          ),
+        ),
       ],
     );
   }
