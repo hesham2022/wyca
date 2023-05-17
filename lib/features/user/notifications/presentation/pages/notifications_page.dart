@@ -43,70 +43,48 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, context.l10n.notifications),
+      appBar: AppBar(title: Text(context.l10n.notifications)),
       body: Container(
         // color: primaryColor.withOpacity(.07),
         child: BlocBuilder<PackagesCubit, PackagesCubitState>(
           builder: (context, packageState) {
             if (packageState is PackagesCubitStateLoaded) {
               return Center(
-                child: Padding(
-                  padding: kPadding.copyWith(top: 0.h),
-                  child: BlocBuilder<PNCubit, PNCubitState>(
-                    builder: (context, state) {
-                      if (state is PNCubitStateLoaded) {
-                        Fluttertoast.showToast(
-                          msg: state.requests.length.toString(),
-                        );
+                child: BlocBuilder<PNCubit, PNCubitState>(
+                  builder: (context, state) {
+                    if (state is PNCubitStateLoaded) {
+                      Fluttertoast.showToast(
+                        msg: state.requests.length.toString(),
+                      );
 
-                        final request = state.requests.toList();
-                        return Column(
-                          children: [
-                            SizedBox(
-                              height: 20.h,
+                      final request = state.requests.toList();
+                      return ListView.builder(
+                        itemBuilder: (context, index) {
+                          return RequestInfoWidget(
+                            request: request[index],
+                            provider: request[index].providerModel,
+                            package: packageState.packages.firstWhere(
+                              (element) => request[index].package == element.id,
                             ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      RequestInfoWidget(
-                                        request: request[index],
-                                        provider: request[index].providerModel,
-                                        package:
-                                            packageState.packages.firstWhere(
-                                          (element) =>
-                                              request[index].package ==
-                                              element.id,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      )
-                                    ],
-                                  );
-                                },
-                                itemCount: request.length,
-                              ),
-                            ),
-                          ],
-                        );
-                      }
+                          );
+                        },
+                        itemCount: request.length,
+                      );
+                    }
 
-                      if (state is PNCubitStateLoading) {
-                        return const Center(
-                          child: Loader(),
-                        );
-                      }
+                    if (state is PNCubitStateLoading) {
+                      return const Center(
+                        child: Loader(),
+                      );
+                    }
 
-                      if (state is PNCubitStateError) {
-                        return Center(
-                          child: Text(state.error.errorMessege),
-                        );
-                      }
-                      return const Center(child: Text('Notifications'));
-                    },
-                  ),
+                    if (state is PNCubitStateError) {
+                      return Center(
+                        child: Text(state.error.errorMessege),
+                      );
+                    }
+                    return const Center(child: Text('Notifications'));
+                  },
                 ),
               );
             }

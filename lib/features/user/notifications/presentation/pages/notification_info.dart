@@ -69,9 +69,9 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
   }
 
   Color getColor() {
-    if (widget.request.isOpened) return seocondColor;
-    if (widget.request.isStarted) return seocondColor;
-    if (widget.request.isMissed) return seocondColor;
+    if (widget.request.isOpened) return primaryColor;
+    if (widget.request.isStarted) return primaryColor;
+    if (widget.request.isMissed) return primaryColor;
 
     return primaryColor;
   }
@@ -81,7 +81,7 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
     if (widget.request.isMissed) {
       return Icon(
         Icons.loop_outlined,
-        size: 40,
+        size: 30,
         color: getColor(),
       );
     }
@@ -176,49 +176,51 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
       },
       child: LayoutBuilder(
         builder: (c, s) {
-          return Container(
-            // height: 130.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(width: .8, color: primaryColor),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  getIcon(),
-                  Expanded(
-                    child: Column(
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              children: [
+                Expanded(child: getIcon()),
+                Expanded(
+                  flex: 4,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    title: Text(
+                      getTitleString(context), //  'Call Request',
+                      style: textStyleWithPrimarySemiBold.copyWith(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w600,
+                        height: 1,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          getTitleString(context), //  'Call Request',
-                          style: textStyleWithPrimarySemiBold.copyWith(
-                            fontSize: 16.sp,
-                            height: 1,
-                            color: kPrimaryColor,
-                          ),
+                        const SizedBox(
+                          height: 5,
                         ),
+                        if (widget.request.washNumber != null)
+                          Text(
+                            'The ${widget.request.washNumber! + 1}th wash of package ${widget.package!.name}', //   ' ',
+                            style: textStyleWithPrimarySemiBold.copyWith(
+                              fontSize: 14.sp,
+                            ),
+                          )
+                        else
+                          Text(
+                            'Reuest from package ${widget.package!.name}', //   'Friday',
+                            style: textStyleWithPrimarySemiBold.copyWith(
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                            ),
+                          ),
                         if (widget.request.notificationDate != null)
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                context.l10n.localeName == 'ar'
-                                    ? '${context.l10n.ago} ${getAgo(
-                                        widget.request.notificationDate!,
-                                      )}'
-                                    : '${getAgo(
-                                        widget.request.notificationDate!,
-                                      )} ${context.l10n.ago}', //  'Call Request',
-                                style: textStyleWithPrimarySemiBold.copyWith(
-                                  fontSize: 14.sp,
-                                  color: const Color(0xff5D6C7A),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
                               Text(
                                 DateFormat(
                                   'EEEE, d MMM, yyyy',
@@ -233,21 +235,23 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
                                   color: const Color(0xff5D6C7A),
                                 ),
                               ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                context.l10n.localeName == 'ar'
+                                    ? '${context.l10n.ago} ${getAgo(
+                                        widget.request.notificationDate!,
+                                      )}'
+                                    : '${getAgo(
+                                        widget.request.notificationDate!,
+                                      )} ${context.l10n.ago}', //  'Call Request',
+                                style: textStyleWithPrimarySemiBold.copyWith(
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff5D6C7A),
+                                ),
+                              ),
                             ],
-                          ),
-                        if (widget.request.washNumber != null)
-                          Text(
-                            'The ${widget.request.washNumber! + 1}th wash of package ${widget.package!.name}', //   'Friday',
-                            style: textStyleWithPrimarySemiBold.copyWith(
-                              fontSize: 14.sp,
-                            ),
-                          )
-                        else
-                          Text(
-                            'Reuest from package ${widget.package!.name}', //   'Friday',
-                            style: textStyleWithPrimarySemiBold.copyWith(
-                              fontSize: 14.sp,
-                            ),
                           ),
 
                         // Text(
@@ -260,10 +264,88 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
+          // Padding(
+          //   padding: const EdgeInsets.all(10),
+          //   child: Row(
+          //     children: [
+          //       getIcon(),
+          //       Expanded(
+          //         child: Column(
+          //           children: [
+          //             Text(
+          //               getTitleString(context), //  'Call Request',
+          //               style: textStyleWithPrimarySemiBold.copyWith(
+          //                 fontSize: 16.sp,
+          //                 height: 1,
+          //                 color: kPrimaryColor,
+          //               ),
+          //             ),
+          //             if (widget.request.notificationDate != null)
+          //               Row(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 children: [
+          //                   Text(
+          //                     context.l10n.localeName == 'ar'
+          //                         ? '${context.l10n.ago} ${getAgo(
+          //                             widget.request.notificationDate!,
+          //                           )}'
+          //                         : '${getAgo(
+          //                             widget.request.notificationDate!,
+          //                           )} ${context.l10n.ago}', //  'Call Request',
+          //                     style: textStyleWithPrimarySemiBold.copyWith(
+          //                       fontSize: 14.sp,
+          //                       color: const Color(0xff5D6C7A),
+          //                     ),
+          //                   ),
+          //                   const SizedBox(
+          //                     width: 20,
+          //                   ),
+          //                   Text(
+          //                     DateFormat(
+          //                       'EEEE, d MMM, yyyy',
+          //                       (context.l10n.localeName == 'ar') ? 'ar' : 'en',
+          //                     ).format(
+          //                       widget.request.notificationDate!,
+          //                     ),
+          //                     style: textStyleWithPrimarySemiBold.copyWith(
+          //                       fontSize: 14.sp,
+          //                       color: const Color(0xff5D6C7A),
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             if (widget.request.washNumber != null)
+          //               Text(
+          //                 'The ${widget.request.washNumber! + 1}th wash of package ${widget.package!.name}', //   'Friday',
+          //                 style: textStyleWithPrimarySemiBold.copyWith(
+          //                   fontSize: 14.sp,
+          //                 ),
+          //               )
+          //             else
+          //               Text(
+          //                 'Reuest from package ${widget.package!.name}', //   'Friday',
+          //                 style: textStyleWithPrimarySemiBold.copyWith(
+          //                   fontSize: 14.sp,
+          //                 ),
+          //               ),
+
+          //             // Text(
+          //             //   '05:52 PM',
+          //             //   style: textStyleWithPrimarySemiBold.copyWith(
+          //             //     fontSize: 12.sp,
+          //             //     color: const Color(0xff5D6C7A),
+          //             //   ),
+          //             // ),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // );
         },
       ),
     );

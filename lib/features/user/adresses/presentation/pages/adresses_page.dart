@@ -23,12 +23,11 @@ class _AdressesPageState extends State<AdressesPage> {
       body: BlocBuilder<UserCubit, UserCubitState>(
         builder: (context, state) {
           if (state is UserCubitStateLoaded) {
-            return Padding(
-              padding: kPadding.copyWith(left: 10),
-              child: SingleChildScrollView(
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-
                     for (var i in state.user.addresses)
                       Column(
                         children: [
@@ -58,7 +57,7 @@ class _AdressesPageState extends State<AdressesPage> {
                         ],
                       ),
                     AppButton(
-                      w: 300.w,
+                      w: 150.w,
                       h: 36.h,
                       title: context.l10n.addNewAdress,
                       onPressed: () async {
