@@ -41,22 +41,22 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
           child: Padding(
             padding: kPadding,
-            child: !p
-                ? SignFormBuilder(
-                    onPressed: () {
-                      setState(() {
-                        p = !p;
-                        disappear = !p;
-                      });
-                    },
-                    topPosition: topPosition,
-                  )
-                : LoginFormBuilder(
+            child: p
+                ? LoginFormBuilder(
                     onPressed: () {
                       setState(() {
                         p = !p;
                         disappear = !p;
                         // showConfirmPassword = !showConfirmPassword;
+                      });
+                    },
+                    topPosition: topPosition,
+                  )
+                : SignFormBuilder(
+                    onPressed: () {
+                      setState(() {
+                        p = !p;
+                        disappear = !p;
                       });
                     },
                     topPosition: topPosition,

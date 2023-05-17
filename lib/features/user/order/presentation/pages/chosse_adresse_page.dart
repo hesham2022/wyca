@@ -116,7 +116,6 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                       },
                       child: Center(
                         child: AppButton(
-                          h: 36.h,
                           title: (exist &&
                                   restOfWash(context, widget.packageId) != 0)
                               ? context.l10n.serviceRequest

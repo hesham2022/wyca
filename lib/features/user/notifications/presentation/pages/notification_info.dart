@@ -219,7 +219,7 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
                             ),
                           ),
                         if (widget.request.notificationDate != null)
-                          Row(
+                          Wrap(
                             children: [
                               Text(
                                 DateFormat(

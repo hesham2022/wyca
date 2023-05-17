@@ -23,12 +23,19 @@ class PackageScreen extends StatelessWidget {
                   textBaseline: TextBaseline.alphabetic,
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   children: [
-                    const SectionTitile('Wash Number'),
+                    Text(
+                      context.l10n.wash_num,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontSize: ScreenUtil().setSp(18),
+                      ),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
                     Text(
-                      '${package.washNumber} Wash',
+                      '${package.washNumber} ${context.l10n.wash}',
                       style: kBody1Style.copyWith(color: kPrimaryColor),
                     ),
                   ],
@@ -83,7 +90,8 @@ class PackageScreen extends StatelessWidget {
                   autoSizeText(
                     text:
                         '${context.l10n.remain} : ${restOfWash(context, package.id)}',
-                    fontWeight: FontWeight.w700,maxLines: 2,
+                    fontWeight: FontWeight.w700,
+                    maxLines: 2,
                   ),
                 SizedBox(
                   height: 20.h,

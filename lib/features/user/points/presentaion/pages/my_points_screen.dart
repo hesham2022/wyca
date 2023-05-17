@@ -71,7 +71,10 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        SectionTitile(context.l10n.exchangeDetails),
+                        SectionTitile(
+                          context.l10n.exchangeDetails,
+                          color: Colors.black,
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
