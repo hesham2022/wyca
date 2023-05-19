@@ -38,9 +38,106 @@ class _ProviderHomePageState extends State<ProviderHomePage> {
     });
   }
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            scaffoldKey.currentState?.openDrawer();
+          },
+          icon: Assets.svg.menu.svg(
+            height: 16.sp,
+            width: 20.sp,
+          ),
+        ),
+        actions: [
+          BlocBuilder<NotificationsBudgeCubit, int>(
+            // buildWhen: (previous, current) => index == 3,
+            builder: (context, state) {
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  BlocBuilder<NotificationsBudgeCubit, int>(
+                    // buildWhen: (previous, current) => index == 3,
+                    builder: (context, state) {
+                      return Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              Navigator.push<void>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ProviderNotificationPage(),
+                                ),
+                              );
+                              context.read<NotificationsBudgeCubit>().read();
+                            },
+                            icon: Assets.svg.bill.svg(
+                              height: 25.sp,
+                              width: 25.sp,
+                            ),
+                          ),
+                          if (state == 0)
+                            const SizedBox()
+                          else
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.blue,
+                              ),
+                              child: Positioned(
+                                top: -10,
+                                right: -4,
+                                child: Text(
+                                  state.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            )
+                        ],
+                      );
+                    },
+                  ),
+                  if (state == 0)
+                    const SizedBox()
+                  else
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue,
+                      ),
+                      child: Positioned(
+                        top: -10,
+                        right: -4,
+                        child: Text(
+                          state.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                ],
+              );
+            },
+          ),
+        ],
+        title: Assets.images.logo.image(
+          width: 114.w,
+          height: 114.h,
+        ),
+      ),
       drawer: AppBrawer(
         items: [
           AppDrawerModel(
@@ -142,89 +239,8 @@ class _ProviderHomePageState extends State<ProviderHomePage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                                icon: Assets.svg.menu.svg(
-                                  height: 16.sp,
-                                  width: 20.sp,
-                                ),
-                              ),
-                              Assets.images.logo.image(
-                                width: 114.w,
-                                height: 114.h,
-                              ),
-                              BlocBuilder<NotificationsBudgeCubit, int>(
-                                // buildWhen: (previous, current) => index == 3,
-                                builder: (context, state) {
-                                  return Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      IconButton(
-                                        padding: EdgeInsets.zero,
-                                        onPressed: () {
-                                          Navigator.push<void>(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ProviderNotificationPage(),
-                                            ),
-                                          );
-                                          context
-                                              .read<NotificationsBudgeCubit>()
-                                              .read();
-                                        },
-                                        icon: Assets.svg.bill.svg(
-                                          height: 25.sp,
-                                          width: 25.sp,
-                                        ),
-                                      ),
-                                      if (state == 0)
-                                        const SizedBox()
-                                      else
-                                        Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.blue,
-                                          ),
-                                          child: Positioned(
-                                            top: -10,
-                                            right: -4,
-                                            child: Text(
-                                              state.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                    ],
-                                  );
-                                },
-                              )
-                              // IconButton(
-                              //   padding: EdgeInsets.zero,
-                              //   onPressed: () {
-                              //     Navigator.push<void>(
-                              //       context,
-                              //       MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const ProviderNotificationPage(),
-                              //       ),
-                              //     );
-                              //   },
-                              //   icon: Assets.svg.bill.svg(
-                              //     height: 16.sp,
-                              //     width: 16.sp,
-                              //   ),
-                              // ),
-                            ],
+                          const SizedBox(
+                            height: 20,
                           ),
                           WelcomWidget(
                             name: (state as ProviderCubitStateLoaded)

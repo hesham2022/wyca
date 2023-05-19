@@ -16,6 +16,7 @@ import 'package:wyca/features/request/presentation/provider_notification_cubit.d
 import 'package:wyca/features/request/presentation/request_provider.dart';
 import 'package:wyca/gen/assets.gen.dart';
 import 'package:wyca/gen/colors.gen.dart';
+import 'package:wyca/imports.dart';
 
 class ProviderNewRequestPage extends StatefulWidget {
   const ProviderNewRequestPage({super.key, required this.request});
@@ -51,7 +52,11 @@ class _ProviderNewRequestPageState extends State<ProviderNewRequestPage> {
               request: _req,
             )
           : Scaffold(
-              appBar: appBar(context, 'Request Status'),
+              appBar: AppBar(
+                title: Text(
+                  context.l10n.request_status,
+                ),
+              ),
               body: Padding(
                 padding: kPadding,
                 child: Column(

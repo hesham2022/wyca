@@ -152,6 +152,7 @@
   "all_need_to_do":"كل ما عليك فعله هو ان تقوم بطلب الخدمة و سيصلك مندوبنا ",
   "out_area":"هذه المنطقة خارج عملنا",
   "amount":"القيمة",
+  "request_status":"حالة الطلب",
 "noPhotoSelectedYet":"ليس هناك صوره بعد",
 "numberMustNotBeEmpty":"الرقم لا يجب ان يكون فارغا",
 "colorMustNotBeEmty":"اللون لا يجب ان يكون فارغا",
