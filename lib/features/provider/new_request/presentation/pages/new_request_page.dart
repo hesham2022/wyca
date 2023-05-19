@@ -64,7 +64,7 @@ class _ProviderNewRequestPageState extends State<ProviderNewRequestPage> {
                     const WelcomWidget(),
                     Lottie.asset(Assets.lottie.animation9),
                     Text(
-                      'You Have A New Request',
+                     context.l10n.new_request,
                       style: kHead1Style.copyWith(color: Colors.black),
                     ),
                     const SizedBox(
@@ -99,7 +99,7 @@ class _ProviderNewRequestPageState extends State<ProviderNewRequestPage> {
                             },
                             builder: (context, state) {
                               return AppButton(
-                                title: 'Accept',
+                                title:context.l10n.accept,
                                 onPressed: () async {
                                   final prosition =
                                       await _determinePosition(context);
@@ -130,7 +130,7 @@ class _ProviderNewRequestPageState extends State<ProviderNewRequestPage> {
                               return AppButton(
                                 color: Colors.white,
                                 titleColor: ColorName.primaryColor,
-                                title: 'Reject',
+                                title: context.l10n.reject,
                                 onPressed: () {
                                   Navigator.pushAndRemoveUntil<void>(
                                     context,
