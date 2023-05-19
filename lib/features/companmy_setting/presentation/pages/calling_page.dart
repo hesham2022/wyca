@@ -16,6 +16,7 @@ import 'package:wyca/features/companmy_setting/presentation/bloc/comlainment_cub
 import 'package:wyca/features/companmy_setting/presentation/widgets/button_1.dart';
 import 'package:wyca/features/companmy_setting/presentation/widgets/common_container.dart';
 import 'package:wyca/gen/assets.gen.dart';
+import 'package:wyca/gen/colors.gen.dart';
 import 'package:wyca/l10n/l10n.dart';
 
 final reasons = <String>[
@@ -47,20 +48,24 @@ class CallingPage extends StatefulWidget {
 
 class _CallingPageState extends State<CallingPage> {
   List<ContactMethod> contactMethods(ComapnySettingsModel model) => [
-        ContactMethod(icon: Assets.svg.mail.path, url: 'mailto:${model.email}'),
-        // ContactMethod(icon: Assets.svg.web.path, url: model.website),
-        ContactMethod(icon: Assets.svg.facebook.path, url: model.facebook),
         ContactMethod(
-          icon: Assets.svg.insta.path,
+            icon: 'assets/icons/icons8-mail-48.png',
+            url: 'mailto:${model.email}'),
+        // ContactMethod(icon: Assets.svg.web.path, url: model.website),
+        ContactMethod(
+            icon: 'assets/icons/icons8-facebook-50.png', url: model.facebook),
+        ContactMethod(
+          icon: 'assets/icons/icons8-instagram-50.png',
           url: model.insta,
         ),
-        ContactMethod(icon: Assets.svg.twitter.path, url: model.twitter),
+        ContactMethod(
+            icon: 'assets/icons/icons8-twitter-50.png', url: model.twitter),
         // ContactMethod(
         //   icon: Assets.svg.whatsapp.path,
         //   url: 'https://wa.me/${model.phone}',
         // ),
         ContactMethod(
-          icon: Assets.svg.phone.path,
+          icon: 'assets/icons/icons8-phone-50.png',
           url: 'tel:${model.phone}',
           func: (BuildContext context, List<String> phones) {
             showDialog<void>(
@@ -191,7 +196,7 @@ class _CallingPageState extends State<CallingPage> {
 
                                 autoSizeText(
                                   text: context.l10n.mail,
-                                  maxLines:4,
+                                  maxLines: 4,
                                   size: 18,
                                   align: TextAlign.center,
                                 ),
@@ -211,7 +216,7 @@ class _CallingPageState extends State<CallingPage> {
                           crossAxisCount: 3,
                           mainAxisSpacing: 20,
                           crossAxisSpacing: 40.w,
-                          childAspectRatio: 141 / 124,
+                          childAspectRatio: 1.2,
                         ),
                         itemCount:
                             contactMethods(state.comapnySettingsModel).length,
@@ -219,17 +224,12 @@ class _CallingPageState extends State<CallingPage> {
                           return InkWell(
                             onTap: () => setState(() {
                               current = index;
-                              print(
-                                contactMethods(
-                                  state.comapnySettingsModel,
-                                )[index]
-                                    .url,
-                              );
                               if (contactMethods(
                                     state.comapnySettingsModel,
                                   )[index]
                                       .func !=
                                   null) {
+                                // ignore: avoid_dynamic_calls
                                 contactMethods(
                                   state.comapnySettingsModel,
                                 )[index]
@@ -250,15 +250,15 @@ class _CallingPageState extends State<CallingPage> {
                             }),
                             child: CommonContainer(
                               color: current == index
-                                  ? kPrimaryColor
+                                  ? ColorName.primaryColor
                                   : Colors.white,
-                              br: 23,
+                              br: 15,
                               height: 92.h,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Center(
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       contactMethods(
                                         state.comapnySettingsModel,
                                       )[index]
@@ -275,7 +275,8 @@ class _CallingPageState extends State<CallingPage> {
                           );
                         },
                       ),
-                    ), // const Text(
+                    ),
+                    // const Text(
                     //   'Add Compalint',
                     // ), //
 

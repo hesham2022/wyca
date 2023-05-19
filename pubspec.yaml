@@ -102,6 +102,7 @@ flutter:
     - assets/images/
     - assets/svg/
     - assets/drawer_icons/
+    - assets/icons/
 
   fonts:
     - family: "Lobster"
