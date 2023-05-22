@@ -48,7 +48,7 @@ class _CustomerServiceState extends State<CustomerService> {
             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             decoration: BoxDecoration(
               color: (message.type == MessageType.Sender)
-                  ? Colors.blue
+                  ? ColorName.primaryColor
                   : Colors.grey,
               borderRadius: BorderRadius.circular(12.0),
             ),
