@@ -156,6 +156,7 @@
   "new_request":"لديك طلب جديد",
   "reject":"رفض",
   "accept":"قبول",
+  "send_message":"ارسال",
 "noPhotoSelectedYet":"ليس هناك صوره بعد",
 "numberMustNotBeEmpty":"الرقم لا يجب ان يكون فارغا",
 "colorMustNotBeEmty":"اللون لا يجب ان يكون فارغا",

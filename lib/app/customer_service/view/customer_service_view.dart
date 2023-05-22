@@ -67,7 +67,7 @@ class _CustomerServiceState extends State<CustomerService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat Screen'),
+        title: Text(context.l10n.customer_service),
       ),
       body: Column(
         children: [
@@ -82,7 +82,7 @@ class _CustomerServiceState extends State<CustomerService> {
                   child: TextField(
                     controller: messageController,
                     decoration: InputDecoration(
-                      hintText: 'Enter a message',
+                      hintText: context.l10n.send_message,
                     ),
                   ),
                 ),
