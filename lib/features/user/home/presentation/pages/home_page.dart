@@ -105,7 +105,7 @@ class _HomePAGEState extends State<HomePAGE> {
                       padding: const EdgeInsets.all(5),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.blue,
+                        color: ColorName.primaryColor,
                       ),
                       child: Positioned(
                         top: -10,
@@ -251,14 +251,14 @@ class _HomePAGEState extends State<HomePAGE> {
                                       h: 36.h,
                                       title: context.l10n.details,
                                       onPressed: () {
-                                        Navigator.push<void>(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NearesProviderScreen(),
-                                            // const AboutUsPage(),
-                                          ),
-                                        );
+                                        // Navigator.push<void>(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const NearesProviderScreen(),
+                                        //     // const AboutUsPage(),
+                                        //   ),
+                                        // );
                                       },
                                     ),
                                   ],
