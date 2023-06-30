@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:formz/formz.dart';
 import 'package:wyca/core/utils/validation_regx.dart';
 
-enum EmailValidationError { empty, inValid }
+enum EmailValidationError { empty, inValid, invalidPhoneNumber }
 
 class Email extends FormzInput<String, EmailValidationError> {
   const Email.pure() : super.pure('');
@@ -51,8 +51,8 @@ class EmailOrPhone extends FormzInput<String, EmailValidationError> {
       case EmailValidationError.empty:
         return 'email should not be empty';
 
-      case EmailValidationError.inValid:
-        return 'inValid value';
+      case EmailValidationError.invalidPhoneNumber:
+        return 'inValid phone number or email';
     }
     return null;
   }
@@ -61,8 +61,17 @@ class EmailOrPhone extends FormzInput<String, EmailValidationError> {
 Either<EmailValidationError, void> emailOrPhoneValidator(String value) {
   const patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
   final phoneRegx = RegExp(patttern);
+
   if (value.isEmpty) {
     return const Left(EmailValidationError.empty);
+  }
+  if (value.contains('@')) {
+    if (!ValidationsPatterns.emailValidate.hasMatch(value)) {
+      return const Left(EmailValidationError.inValid);
+    }
+  }
+  if (!phoneRegx.hasMatch(value)) {
+    return const Left(EmailValidationError.invalidPhoneNumber);
   }
   //  else if (!ValidationsPatterns.emailValidate.hasMatch(value) &&
   //     !phoneRegx.hasMatch(value)) {

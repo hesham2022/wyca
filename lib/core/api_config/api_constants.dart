@@ -1,8 +1,6 @@
 // const domain = 'http://10.0.2.2:3000';
 // vps ip
- const domain = 'http://178.128.193.58:3000';
-
-// const domain = 'http://10.2.43.175:3000';
+const domain = 'http://178.128.193.58:3000';
 
 // const domain = 'https://wyca.herokuapp.com';
 // const kBaseUrl = 'https://wyca.herokuapp.com/v1';
@@ -28,7 +26,7 @@ const kUpdateMeProvider = '$kBaseUrl/auth/provider/update-me';
 
 const kUpdateCars = '$kBaseUrl/auth/update-me/cars';
 const kUpdateAddresses = '$kBaseUrl/auth/update-me/addresses';
-const kDeleteAddresses = '$kBaseUrl/auth/update-me/delete-addresses';
+const kDeleteAddresses = '$kBaseUrl/users/address/deleteAddress/';
 
 const kPackage = '$kBaseUrl/packages';
 

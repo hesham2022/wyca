@@ -94,6 +94,17 @@ class ApiClient {
     );
   }
 
+  Future<Response> delete(
+    String url, {
+    Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? body,
+  }) async {
+    return dio.delete<Map<String, dynamic>>(
+      url,
+      data: body,
+    );
+  }
+
   Future<Response> patchUpload(
     String url, {
     Map<String, dynamic>? queryParams,

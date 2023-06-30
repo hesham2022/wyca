@@ -599,6 +599,7 @@ class ConfirmLocationRoute
       _i25.LatLng,
       _i26.Placemark,
       String,
+      String,
     )?
         onConfirm,
   }) : super(
@@ -624,6 +625,7 @@ class ConfirmLocationRouteArgs {
   final void Function(
     _i25.LatLng,
     _i26.Placemark,
+    String,
     String,
   )? onConfirm;
 

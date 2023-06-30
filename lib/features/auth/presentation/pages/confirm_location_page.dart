@@ -1,16 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/core/utils/map_utils/map_helper.dart';
-import 'package:wyca/features/auth/presentation/pages/provider/success_sign.dart';
 import 'package:wyca/features/auth/presentation/pages/user_type_screen.dart';
-import 'package:wyca/features/user/home/presentation/pages/home_page.dart';
 import 'package:wyca/imports.dart';
 
 class ConfirmLocationPage extends StatefulWidget {
   const ConfirmLocationPage({super.key, this.onConfirm});
-  final void Function(LatLng, Placemark placemark, String address,)? onConfirm;
+  final void Function(
+    LatLng,
+    Placemark placemark,
+    String address,
+    String description,
+  )? onConfirm;
 
   @override
   State<ConfirmLocationPage> createState() => _ConfirmLocationPageState();
@@ -139,10 +144,21 @@ class _ConfirmLocationPageState extends State<ConfirmLocationPage> {
                     (mapHelper.markers.last.position.longitude > t1 ||
                         mapHelper.markers.last.position.longitude < t2)) {
                   await Fluttertoast.showToast(
-                      msg: 'this area out of our work');
+                    msg: 'this area out of our work',
+                  );
                   return;
                 }
-
+                final reuslt = await showDialog<String?>(
+                  context: context,
+                  builder: (context) {
+                    return AddressDesc(
+                      address: address,
+                      mapHelper: mapHelper,
+                    );
+                  },
+                );
+                print(reuslt);
+                if (reuslt == null || reuslt.isEmpty) return;
                 widget.onConfirm!(
                   LatLng(
                     mapHelper.markers.first.position.latitude,
@@ -150,23 +166,30 @@ class _ConfirmLocationPageState extends State<ConfirmLocationPage> {
                   ),
                   placemarks,
                   address,
+                  reuslt,
                 );
               }
               if (widget.onConfirm == null) {
                 userAction(
                   isUser: () async {
-                    await Navigator.push<void>(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePAGE()),
+                    await context.router.push(
+                      HomePAGE(),
                     );
+                    // await Navigator.push<void>(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePAGE()),
+                    // );
                   },
                   isProvider: () {
-                    Navigator.push<void>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProviderSuccessSignUp(),
-                      ),
+                    context.router.push(
+                      const ProviderSuccessSignUp(),
                     );
+                    // Navigator.push<void>(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ProviderSuccessSignUp(),
+                    //   ),
+                    // );
                   },
                 );
               }
@@ -176,6 +199,101 @@ class _ConfirmLocationPageState extends State<ConfirmLocationPage> {
             height: 20.h,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AddressDesc extends StatefulWidget {
+  const AddressDesc({
+    super.key,
+    required this.address,
+    required this.mapHelper,
+  });
+
+  final String address;
+  final MapHelper mapHelper;
+
+  @override
+  State<AddressDesc> createState() => _AddressDescState();
+}
+
+class _AddressDescState extends State<AddressDesc> {
+  final textController = TextEditingController();
+  final _fromKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _fromKey,
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: SizedBox(
+          height: ScreenUtil().setHeight(320),
+          width: ScreenUtil().setWidth(320),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Submit Your Address',
+                      style: kHead1Style.copyWith(fontSize: 16.sp),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                SizedBox(height: 20.h),
+                TextFormField(
+                  controller: textController,
+                  minLines: 4,
+                  maxLines: 5,
+                  validator: (value) => value!.isEmpty
+                      ? 'Please Write your address description'
+                      : null,
+                  decoration: InputDecoration(
+                    hintText: 'Write You Addres Description',
+                    contentPadding: const EdgeInsets.all(8),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                AppButton(
+                  h: 40.h,
+                  title: 'Confirm',
+                  onPressed: () {
+                    if (!_fromKey.currentState!.validate()) return;
+                    // context.read<AuthenticationBloc>().add(
+                    //       UpdateAddresses(
+                    //         Address(
+                    //           id: '',
+                    //           address: widget.address,
+                    //           description: textController.text,
+                    //           coordinates: [
+                    //             widget.mapHelper.markers.last.position.latitude,
+                    //             widget
+                    //                 .mapHelper.markers.last.position.longitude,
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     );
+
+                    Navigator.pop<String>(
+                      context,
+                      textController.text,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

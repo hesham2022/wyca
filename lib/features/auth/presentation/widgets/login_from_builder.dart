@@ -263,8 +263,38 @@ class _LoginFormBuilderState extends State<LoginFormBuilder> {
                       : AppButton(
                           w: 119.w,
                           title: context.l10n.login,
-                          onPressed: state.status == FormzStatus.invalid
-                              ? null
+                          onPressed: state.status == FormzStatus.invalid ||
+                                  state.status == FormzStatus.pure
+                              ? () {
+                                  if (state.emailOrPhone.pure) {
+                                    context.read<LoginBloc>().add(
+                                          const LoginEmailOrPhoneChanged(''),
+                                        );
+                                  }
+                                  if (state.password.pure) {
+                                    context.read<LoginBloc>().add(
+                                          const LoginPasswordChanged(''),
+                                        );
+                                  }
+                                  if (state.emailOrPhone.invalid) {
+                                    Fluttertoast.showToast(
+                                      msg: state.emailOrPhone.errorText(
+                                            state.emailOrPhone.error,
+                                          ) ??
+                                          'invalid',
+                                    );
+                                    return;
+                                  }
+
+                                  if (state.password.invalid) {
+                                    Fluttertoast.showToast(
+                                      msg: state.password.errorText(
+                                            state.password.error,
+                                          ) ??
+                                          'invalid',
+                                    );
+                                  }
+                                }
                               : () {
                                   context
                                       .read<LoginBloc>()

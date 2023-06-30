@@ -174,7 +174,8 @@ class _SignUpSecondState extends State<SignUpSecond> {
                                     MaterialPageRoute(
                                       builder: (contextq) =>
                                           ConfirmLocationPage(
-                                        onConfirm: (p0, placemark, address) {
+                                        onConfirm:
+                                            (p0, placemark, address, des) {
                                           context
                                               .read<RegisterProviderBloc>()
                                               .add(

@@ -53,11 +53,11 @@ class UserRemote extends IUserRemote {
     final userResult = UserModel.fromJson(data['user'] as Map<String, dynamic>);
     return userResult;
   }
-// TODO ERROR HERE ['not found']
+
   @override
   Future<User> removeAddresse(String id) async {
     final response = await apiConfig
-        .patch(kDeleteAddresses, body: <String, dynamic>{'id': id});
+        .delete(kDeleteAddresses, body: <String, dynamic>{'id': id});
     final data = response.data as Map<String, dynamic>;
     // ignore: avoid_dynamic_calls
     final userResult = UserModel.fromJson(data['user'] as Map<String, dynamic>);

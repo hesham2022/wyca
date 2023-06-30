@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:wyca/app/customer_service/view/customer_service_view.dart';
 import 'package:wyca/app/view/app.dart';
 import 'package:wyca/core/api_config/api_constants.dart';
@@ -372,7 +373,7 @@ class _HomePAGEState extends State<HomePAGE> {
                                 Flexible(
                                   child: AppButton(
                                     title: context.l10n.orderNow,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (context
                                           .read<OrderBloc>()
                                           .idControoler
@@ -389,18 +390,143 @@ class _HomePAGEState extends State<HomePAGE> {
                                         );
                                         return;
                                       }
-                                      Navigator.push<void>(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChosseAdressePage(
-                                            packageId: context
-                                                .read<OrderBloc>()
-                                                .idControoler
-                                                .text,
+                                      final permissionStatus =
+                                          await NotificationPermissions
+                                              .getNotificationPermissionStatus();
+                                      if (permissionStatus !=
+                                          PermissionStatus.granted) {
+                                        await Future.delayed(const Duration(),
+                                            () async {
+                                          final result =
+                                              await showDialog<bool?>(
+                                            context: context,
+                                            builder: (c) {
+                                              return Dialog(
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(20),
+                                                  ),
+                                                ),
+                                                child: SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .35,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      .8,
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          top: 20,
+                                                          bottom: 10,
+                                                        ),
+                                                        child: Text(
+                                                          'Enable Notifications',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          top: 10,
+                                                          bottom: 20,
+                                                          left: 20,
+                                                          right: 20,
+                                                        ),
+                                                        child: Text(
+                                                          'Please enable notification to get updates about your order',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          bottom: 10,
+                                                        ),
+                                                        child: AppButton(
+                                                          w: 100.w,
+                                                          title: 'Enable',
+                                                          onPressed: () async {
+                                                            final result =
+                                                                await NotificationPermissions
+                                                                    .requestNotificationPermissions();
+                                                            if (result ==
+                                                                PermissionStatus
+                                                                    .granted) {
+                                                              Navigator.pop(
+                                                                c,
+                                                                true,
+                                                              );
+                                                            } else {
+                                                              Navigator.pop(
+                                                                c,
+                                                                false,
+                                                              );
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                          if (result == true) {
+                                            await Future.delayed(Duration.zero,
+                                                () async {
+                                              await Navigator.push<void>(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChosseAdressePage(
+                                                    packageId: context
+                                                        .read<OrderBloc>()
+                                                        .idControoler
+                                                        .text,
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                          }
+                                        });
+                                        return;
+                                      }
+                                      await Future.delayed(Duration.zero,
+                                          () async {
+                                        await Navigator.push<void>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChosseAdressePage(
+                                              packageId: context
+                                                  .read<OrderBloc>()
+                                                  .idControoler
+                                                  .text,
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      });
                                     },
                                   ),
                                 ),

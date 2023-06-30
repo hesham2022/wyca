@@ -54,6 +54,7 @@ dependencies:
   auto_size_text: ^3.0.0
   cached_network_image: ^3.2.3
   loading_indicator: ^3.1.0
+  notification_permissions:
 
 dependency_overrides:
   intl: ^0.17.0

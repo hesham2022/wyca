@@ -269,14 +269,14 @@ class _AppState extends State<App> {
                     case AuthenticationStatus.authenticatedAfterSignup:
                       await _appRouter.pushAndPopUntil(
                         router.ConfirmLocationRoute(
-                          onConfirm: (p0, p1, p2) {
+                          onConfirm: (p0, p1, p2, p3) {
                             Fluttertoast.showToast(msg: p0.latitude.toString());
                             context.read<AuthenticationBloc>().add(
                                   UpdateAddresses(
                                     Address(
                                       id: '',
                                       address: p2,
-                                      description: p2,
+                                      description: p3,
                                       coordinates: [p0.latitude, p0.longitude],
                                     ),
                                   ),

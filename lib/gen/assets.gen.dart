@@ -3,13 +3,13 @@
 ///  FlutterGen
 /// *****************************************************
 
+import 'package:flutter/services.dart';
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $AssetsDrawerIconsGen {
   const $AssetsDrawerIconsGen();
@@ -206,6 +206,21 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/animation9.json
   String get animation9 => 'assets/lottie/animation9.json';
 
+  /// File path: assets/lottie/car_wash.json
+  String get carWash => 'assets/lottie/car_wash.json';
+
+  /// File path: assets/lottie/chat.json
+  String get chat => 'assets/lottie/chat.json';
+
+  /// File path: assets/lottie/location.json
+  String get location => 'assets/lottie/location.json';
+
+  /// File path: assets/lottie/search.json
+  String get search => 'assets/lottie/search.json';
+
+  /// File path: assets/lottie/user.json
+  String get user => 'assets/lottie/user.json';
+
   /// List of all assets
   List<String> get values => [
         animation1,
@@ -222,7 +237,12 @@ class $AssetsLottieGen {
         animation6,
         animation7,
         animation8,
-        animation9
+        animation9,
+        carWash,
+        chat,
+        location,
+        search,
+        user
       ];
 }
 
@@ -628,7 +648,6 @@ class SvgGenImage {
       excludeFromSemantics: excludeFromSemantics,
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
-      // theme: theme,
     );
   }
 

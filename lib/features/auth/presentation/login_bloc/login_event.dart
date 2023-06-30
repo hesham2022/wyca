@@ -127,10 +127,20 @@ class LoginProviderSubmitted extends LoginEvent {
 class LoginRegisterSubmitted extends LoginEvent {
   const LoginRegisterSubmitted();
 }
+
 class LoginEmailOrPhoneChanged extends LoginEvent {
   const LoginEmailOrPhoneChanged(this.username);
   final String username;
 
   @override
   List<Object> get props => [username];
+}
+
+class LoginSubmittedNew extends LoginEvent {
+  const LoginSubmittedNew({required this.username, required this.password});
+
+  final String username;
+  final String password;
+  @override
+  List<Object> get props => [username, password];
 }

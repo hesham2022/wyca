@@ -17,9 +17,7 @@ class ColorName {
   static const Color black = Color(0xFF000000);
 
   /// Color: #3468B0
-  // static const Color primaryColor = Colors.red;
-  static const Color primaryColor = Color(0xFF1B6AB6);
-  // static const Color primaryColor = Color(0xFF4E82A4);
+  static const Color primaryColor = Color(0xFF3468B0);
 
   /// Color: #8F8F8F
   static const Color textColor1 = Color(0xFF8F8F8F);

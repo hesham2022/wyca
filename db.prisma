@@ -1,0 +1,170 @@
+model User {
+    id           Int            @id @default(autoincrement())
+    name         String
+    email        String         @unique
+    password     String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    posts        Post[]
+    Comment      Comment[]
+    Like         Like[]
+    Follow       Follow[]
+    Notification Notification[]
+    Chat         Chat[]
+    Message      Message[]
+    SavedPost    SavedPost[]
+    Report       Report[]
+}
+
+model Post {
+    id           Int            @id @default(autoincrement())
+    title        String
+    content      String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    author       User           @relation(fields: [authorId], references: [id])
+    authorId     Int
+    Comment      Comment[]
+    Like         Like[]
+    Notification Notification[]
+    Image        Image[]
+    Tag          Tag[]
+    SavedPost    SavedPost[]
+    Report       Report[]
+}
+
+model Comment {
+    id           Int            @id @default(autoincrement())
+    content      String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    author       User           @relation(fields: [authorId], references: [id])
+    authorId     Int
+    post         Post           @relation(fields: [postId], references: [id])
+    postId       Int
+    Notification Notification[]
+    Report       Report[]
+}
+
+model Like {
+    id           Int            @id @default(autoincrement())
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    author       User           @relation(fields: [authorId], references: [id])
+    authorId     Int
+    post         Post           @relation(fields: [postId], references: [id])
+    postId       Int
+    Notification Notification[]
+    Report       Report[]
+}
+
+model Follow {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    follower    User     @relation("follower", fields: [followerId], references: [id])
+    followerId  Int
+    following   User     @relation("following", fields: [followingId], references: [id])
+    followingId Int
+    User        User?    @relation(fields: [userId], references: [id])
+    userId      Int?
+}
+
+model Notification {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    type      String
+    read      Boolean  @default(false)
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int
+    comment   Comment  @relation(fields: [commentId], references: [id])
+    commentId Int
+    like      Like     @relation(fields: [likeId], references: [id])
+    likeId    Int
+}
+
+model Chat {
+    id        Int       @id @default(autoincrement())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    user      User      @relation(fields: [userId], references: [id])
+    userId    Int
+    message   Message[]
+}
+
+model Message {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    content   String
+    chat      Chat     @relation(fields: [chatId], references: [id])
+    chatId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
+}
+
+model Image {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    url       String
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int
+}
+
+model Tag {
+    id        Int         @id @default(autoincrement())
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+    name      String
+    post      Post        @relation(fields: [postId], references: [id])
+    postId    Int
+    TagReport TagReport[]
+}
+
+model SavedPost {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int
+}
+
+model Report {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    type      String
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
+    post      Post     @relation(fields: [postId], references: [id])
+    postId    Int
+    comment   Comment  @relation(fields: [commentId], references: [id])
+    commentId Int
+    like      Like     @relation(fields: [likeId], references: [id])
+    likeId    Int
+}
+
+model App {
+    id        Int          @id @default(autoincrement())
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+    settings  AppSetting[]
+}
+
+model AppSetting {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    value     String
+    app       App      @relation(fields: [appId], references: [id])
+    appId     Int
+}
+
+// create view on user

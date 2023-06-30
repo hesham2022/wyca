@@ -431,7 +431,26 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                                       .read<RegisterBloc>()
                                       .add(const LoginRegisterSubmitted());
                                 }
-                              : null,
+                              : () {
+                                  final f = [
+                                    state.name,
+                                    state.lastName,
+                                    state.username,
+                                    state.phoneNumber,
+                                    state.gender,
+                                    state.password,
+                                  ].firstWhere(
+                                    (element) =>
+                                        (element as dynamic).valid != true,
+                                  );
+
+                                  Fluttertoast.showToast(
+                                    msg: (f as dynamic)
+                                                .errorText((f as dynamic).error)
+                                            as String? ??
+                                        'some thing went wrong',
+                                  );
+                                },
                           //  () {
 
                           //   // Navigator.push<void>(
