@@ -7,11 +7,11 @@ import 'package:wyca/features/auth/domain/entities/user.dart';
 class UpdateUserParameter {
   UpdateUserParameter({
     required this.user,
-    required this.password,
+    this.password,
   });
 
   final User user;
-  final String password;
+  final String? password;
 
   UpdateUserParameter copyWith({
     User? user,
@@ -25,7 +25,7 @@ class UpdateUserParameter {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'password': password,
+      if (password != null) 'password': password,
       'email': user.email,
       'name': user.name,
       'gender': user.gender,

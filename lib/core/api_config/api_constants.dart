@@ -1,6 +1,6 @@
 // const domain = 'http://10.0.2.2:3000';
 // vps ip
-const domain = 'http://178.128.193.58:3000';
+const domain = 'http://68.183.214.135:3000';
 
 // const domain = 'https://wyca.herokuapp.com';
 // const kBaseUrl = 'https://wyca.herokuapp.com/v1';

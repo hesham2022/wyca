@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:wyca/core/api_config/index.dart';
 import 'package:wyca/core/api_errors/network_exceptions.dart';
 import 'package:wyca/core/local_storage/secure_storage_instance.dart';
@@ -94,7 +95,9 @@ class AuthenticationRepository extends IAuthenticationRepository {
     _apiConfig.init(null);
 
     controller.add(AuthenticationStatus.unauthenticated);
+
     await Storage.removePassword();
+    await FirebaseMessaging.instance.deleteToken();
   }
 
   @override

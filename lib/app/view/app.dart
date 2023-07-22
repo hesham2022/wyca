@@ -23,6 +23,7 @@ import 'package:wyca/core/routing/routes.gr.dart' as router;
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
+import 'package:wyca/features/auth/domain/params/update_user.params.dart';
 import 'package:wyca/features/auth/domain/repositories/i_respository.dart';
 import 'package:wyca/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wyca/features/auth/presentation/bloc/provider_cubit.dart';
@@ -116,7 +117,8 @@ class _AppState extends State<App> {
     FirebaseMessaging.instance.getToken().then((value) {
       debugPrint('fcm $value');
 
-      return kFcm = value!;
+      kFcm = value!;
+    
     });
     FirebaseMessaging.onMessage.listen((event) async {
       await Fluttertoast.showToast(msg: 'new msg');

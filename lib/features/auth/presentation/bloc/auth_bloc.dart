@@ -148,7 +148,6 @@ class AuthenticationBloc
       _userCubit.addUser,
     );
   }
-  
 
   Future<void> _onAuthenticationUpdateCars(
     UpdateCars event,
@@ -181,6 +180,13 @@ class AuthenticationBloc
       final user = await _userRepository.getUser();
       return user.fold((l) => null, (r) {
         _userCubit.addUser(r);
+        add(
+          AuthenticationUpdateRequested(
+            UpdateUserParameter(
+              user: r,
+            ),
+          ),
+        );
         return r;
       });
     } catch (_) {
