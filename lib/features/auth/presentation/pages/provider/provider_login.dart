@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
+import 'package:lottie/lottie.dart';
+import 'package:wyca/app/app.dart';
 import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/presentation/login_bloc/login_bloc.dart';
 import 'package:wyca/features/auth/presentation/pages/forgot_password_page.dart';
@@ -66,14 +69,30 @@ class _ProviderLoginState extends State<ProviderLogin> {
     return BlocProvider<LoginBloc>.value(
       value: _bloc,
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: kPadding,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 60.h),
-                LogoBar(
-                  title: context.l10n.loginTOYourAccount,
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/provider_login.png',
+                      width: 200.h,
+                      height: 180.h,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      context.l10n.loginTOYourAccount,
+                      style: kBody1Style.copyWith(
+                        fontSize: 22.sp,
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
                 ),
                 SizedBox(height: 60.h),
                 BlocBuilder<LoginBloc, LoginState>(
@@ -89,7 +108,34 @@ class _ProviderLoginState extends State<ProviderLogin> {
                           .add(LoginEmailOrPhoneChanged(p0)),
 
                       decoration: InputDecoration(
-                        hintText: context.l10n.emailOrPhoneNumber,
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: SvgPicture.asset('assets/svg/profile.svg'),
+                        ),
+                        hintStyle: TextStyle(color: ColorName.primaryColor),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        hintText: context
+                            .l10n.emailOrPhoneNumber, /*Or Mobiel Number*/
                       ),
                     ).commonFild(context);
                   },
@@ -98,7 +144,7 @@ class _ProviderLoginState extends State<ProviderLogin> {
                 PasswordField(
                   focusNode: _passwordfocusNode,
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -157,7 +203,7 @@ class _ProviderLoginState extends State<ProviderLogin> {
                           );
                   },
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 60.h),
                 Center(
                   child: RichText(
                     text: TextSpan(

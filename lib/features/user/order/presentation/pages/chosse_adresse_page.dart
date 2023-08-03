@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wyca/app/app.dart';
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
 import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
@@ -12,7 +11,6 @@ import 'package:wyca/features/user/adresses/presentation/pages/select_adress_scr
 import 'package:wyca/features/user/order/presentation/bloc/order_bloc.dart';
 import 'package:wyca/features/user/order/presentation/pages/isPackage_exist.dart';
 import 'package:wyca/features/user/order/presentation/pages/payment_method_page.dart';
-import 'package:wyca/features/user/order/presentation/widgets/location_app_bar.dart';
 import 'package:wyca/features/user/order/presentation/widgets/location_item.dart';
 import 'package:wyca/imports.dart';
 
@@ -26,19 +24,23 @@ class ChosseAdressePage extends StatefulWidget {
 }
 
 class _ChosseAdressePageState extends State<ChosseAdressePage> {
-  late Address _currentAdress;
+  Address? _currentAdress;
   @override
   void initState() {
     _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
-        .user
-        .addresses
-        .last;
+            .user
+            .addresses
+            .isEmpty
+        ? null
+        : (context.read<UserCubit>().state as UserCubitStateLoaded)
+            .user
+            .addresses
+            .last;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(_currentAdress.description);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -61,7 +63,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .25,
-                  child: Lottie.asset('assets/lottie/location.json'),
+                  child: Lottie.asset('assets/lottie/location_select.json'),
                 ),
                 SizedBox(height: 15.h),
                 ...(state as UserCubitStateLoaded)
@@ -122,23 +124,41 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
                               ? context.l10n.serviceRequest
                               : context.l10n.next,
                           onPressed: () {
-                            // context.read<OrderBloc>().idControoler.text
-                            // if(){
-                            // }
-                            ///
+                            if (_currentAdress == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    context.l10n.pleaseSelectAddress,
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
                             if (exist &&
                                 restOfWash(context, widget.packageId) != 0) {
+                              final all = orders.where(
+                                (element) =>
+                                    element.package == widget.packageId &&
+                                    element.washNumber > 0,
+                              );
+                              String? selectedOrder;
+                              if (all.isNotEmpty) {
+                                selectedOrder = all.first.id;
+                              } else {
+                                selectedOrder = orders
+                                    .firstWhere(
+                                      (element) =>
+                                          element.package == widget.packageId,
+                                    )
+                                    .id;
+                              }
+
                               context.read<RequestCubit>().createRequest(
                                     CreateRequestParams(
-                                      address: _currentAdress,
+                                      address: _currentAdress!,
                                       date: widget.date,
-                                      order: orders
-                                          .firstWhere(
-                                            (element) =>
-                                                element.package ==
-                                                widget.packageId,
-                                          )
-                                          .id,
+                                      order: selectedOrder,
                                     ),
                                   );
                             } else {

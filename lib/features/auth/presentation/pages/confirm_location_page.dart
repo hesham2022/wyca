@@ -229,8 +229,8 @@ class _AddressDescState extends State<AddressDesc> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
         ),
-        child: SizedBox(
-          height: ScreenUtil().setHeight(320),
+        child: Container(
+          height: ScreenUtil().setHeight(300),
           width: ScreenUtil().setWidth(320),
           child: Padding(
             padding: const EdgeInsets.all(12),

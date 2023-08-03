@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars, use_decorated_box
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:wyca/l10n/l10n.dart';
 
 import '../../../../../core/api_config/api_constants.dart';
 import '../../../../../core/theme/app_theme.dart';
+import '../../../../auth/data/models/cars_model.dart';
 
 class HomeCursorSlider extends StatefulWidget {
   const HomeCursorSlider({super.key});
@@ -45,8 +47,8 @@ class _HomeCursorSliderState extends State<HomeCursorSlider> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 150,
-                width: MediaQuery.of(context).size.width * .8,
+                height: 200,
+                width: 400,
                 child: CarouselSlider(
                   carouselController: _controller,
                   options: CarouselOptions(
@@ -74,58 +76,131 @@ class _HomeCursorSliderState extends State<HomeCursorSlider> {
                             );
                           },
                           child: Container(
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            width: double.infinity,
+                            height: 100,
+                            child: Stack(
                               children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: cashedImage(
-                                    url: kImagePackage + i.image,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: ListTile(
-                                    title: autoSizeText(
-                                      text: i.name,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    subtitle: Column(
+                                Positioned(
+                                  top: 30,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 20, top: 20),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black12,
+                                              spreadRadius: 0.5,
+                                              blurRadius: 15)
+                                        ]),
+                                    child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.end,
                                       children: [
-                                        const SizedBox(
-                                          height: 5,
+                                        Container(
+                                          margin: EdgeInsets.only(right: 15),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              AutoSizeText(
+                                                i.name,
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              autoSizeText(
+                                                text: i.description,
+                                                fontWeight: FontWeight.w600,
+                                                size: 16,
+                                                maxLines: 2,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        autoSizeText(
-                                          text: i.description,
-                                          fontWeight: FontWeight.w600,
-                                          size: 16,
-                                          maxLines: 2,
+                                        SizedBox(
+                                          height: 20,
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        autoSizeText(
-                                          text:
-                                              '${context.l10n.with_price} ${i.price - i.priceDiscount} ${context.l10n.le}',
-                                          size: 14,
-                                        ),
-                                        autoSizeText(
-                                          text:
-                                              '${context.l10n.instead_of} ${i.price} ${context.l10n.le}  ',
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          color: Colors.red,
-                                          size: 14,
-                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                autoSizeText(
+                                                  text:
+                                                      '${i.price - i.priceDiscount} ${context.l10n.le}',
+                                                  size: 14,
+                                                ),
+                                                autoSizeText(
+                                                  text:
+                                                      ' ${i.price} ${context.l10n.le}  ',
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: Colors.red,
+                                                  size: 14,
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width: 130,
+                                              height: 50,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.push<void>(
+                                                    context,
+                                                    CupertinoPageRoute(
+                                                      builder: (context) =>
+                                                          OfferDetailsPage(
+                                                        package: i,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  "Order Now",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 18),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  elevation: 0,
+                                                  shape:
+                                                      new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(20),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    20)),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )
                                       ],
                                     ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  left: 15,
+                                  child: Image.asset(
+                                    "assets/images/car.png",
+                                    width: 150,
+                                    height: 100,
                                   ),
                                 ),
                               ],

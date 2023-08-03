@@ -87,10 +87,19 @@ class _NearesProviderScreenState extends State<NearesProviderScreen> {
         //   child: LocationAppBar(),
         // ),
         appBar: appBar(context, 'Request Details'),
-        body: BlocBuilder<GetRequestCubit, GetRequestCubitState>(
+        body: BlocConsumer<GetRequestCubit, GetRequestCubitState>(
+          listener: (context, state) {
+            if (state is GetSingleRequestCubitStateLoaded) {
+              final req = state.request;
+              context.read<PNCubit>().updateNotification(
+                    req,
+                  );
+            }
+          },
           builder: (context, state) {
             if (state is GetSingleRequestCubitStateLoaded) {
               final req = state.request;
+
               return ScreenBox(
                 request: req,
                 provider: req.providerModel ?? provider,
@@ -116,7 +125,7 @@ class _ScreenBoxState extends State<ScreenBox> {
   late ProviderModel? provider;
   late RequestClass _requestClass;
   Duration? duration;
-  late Timer timer;
+  Timer? timer;
   @override
   void initState() {
     provider = widget.provider;
@@ -136,20 +145,33 @@ class _ScreenBoxState extends State<ScreenBox> {
       duration = _requestClass.endDate!.difference(_requestClass.startDate!);
     }
     if (_requestClass.startDate != null && _requestClass.endDate == null) {
-      timer = Timer.periodic(const Duration(seconds: 1), (v) {
-        duration = Duration(seconds: duration!.inSeconds + 1);
-        if (mounted) {
-          setState(() {});
-        } else {
-          timer.cancel();
+      if (timer != null) {
+        if (!timer!.isActive) {
+          timer = Timer.periodic(const Duration(seconds: 1), (v) {
+            duration = Duration(seconds: duration!.inSeconds + 1);
+            if (mounted) {
+              setState(() {});
+            } else {
+              timer!.cancel();
+            }
+          });
         }
-      });
+      } else {
+        timer = Timer.periodic(const Duration(seconds: 1), (v) {
+          duration = Duration(seconds: duration!.inSeconds + 1);
+          if (mounted) {
+            setState(() {});
+          } else {
+            timer!.cancel();
+          }
+        });
+      }
     }
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    timer!.cancel();
     super.dispose();
   }
 
@@ -182,8 +204,8 @@ class _ScreenBoxState extends State<ScreenBox> {
             }
             if (_requestClass.startDate != null &&
                 _requestClass.endDate != null) {
-              if (timer.isActive) {
-                timer.cancel();
+              if (timer!.isActive) {
+                timer!.cancel();
               }
               if (_requestClass.isConfired) {}
               return;
@@ -351,10 +373,8 @@ class _ScreenBoxState extends State<ScreenBox> {
                             provider != null
                                 ? (_requestClass.providerLocation != null
                                     ? LatLng(
-                                        _requestClass
-                                            .providerLocation!.coordinates[0],
-                                        _requestClass
-                                            .providerLocation!.coordinates[1],
+                                        _requestClass.address.coordinates[0],
+                                        _requestClass.address.coordinates[1],
                                       )
                                     : LatLng(
                                         provider!.address.coordinates[0],
@@ -368,10 +388,8 @@ class _ScreenBoxState extends State<ScreenBox> {
                               target: provider != null
                                   ? (_requestClass.providerLocation != null
                                       ? LatLng(
-                                          _requestClass
-                                              .providerLocation!.coordinates[0],
-                                          _requestClass
-                                              .providerLocation!.coordinates[1],
+                                          _requestClass.address.coordinates[0],
+                                          _requestClass.address.coordinates[1],
                                         )
                                       : LatLng(
                                           provider!.address.coordinates[0],

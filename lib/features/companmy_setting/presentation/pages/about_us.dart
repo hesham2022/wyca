@@ -31,7 +31,7 @@ class _AboutUsState extends State<AboutUs> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
               BlocBuilder<CallingBloc, CallingState>(
@@ -44,11 +44,11 @@ class _AboutUsState extends State<AboutUs> {
                             : 'Welcome to Wyca! By using our app, you agree to the following terms and conditions \n',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           fontFamily: context.l10n.localeName == 'ar'
                               ? 'Cairo'
-                              : 'Lobster',
+                              : 'Cairo',
                         ),
                         children: [
                           TextSpan(
@@ -139,17 +139,17 @@ class _AboutUsState extends State<AboutUs> {
 TextStyle style(BuildContext context) {
   return TextStyle(
     color: Colors.black,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
-    fontFamily: context.l10n.localeName == 'ar' ? 'Cairo' : 'Lobster',
+    fontFamily: context.l10n.localeName == 'ar' ? 'Cairo' : 'Cairo',
   );
 }
 
 TextStyle bigStyle(BuildContext context) {
   return TextStyle(
     color: Colors.black,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w700,
-    fontFamily: context.l10n.localeName == 'ar' ? 'Cairo' : 'Lobster',
+    fontFamily: context.l10n.localeName == 'ar' ? 'Cairo' : 'Cairo',
   );
 }

@@ -42,7 +42,6 @@ class FeatureWidget extends StatelessWidget {
           SizedBox(
             width: 10.w,
           ),
-        if (index.isEven && !isOrderedList) Assets.svg.hand.svg(height: 60),
         if (index.isEven && !isOrderedList)
           SizedBox(
             width: 10.w,

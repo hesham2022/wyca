@@ -1,4 +1,4 @@
-// const domain = 'http://10.0.2.2:3000';
+// const domain = 'http://192.168.1.4:3000';
 // vps ip
 const domain = 'http://68.183.214.135:3000';
 

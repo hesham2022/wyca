@@ -60,7 +60,6 @@ class _CounterViewState extends State<CounterView>
           'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json',
           controller: _controller,
           onLoaded: (composition) {
-          
             _controller
               ..duration = composition.duration
               ..forward();

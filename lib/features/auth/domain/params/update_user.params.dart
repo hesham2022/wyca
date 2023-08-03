@@ -54,11 +54,11 @@ class UpdateUserParameter {
 class UpdateProviderParameter {
   UpdateProviderParameter({
     required this.provider,
-    required this.password,
+    this.password,
   });
 
   final Provider provider;
-  final String password;
+  String? password;
 
   UpdateProviderParameter copyWith({
     Provider? provider,
@@ -72,7 +72,7 @@ class UpdateProviderParameter {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'password': password,
+      if (password != null) 'password': password,
       'email': provider.email,
       'name': provider.name,
       'gender': provider.gender,

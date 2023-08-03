@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wyca/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wyca/features/provider/notification/presentation/pages/info_widget.dart';
 import 'package:wyca/features/request/presentation/provider_notification_cubit.dart';
 import 'package:wyca/imports.dart';
@@ -15,7 +16,12 @@ class ProviderNotificationPage extends StatefulWidget {
 class _ProviderNotificationPageState extends State<ProviderNotificationPage> {
   @override
   void initState() {
-    context.read<PNCubit>().getLocalNotifcation();
+    context.read<PNCubit>().getLocalNotifcation(
+          isProvider: true,
+          userId: context.read<AuthenticationBloc>().state.provider == null
+              ? null
+              : context.read<AuthenticationBloc>().state.provider!.id,
+        );
     super.initState();
   }
 

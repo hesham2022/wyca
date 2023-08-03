@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wyca/core/theme/theme.dart';
 import 'package:wyca/core/widgets/app_checkbox.dart';
 import 'package:wyca/core/widgets/widget.dart';
@@ -133,20 +135,17 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
       fit: StackFit.expand,
       children: [
         AnimatedPositioned(
-          onEnd: () {
-            setState(() {
-              end = true;
-            });
-          },
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeInOut,
-          left: 0,
-          right: 0,
-          top: !begin ? 60.h : 30.h,
-          child: LogoBar(
-            title: context.l10n.createANewAccount,
-          ),
-        ),
+            onEnd: () {
+              setState(() {
+                end = true;
+              });
+            },
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            left: 0,
+            right: 0,
+            top: !begin ? 60.h : 30.h,
+            child: Lottie.asset('assets/lottie/logo.json')),
         BlocBuilder<RegisterBloc, LoginState>(
           buildWhen: (previous, current) =>
               previous.username != current.username,
@@ -164,7 +163,35 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                 child: TextFormField(
                   focusNode: _emailfocusNode,
                   decoration: InputDecoration(
-                    hintText: context.l10n.email,
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset('assets/svg/e_mail.svg'),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    filled: true,
+                    enabled: true,
+                    hintStyle: TextStyle(color: ColorName.primaryColor),
+                    hintText: context.l10n.email, /*Or Mobiel Number*/
                   ),
                   onChanged: (username) => context
                       .read<RegisterBloc>()
@@ -191,7 +218,35 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                       return TextFormField(
                         focusNode: _firstNamefocusNode,
                         decoration: InputDecoration(
-                          hintText: context.l10n.firstName,
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset('assets/svg/profile.svg'),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          filled: true,
+                          enabled: true,
+                          hintStyle: TextStyle(color: ColorName.primaryColor),
+                          hintText: context.l10n.firstName, /*Or Mobiel Number*/
                         ),
                         onChanged: (value) => context
                             .read<RegisterBloc>()
@@ -200,6 +255,9 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                     },
                   ),
                 ),
+                SizedBox(
+                  width: 5,
+                ),
                 Expanded(
                   child: BlocBuilder<RegisterBloc, LoginState>(
                     buildWhen: (previous, current) =>
@@ -207,7 +265,35 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                     builder: (context, state) {
                       return TextFormField(
                         decoration: InputDecoration(
-                          hintText: context.l10n.lastName,
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset('assets/svg/profile.svg'),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorName
+                                  .primaryColor, // Set the desired border color here
+                              width: 1.0, // Set the border width
+                            ),
+                          ),
+                          filled: true,
+                          enabled: true,
+                          hintStyle: TextStyle(color: ColorName.primaryColor),
+                          hintText: context.l10n.lastName, /*Or Mobiel Number*/
                         ),
                         focusNode: _lastNamefocusNode,
                         onChanged: (value) => context
@@ -230,7 +316,35 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
             top: widget.topPosition(!begin ? 1 : 0),
             child: TextFormField(
               decoration: InputDecoration(
-                hintText: context.l10n.emailOrPhoneNumber,
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset('assets/svg/profile.svg'),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorName
+                        .primaryColor, // Set the desired border color here
+                    width: 1.0, // Set the border width
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorName
+                        .primaryColor, // Set the desired border color here
+                    width: 1.0, // Set the border width
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorName
+                        .primaryColor, // Set the desired border color here
+                    width: 1.0, // Set the border width
+                  ),
+                ),
+                filled: true,
+                enabled: true,
+                hintStyle: TextStyle(color: ColorName.primaryColor),
+                hintText: context.l10n.emailOrPhoneNumber, /*Or Mobiel Number*/
               ),
             ).commonFild(context),
           ),
@@ -255,7 +369,35 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                       .add(LoginPhoneNumberChanged(value)),
                   decoration: InputDecoration(
                     prefixText: '+2',
-                    hintText: context.l10n.mobileNumber,
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset('assets/svg/eg.svg'),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 1.0, // Set the border width
+                      ),
+                    ),
+                    filled: true,
+                    enabled: true,
+                    hintStyle: TextStyle(color: ColorName.primaryColor),
+                    hintText: context.l10n.mobileNumber, /*Or Mobiel Number*/
                   ),
                 ).commonFild(context),
               );
@@ -431,26 +573,7 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                                       .read<RegisterBloc>()
                                       .add(const LoginRegisterSubmitted());
                                 }
-                              : () {
-                                  final f = [
-                                    state.name,
-                                    state.lastName,
-                                    state.username,
-                                    state.phoneNumber,
-                                    state.gender,
-                                    state.password,
-                                  ].firstWhere(
-                                    (element) =>
-                                        (element as dynamic).valid != true,
-                                  );
-
-                                  Fluttertoast.showToast(
-                                    msg: (f as dynamic)
-                                                .errorText((f as dynamic).error)
-                                            as String? ??
-                                        'some thing went wrong',
-                                  );
-                                },
+                              : null,
                           //  () {
 
                           //   // Navigator.push<void>(
@@ -475,11 +598,15 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
             opacity: !begin ? 0 : 1,
             duration: const Duration(milliseconds: 250),
             child: Center(
-              child: RichText(
-                text: TextSpan(
-                  text: context.l10n.haveAccount,
-                  children: [
-                    TextSpan(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(context.l10n.haveAccount),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  RichText(
+                    text: TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           widget.onPressed();
@@ -490,9 +617,8 @@ class _SignFormBuilderState extends State<SignFormBuilder> {
                         color: ColorName.primaryColor,
                       ),
                     ),
-                  ],
-                  style: kBody1Style,
-                ),
+                  ),
+                ],
               ),
             ),
           ),

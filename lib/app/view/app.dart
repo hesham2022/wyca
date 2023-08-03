@@ -17,13 +17,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:wyca/app/view/chat_data.dart';
+import 'package:wyca/app/view/shared_storage.dart';
 import 'package:wyca/core/api_config/index.dart';
 import 'package:wyca/core/local_storage/secure_storage_instance.dart';
 import 'package:wyca/core/routing/routes.gr.dart' as router;
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
-import 'package:wyca/features/auth/domain/params/update_user.params.dart';
 import 'package:wyca/features/auth/domain/repositories/i_respository.dart';
 import 'package:wyca/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wyca/features/auth/presentation/bloc/provider_cubit.dart';
@@ -68,9 +68,12 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
+final appRouter = router.AppRouter();
+final pnCubit = PNCubit();
+AuthenticationBloc? globalAuthBloc;
+
 class _AppState extends State<App> {
   final IAuthenticationRepository authenticationRepository = getIt();
-  final _appRouter = router.AppRouter();
   final chatCubit = ChatCubit();
   final AuthenticationBloc authBloc = getIt();
   final navKey = GlobalKey<NavigatorState>();
@@ -80,6 +83,7 @@ class _AppState extends State<App> {
     });
     Storage.setLang(locale);
     kLang = locale;
+    globalAuthBloc = authBloc;
   }
 
   Socket socket = io(
@@ -92,7 +96,6 @@ class _AppState extends State<App> {
   );
 
   String _locale = 'en';
-  final pnCubit = PNCubit();
   @override
   void initState() {
     // Storage.rsestData();
@@ -118,16 +121,20 @@ class _AppState extends State<App> {
       debugPrint('fcm $value');
 
       kFcm = value!;
-    
     });
-    FirebaseMessaging.onMessage.listen((event) async {
-      await Fluttertoast.showToast(msg: 'new msg');
+    Future<void> notificationHandler(RemoteMessage event) async {
       notificationsBudgeCubit.newNotifion();
 
       try {
+        final data =
+            jsonDecode(event.data['data'] as String) as Map<String, dynamic>;
+
+        final s = data['request'] as Map<String, dynamic>;
+        final id = await SharedStorage().getNotificationId(s['id'] as String);
+
         await AwesomeNotifications().createNotification(
           content: NotificationContent(
-            id: event.hashCode,
+            id: id,
             channelKey: 'basic_channel',
             title: event.notification!.title ?? '',
             // largeIcon: 'asset://${Assets.images.logo.path}',
@@ -135,10 +142,6 @@ class _AppState extends State<App> {
           ),
         );
 
-        final data =
-            jsonDecode(event.data['data'] as String) as Map<String, dynamic>;
-
-        final s = data['request'] as Map<String, dynamic>;
         if (data['userModel'] != null) {
           s['userModel'] = data['userModel'] as Map<String, dynamic>;
         }
@@ -150,17 +153,17 @@ class _AppState extends State<App> {
 
         // await Storage.setNewRequests(newRequest);
         await pnCubit.addNewNotification(newRequest);
-        await Fluttertoast.showToast(msg: newRequest.canceled.toString());
+        // await Fluttertoast.showToast(msg: newRequest.canceled.toString());
         if (!authBloc.isUser) {
-          // _appRouter.navigatorKey.currentState!.pop();
-          if (newRequest.status == 0) {
-            await _appRouter.push(
+          // appRouter.navigatorKey.currentState!.pop();
+          if (newRequest.status == 0 || newRequest.status == 4) {
+            await appRouter.push(
               ProviderNewRequestPageRoute(
                 request: newRequest,
               ),
             );
           } else {
-            await _appRouter.push(
+            await appRouter.push(
               RequestDetailsPageRoute(
                 request: newRequest,
               ),
@@ -168,10 +171,24 @@ class _AppState extends State<App> {
           }
         }
       } catch (e, s) {
-        print(e);
-        print(s);
+        debugPrint(e.toString());
+        debugPrint(s.toString());
       }
-    });
+    }
+
+    FirebaseMessaging.onMessage.listen(notificationHandler);
+    // FirebaseMessaging.onMessageOpenedApp.listen((e) {
+    //   Fluttertoast.showToast(msg: 'from open app');
+    // });
+    // FirebaseMessaging.instance
+    //     .getInitialMessage()
+    //     .then((RemoteMessage? message) {
+    //   if (message != null) {
+    //     Fluttertoast.showToast(msg: 'message');
+    //     notificationHandler(message);
+    //   }
+    // });
+
     Storage.getLang().then(
       (value) {
         setState(() {
@@ -199,6 +216,26 @@ class _AppState extends State<App> {
     //   // onDismissActionReceivedMethod:
     //   //     NotificationController.onDismissActionReceivedMethod,
     // );
+    // on action click
+
+    // onDismissedMethod: (notification) {
+    //   return;
+    // },
+
+    // on notification click
+    // AwesomeNotifications().displayedStream.listen((receivedNotification) {
+    //   return;
+    // });
+    // AwesomeNotifications().createdStream.listen((receivedNotification) {
+    //   return;
+    // });
+    // AwesomeNotifications().dismissedStream.listen((receivedNotification) {
+    //   return;
+    // });
+    // AwesomeNotifications().displayedStream.listen((receivedNotification) {
+    //   return;
+    // });
+
     super.initState();
   }
 
@@ -237,8 +274,8 @@ class _AppState extends State<App> {
             create: (_) => socket,
             child: MaterialApp.router(
               key: navKey,
-              routerDelegate: _appRouter.delegate(),
-              routeInformationParser: _appRouter.defaultRouteParser(),
+              routerDelegate: appRouter.delegate(),
+              routeInformationParser: appRouter.defaultRouteParser(),
               builder: (context, child) =>
                   BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) async {
@@ -251,7 +288,7 @@ class _AppState extends State<App> {
                         {'userId': state.user.id, 'userType': 'user'},
                       );
 
-                      await _appRouter.pushAndPopUntil(
+                      await appRouter.pushAndPopUntil(
                         router.HomePAGE(),
                         predicate: (d) => false,
                       );
@@ -262,14 +299,14 @@ class _AppState extends State<App> {
                         'addUser',
                         {'userId': state.provider!.id, 'userType': 'provider'},
                       );
-                      await _appRouter.pushAndPopUntil(
+                      await appRouter.pushAndPopUntil(
                         const router.ProviderHomeRoute(),
                         predicate: (d) => false,
                       );
 
                       break;
                     case AuthenticationStatus.authenticatedAfterSignup:
-                      await _appRouter.pushAndPopUntil(
+                      await appRouter.pushAndPopUntil(
                         router.ConfirmLocationRoute(
                           onConfirm: (p0, p1, p2, p3) {
                             Fluttertoast.showToast(msg: p0.latitude.toString());
@@ -283,7 +320,7 @@ class _AppState extends State<App> {
                                     ),
                                   ),
                                 );
-                            _appRouter.pushAndPopUntil(
+                            appRouter.pushAndPopUntil(
                               router.HomePAGE(),
                               predicate: (d) => false,
                             );
@@ -295,15 +332,16 @@ class _AppState extends State<App> {
                       break;
                     case AuthenticationStatus.unauthenticated:
                       final isFirst = await Storage.isFirst();
-                      // await Navigator.push<void>(
-                      //   context,
-                      //   MaterialPageRoute(builder: (_) => const TestPage()),
-                      // );
-                      //await Future<void>.delayed(const Duration(seconds: 1));
-                      await _appRouter.pushAndPopUntil(
+                      await appRouter.pushAndPopUntil(
                         isFirst
                             ? const router.IntroScreen()
                             : const router.UserTypeScreen(),
+                        predicate: (d) => false,
+                      );
+                      break;
+                    case AuthenticationStatus.unknown:
+                      await appRouter.pushAndPopUntil(
+                        const router.SplashScreen(),
                         predicate: (d) => false,
                       );
 

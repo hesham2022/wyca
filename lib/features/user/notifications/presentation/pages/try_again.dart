@@ -39,9 +39,9 @@ class _TryAgainState extends State<TryAgain> {
           setState(() {
             _req = state.request;
           });
-          Fluttertoast.showToast(
-            msg: _req.tryOpened.toString(),
-          );
+          // Fluttertoast.showToast(
+          //   msg: _req.tryOpened.toString(),
+          // );
         }
         if (state is RequestCubitStateError) {
           Fluttertoast.showToast(

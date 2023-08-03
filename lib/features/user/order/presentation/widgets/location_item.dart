@@ -15,8 +15,8 @@ class LocationItem extends StatefulWidget {
   final String adresses;
   final String? description;
 
-  final Address value;
-  final Address groupValue;
+  final Address? value;
+  final Address? groupValue;
   final void Function(Address?)? onChanged;
 
   @override
@@ -28,7 +28,7 @@ class _LocationItemState extends State<LocationItem> {
   Widget build(BuildContext context) => RadioListTile<Address>(
         activeColor: Colors.black,
         title: Text(widget.description ?? widget.adresses),
-        value: widget.value,
+        value: widget.value!,
         groupValue: widget.groupValue,
         onChanged: (v) {
           if (widget.onChanged != null) {

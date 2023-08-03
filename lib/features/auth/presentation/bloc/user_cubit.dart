@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:wyca/core/api_errors/index.dart';
 import 'package:wyca/features/auth/domain/entities/user.dart';
+import 'package:wyca/features/auth/domain/params/update_user.params.dart';
 import 'package:wyca/features/auth/domain/repositories/i_user.dart';
 
 abstract class UserCubitState {}
@@ -46,6 +47,21 @@ class UserCubit extends Cubit<UserCubitState> {
     emit(UserCubitStateLoading());
 
     final user = await repository.getUser();
+    user.fold(
+      (l) {
+        emit(UserCubitStateError(l));
+      },
+      (r) {
+        emit(UserCubitStateLoaded(r));
+      },
+    );
+  }
+
+  Future<void> updateMe(User newUser) async {
+    emit(UserCubitStateLoading());
+
+    final user =
+        await repository.updateUser(UpdateUserParameter(user: newUser));
     user.fold(
       (l) {
         emit(UserCubitStateError(l));

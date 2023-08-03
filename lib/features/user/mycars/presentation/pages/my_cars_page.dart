@@ -18,46 +18,55 @@ class MyCarsPage extends StatelessWidget {
             padding: kPadding,
             child: Column(
               children: [
-
                 const SizedBox(
                   height: 5,
                 ),
                 for (final i in (state as UserCubitStateLoaded).user.cars)
                   Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ColorName
+                            .primaryColor, // Set the desired border color here
+                        width: 2, // Set the border width (optional)
+                      ),
+                    ),
                     margin: const EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      children: [
-                        // Assets.svg.carShape.svg(
-                        //   height: 28.h,
-                        //   width: 68.w,
-                        //   color: ColorName.primaryColor,
-                        // ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          // Assets.svg.carShape.svg(
+                          //   height: 28.h,
+                          //   width: 68.w,
+                          //   color: ColorName.primaryColor,
+                          // ),
 
-                        Image.network(
-                          '$domain/img/cars/${i.photo}',
-                          width: 110.h,
-                          height: 110.h,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              i.type,
-                              style: kHead1Style.copyWith(
-                                fontSize: 14.sp,
-                                color: Colors.black,
+                          Image.network(
+                            '$domain/img/cars/${i.photo}',
+                            width: 110.h,
+                            height: 110.h,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                i.type,
+                                style: kHead1Style.copyWith(
+                                  fontSize: 14.sp,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            Text(
-                              i.color,
-                              style: kHead1Style.copyWith(fontSize: 12.sp),
-                            )
-                          ],
-                        )
-                      ],
+                              Text(
+                                i.color,
+                                style: kHead1Style.copyWith(fontSize: 12.sp),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 const SizedBox(

@@ -239,7 +239,7 @@ class _RateWidgetState extends State<RateWidget> {
         borderRadius: BorderRadius.circular(6),
       ),
       child: SizedBox(
-        height: ScreenUtil().setHeight(320),
+        height: ScreenUtil().setHeight(340),
         width: ScreenUtil().setWidth(320),
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -258,6 +258,17 @@ class _RateWidgetState extends State<RateWidget> {
                 ],
               ),
               const SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(
+                    context.l10n.pleaseRateOureProvider,
+                    style: kHead1Style.copyWith(
+                      fontSize: 12.sp,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
               Row(
                 children: [
                   SizedBox(

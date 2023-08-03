@@ -121,7 +121,6 @@ class _ChatScreenState extends State<ChatScreen> {
             child: BlocBuilder<ChatCubit, ChatStat>(
               builder: (context, state) {
                 if (state is ChatStatLoaded) {
-                  print(context.read<ChatCubit>().chatModels);
                   final chatModel =
                       context.read<ChatCubit>().chatModels.firstWhere(
                             (element) =>
@@ -156,13 +155,18 @@ class _ChatScreenState extends State<ChatScreen> {
                           Expanded(
                             child: GroupedListView<Messages, DateTime>(
                               controller: scrollController,
-                              elements: chatModel.messages!.reversed.toList(),
-                              reverse: true,
+                              elements: chatModel.messages!.toList(),
+                              // reverse: true,
                               groupBy: (element) {
                                 return DateTime(
                                   element.time.year,
                                   element.time.month,
                                   element.time.day,
+                                  element.time.hour,
+                                  element.time.minute,
+                                  element.time.second,
+                                  element.time.millisecond,
+                                  element.time.microsecond,
                                 );
                               },
                               groupSeparatorBuilder: (date) {

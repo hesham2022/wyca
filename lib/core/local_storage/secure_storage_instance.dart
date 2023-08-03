@@ -60,18 +60,42 @@ class Storage {
     return prefs.write(key: 'newRequests', value: data);
   }
 
-  static Future<List<RequestClass>> getNewRequests() async {
+  static Future<List<RequestClass>> getNewRequests({
+    bool isProvider = false,
+    String? userId,
+  }) async {
     final string = await prefs.read(key: 'newRequests');
     if (string != null) {
       final decoded = json.decode(string) as List<dynamic>;
-      print(decoded);
-      return decoded
+      final data = decoded
           .map<RequestClass>(
             (dynamic d) => RequestClass.fromMap(
               d as Map<String, dynamic>,
             ),
           )
           .toList();
+
+      if (isProvider == true && userId != null) {
+        if (userId == null) {
+          return data;
+        } else {
+          return data.where(
+            (element) {
+              if (element.status == 4) {
+                return true;
+              } else {
+                return element.provider == null
+                    ? true
+                    : element.provider! == userId;
+              }
+            },
+          ).toList();
+        }
+      } else {
+        return userId == null
+            ? data
+            : data.where((element) => element.user == userId).toList();
+      }
     } else {
       return [];
     }

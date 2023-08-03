@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
 import 'package:wyca/features/request/domain/params/craeet_request.dart';
@@ -240,7 +242,6 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                         );
                   }
                   if (state is CreateOrderSuccessStateWithPayLink) {
-                    print(state.order.paymentLink);
                     Navigator.push<void>(
                       context,
                       MaterialPageRoute(
@@ -253,6 +254,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                                       order: state.order.id,
                                     ),
                                   );
+                              Fluttertoast.showToast(
+                                msg: 'Payment Success',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16,
+                              );
                               // context.router.push(const DoneRoute());
                             } else {}
                           },
@@ -271,10 +280,14 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    return AppButton(
-                      title: context.l10n.serviceRequest,
-                      onPressed: () {
-                        // Fluttertoast.showToast(msg: widget.packageId);
+                    return SwipeButton.expand(
+                      thumb: const Icon(
+                        Icons.double_arrow_rounded,
+                        color: Colors.white,
+                      ),
+                      activeThumbColor: ColorName.primaryColor,
+                      activeTrackColor: Colors.grey.shade300,
+                      onSwipe: () {
                         context.read<OrderBloc>().add(
                               CreateOrder(
                                 widget.packageId,
@@ -282,6 +295,12 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                               ),
                             ); // showAboutDialog(
                       },
+                      child: const Text(
+                        'Swipe to confrim',
+                        style: TextStyle(
+                          color: ColorName.primaryColor,
+                        ),
+                      ),
                     );
                   },
                 ),

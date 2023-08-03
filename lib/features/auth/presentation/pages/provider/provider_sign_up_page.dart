@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wyca/core/widgets/app_checkbox.dart';
 import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/presentation/login_bloc/login_bloc.dart';
@@ -116,17 +118,26 @@ class _ProviderSignUpPageState extends State<ProviderSignUpPage> {
         ),
       ],
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: kPadding,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 40.h),
-                LogoBar(
-                  title: context.l10n.createANewAccount,
+                Column(
+                  children: [
+                    Text(
+                      context.l10n.createANewAccount,
+                      style: kBody1Style.copyWith(
+                        height: 1,
+                        fontSize: 22.sp,
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 50.h,
                 ),
                 Row(
                   children: [
@@ -138,7 +149,36 @@ class _ProviderSignUpPageState extends State<ProviderSignUpPage> {
                           return TextFormField(
                             focusNode: _firstNamefocusNode,
                             decoration: InputDecoration(
-                              hintText: context.l10n.firstName,
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon:
+                                    SvgPicture.asset('assets/svg/profile.svg'),
+                              ),
+                              hintStyle:
+                                  TextStyle(color: ColorName.primaryColor),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              hintText:
+                                  context.l10n.firstName, /*Or Mobiel Number*/
                             ),
                             onChanged: (value) => context
                                 .read<RegisterProviderBloc>()
@@ -156,7 +196,36 @@ class _ProviderSignUpPageState extends State<ProviderSignUpPage> {
                           return TextFormField(
                             focusNode: _lastNamefocusNode,
                             decoration: InputDecoration(
-                              hintText: context.l10n.lastName,
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon:
+                                    SvgPicture.asset('assets/svg/profile.svg'),
+                              ),
+                              hintStyle:
+                                  TextStyle(color: ColorName.primaryColor),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorName
+                                      .primaryColor, // Set the desired border color here
+                                  width: 1.0, // Set the border width
+                                ),
+                              ),
+                              hintText:
+                                  context.l10n.lastName, /*Or Mobiel Number*/
                             ),
                             onChanged: (value) => context
                                 .read<RegisterProviderBloc>()
@@ -175,7 +244,33 @@ class _ProviderSignUpPageState extends State<ProviderSignUpPage> {
                     return TextFormField(
                       focusNode: _emailfocusNode,
                       decoration: InputDecoration(
-                        hintText: context.l10n.email,
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: SvgPicture.asset('assets/svg/e_mail.svg'),
+                        ),
+                        hintStyle: TextStyle(color: ColorName.primaryColor),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        hintText: context.l10n.email, /*Or Mobiel Number*/
                       ),
                       onChanged: (value) => context
                           .read<RegisterProviderBloc>()
@@ -190,9 +285,36 @@ class _ProviderSignUpPageState extends State<ProviderSignUpPage> {
                   builder: (context, state) {
                     return TextFormField(
                       focusNode: _phoneNumberFocusNode,
-                      decoration:  InputDecoration(
+                      decoration: InputDecoration(
                         prefixText: '+2',
-                        hintText: context.l10n.mobileNumber,
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: SvgPicture.asset('assets/svg/eg.svg'),
+                        ),
+                        hintStyle: TextStyle(color: ColorName.primaryColor),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorName
+                                .primaryColor, // Set the desired border color here
+                            width: 1.0, // Set the border width
+                          ),
+                        ),
+                        hintText:
+                            context.l10n.mobileNumber, /*Or Mobiel Number*/
                       ),
                       onChanged: (value) => context
                           .read<RegisterProviderBloc>()

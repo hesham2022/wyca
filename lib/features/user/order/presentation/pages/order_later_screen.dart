@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wyca/features/user/order/presentation/bloc/order_bloc.dart';
 import 'package:wyca/features/user/order/presentation/pages/chosse_adresse_page.dart';
 import 'package:wyca/imports.dart';
@@ -26,6 +27,9 @@ class _OrderLaterScreenState extends State<OrderLaterScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+                child:
+                    Lottie.asset('assets/lottie/appointment.json', width: 150)),
             Text(
               context.l10n.date,
               style: kHead1Style.copyWith(
@@ -125,10 +129,7 @@ class _OrderLaterScreenState extends State<OrderLaterScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChosseAdressePage(
-                        packageId:context
-                                          .read<OrderBloc>()
-                                          .idControoler
-                                          .text ,
+                        packageId: context.read<OrderBloc>().idControoler.text,
                         date: date,
                       ),
                     ),

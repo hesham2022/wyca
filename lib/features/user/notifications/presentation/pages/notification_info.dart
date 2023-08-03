@@ -118,10 +118,10 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
       return '${context.l10n.requestAcceptedFrom} ${widget.provider!.name}';
     }
     if (widget.request.status == 2) {
-      return '${widget.provider!.name} ${context.l10n.begunWashing}';
+      return '${widget.provider == null ? '' : widget.provider!.name} ${context.l10n.begunWashing}';
     }
     if (widget.request.status == 3) {
-      return '${widget.provider!.name} ${context.l10n.hasFinished}';
+      return '${widget.provider == null ? '' : widget.provider!.name} ${context.l10n.hasFinished}';
     }
     if (widget.request.status == 4) {
       return 'Plaese Try Again';
@@ -176,7 +176,7 @@ class _RequestInfoWidgetState extends State<RequestInfoWidget> {
       },
       child: LayoutBuilder(
         builder: (c, s) {
-          return Container(
+          return DecoratedBox(
             // height: 130.h,
             decoration: BoxDecoration(
               color: Colors.white,

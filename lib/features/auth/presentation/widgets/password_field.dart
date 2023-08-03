@@ -49,6 +49,28 @@ class _PasswordFieldState extends State<PasswordField> {
           controller: _controller,
           obscureText: _obscureText,
           decoration: InputDecoration(
+            hintStyle: TextStyle(color: ColorName.primaryColor),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
             suffixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 5.w,
@@ -145,6 +167,27 @@ class _PasswordRegisterFieldState extends State<PasswordRegisterField> {
           controller: _controller,
           obscureText: _obscureText,
           decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
             suffixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 5.w,
@@ -178,7 +221,9 @@ class _PasswordRegisterFieldState extends State<PasswordRegisterField> {
                       ),
                     ),
             ),
-            hintText: widget.confrimPassword ? 'Confirm Password' : 'Password',
+            hintText: widget.confrimPassword
+                ? context.l10n.confirmPassword
+                : context.l10n.password,
           ),
         ).commonFild(context);
       },
@@ -230,6 +275,27 @@ class _PasswordRegisterProviderFieldtate
           controller: _controller,
           obscureText: _obscureText,
           decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color:
+                    ColorName.primaryColor, // Set the desired border color here
+                width: 1.0, // Set the border width
+              ),
+            ),
             suffixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 5.w,

@@ -16,6 +16,7 @@ import 'package:wyca/features/companmy_setting/presentation/bloc/comlainment_cub
 import 'package:wyca/features/companmy_setting/presentation/widgets/button_1.dart';
 import 'package:wyca/features/companmy_setting/presentation/widgets/common_container.dart';
 import 'package:wyca/gen/assets.gen.dart';
+import 'package:wyca/imports.dart';
 import 'package:wyca/l10n/l10n.dart';
 
 final reasons = <String>[
@@ -191,7 +192,7 @@ class _CallingPageState extends State<CallingPage> {
 
                                 autoSizeText(
                                   text: context.l10n.mail,
-                                  maxLines:4,
+                                  maxLines: 4,
                                   size: 18,
                                   align: TextAlign.center,
                                 ),
@@ -250,10 +251,10 @@ class _CallingPageState extends State<CallingPage> {
                             }),
                             child: CommonContainer(
                               color: current == index
-                                  ? kPrimaryColor
+                                  ? ColorName.primaryColor
                                   : Colors.white,
-                              br: 23,
-                              height: 92.h,
+                              br: 10,
+                              height: 80.h,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -265,7 +266,7 @@ class _CallingPageState extends State<CallingPage> {
                                           .icon,
                                       color: current == index
                                           ? Colors.white
-                                          : kPrimaryColor,
+                                          : ColorName.primaryColor,
                                       height: 26,
                                     ),
                                   ),

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:wyca/app/view/app.dart';
 import 'package:wyca/core/api_config/index.dart';
 import 'package:wyca/core/api_errors/network_exceptions.dart';
 import 'package:wyca/core/local_storage/secure_storage_instance.dart';
@@ -98,6 +100,11 @@ class AuthenticationRepository extends IAuthenticationRepository {
 
     await Storage.removePassword();
     await FirebaseMessaging.instance.deleteToken();
+    // generate a new token here
+    await FirebaseMessaging.instance.getToken().then((value) {
+      kFcm = value!;
+    });
+    await AwesomeNotifications().cancelAll();
   }
 
   @override

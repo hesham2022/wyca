@@ -16,6 +16,7 @@ import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/data/models/cars_model.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
 import 'package:wyca/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wyca/features/provider/new_request/presentation/pages/new_request_page.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/request/domain/params/complete_params.dart';
 import 'package:wyca/features/request/presentation/get_requests.dart';
@@ -64,6 +65,7 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
         done = true;
       });
     }
+    cancelNotification(_req);
     super.initState();
   }
 
@@ -195,9 +197,6 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
                         // }
                       },
                       builder: (context, state) {
-                        print('#' * 100);
-
-                        print(_req.carPhotos);
                         return ((_req.isDone && _req.isConfired) &&
                                 _req.carPhotos.isEmpty)
                             ? CompleteWidget(
@@ -445,7 +444,7 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  Text(currentRoute ?? 'null'),
+
                                   Row(
                                     children: [
                                       if (!_req.carPhotos.isNotEmpty)
@@ -760,6 +759,9 @@ class _CompleteWidgetState extends State<CompleteWidget> {
               children: [
                 Text(
                   'Your wash Time  ${formatedTime(timeInSecond: widget.request.endDate!.difference(widget.request.startDate!).inSeconds)}',
+                  style: kHead1Style.copyWith(
+                    fontSize: 20.sp,
+                  ),
                 ),
               ],
             ),
@@ -776,10 +778,14 @@ class _CompleteWidgetState extends State<CompleteWidget> {
             validator: (value) => value!.isEmpty ? 'Please add Note' : null,
           ).commonFild2(context),
           const SizedBox(
+            height: 30,
+          ),
+          Text(context.l10n.select_your_car_image),
+          const SizedBox(
             height: 10,
           ),
           Container(
-            height: 260,
+            height: 230,
             decoration: BoxDecoration(
               border: Border.all(width: .5, color: kPrimaryColor),
               borderRadius: BorderRadius.circular(4),

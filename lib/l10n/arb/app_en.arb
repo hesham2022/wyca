@@ -151,9 +151,12 @@
   "start":"Start",
   "skip":"Skip",
   "next":"Next",
+  "select_your_car_image":"Select your car image (required)",
   "all_need_to_do":"All you have to do is request the service and our representative will reach you",
    "mail":"You can reach us anytime via\n wyca.online@gmail.com",
   "no_active_orders":"No active orders",
+  "pleaseSelectAddress":"Please select address",
+  "pleaseRateOureProvider":"Please rate our provider",
   "@counterAppBarTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
   }

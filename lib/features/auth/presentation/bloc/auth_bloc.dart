@@ -178,8 +178,14 @@ class AuthenticationBloc
   Future<User?> _tryGetUser() async {
     try {
       final user = await _userRepository.getUser();
+
       return user.fold((l) => null, (r) {
         _userCubit.addUser(r);
+        _userRepository.updateUser(
+          UpdateUserParameter(
+            user: r,
+          ),
+        );
         add(
           AuthenticationUpdateRequested(
             UpdateUserParameter(
@@ -197,9 +203,16 @@ class AuthenticationBloc
   Future<Provider?> _tryGetProvider() async {
     try {
       final user = await _providerRepository.getProvider();
+
       // print(user);
       return user.fold((l) => null, (r) {
         _providerubit.addProvider(r);
+        _providerRepository.updateProvider(
+          UpdateProviderParameter(
+            provider: r,
+        
+          ),
+        );
         return r;
       });
     } catch (e) {

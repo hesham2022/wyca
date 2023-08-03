@@ -30,13 +30,20 @@ class PNCubitStateError extends PNCubitState {
 class PNCubit extends Cubit<PNCubitState> {
   PNCubit() : super(PNCubitStateInitial());
   RequestClass? newReq;
-  Future<void> getLocalNotifcation() async {
+  Future<void> getLocalNotifcation({
+    bool isProvider = false,
+    String? userId,
+  }) async {
     emit(PNCubitStateLoading());
     try {
-      final r = await Storage.getNewRequests();
+      final r = await Storage.getNewRequests(
+        isProvider: isProvider,
+        userId: userId,
+      );
 
       emit(PNCubitStateLoaded(r));
     } catch (e, s) {
+      print(e);
       print(s);
       emit(PNCubitStateError(NetworkExceptions(e)));
     }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wyca/features/auth/presentation/login_bloc/login_bloc.dart';
 import 'package:wyca/features/auth/presentation/pages/confirm_location_page.dart';
-import 'package:wyca/features/auth/presentation/widgets/login_bar.dart';
 import 'package:wyca/imports.dart';
 
 class SignUpSecond extends StatefulWidget {
@@ -39,8 +39,10 @@ class _SignUpSecondState extends State<SignUpSecond> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 40.h),
-              const LogoBar(
-                title: 'Create A New Account',
+              Lottie.asset(
+                'assets/lottie/fetch.json',
+                width: 200.h,
+                height: 200.h,
               ),
               SizedBox(
                 height: 25.h,

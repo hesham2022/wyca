@@ -37,23 +37,17 @@ class SettingFieldWidget extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               hintText: 'Enter your $hint',
+              fillColor: ColorName.secondaryColor,
+              filled: true,
+              enabled: true,
+              hintStyle: TextStyle(color: ColorName.primaryColor),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
               enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: ColorName.primaryColor,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: ColorName.primaryColor,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: ColorName.primaryColor,
-                ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
               ),
             ),
           ).commonFild(context),

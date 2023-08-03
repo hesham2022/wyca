@@ -18,6 +18,7 @@ class ColorName {
 
   /// Color: #3468B0
   static const Color primaryColor = Color(0xFF3468B0);
+  static const Color secondaryColor = Color.fromARGB(255, 121, 187, 249);
 
   /// Color: #8F8F8F
   static const Color textColor1 = Color(0xFF8F8F8F);

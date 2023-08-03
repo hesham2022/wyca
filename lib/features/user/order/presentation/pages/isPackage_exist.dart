@@ -23,8 +23,16 @@ int restOfWash(BuildContext context, String id) {
     if (packages.contains(
       id,
     )) {
-      final order = orders.firstWhere((element) => element.package == id);
-      return order.washNumber;
+      final all = orders
+          .where((element) => element.package == id && element.washNumber > 0)
+          .toList();
+      if (all.isEmpty) {
+        return orders.firstWhere((element) => element.package == id).washNumber;
+      } else {
+        return all
+            .map((e) => e.washNumber)
+            .reduce((value, element) => value + element);
+      }
     }
   }
   return 0;

@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:lottie/lottie.dart';
+import 'package:wyca/core/routing/routes.gr.dart';
 
 class WebViewPaymentPage extends StatefulWidget {
   WebViewPaymentPage({
@@ -46,7 +49,26 @@ class _WebViewPaymentPageState extends State<WebViewPaymentPage> {
       print(' url $url');
 
       if (url.contains('&success=false&') || url.contains('&success=true&')) {
-        Navigator.of(context).pop();
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Your order completed sucussefuly'),
+              content: Lottie.asset('assets/lottie/congrats.json'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    // Close the alert dialog
+                    context.router.push(
+                      HomePAGE(),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
         flutterWebviewPlugin.close();
         widget.callbackPayment.call(url);
       }
@@ -62,15 +84,6 @@ class _WebViewPaymentPageState extends State<WebViewPaymentPage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: InkWell(
-            onTap: () {
-              Navigator.maybePop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-          ),
           title: Text(
             widget.title,
           ),

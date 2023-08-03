@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wyca/core/theme/theme.dart';
 import 'package:wyca/core/widgets/widget.dart';
+import 'package:wyca/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wyca/features/request/presentation/provider_notification_cubit.dart';
 import 'package:wyca/features/user/home/presentation/packages_bloc/packages_bloc.dart';
 import 'package:wyca/features/user/notifications/presentation/pages/notification_info.dart';
@@ -19,7 +19,9 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   @override
   void initState() {
-    context.read<PNCubit>().getLocalNotifcation();
+    context.read<PNCubit>().getLocalNotifcation(
+          userId: context.read<AuthenticationBloc>().state.user.id,
+        );
 
     super.initState();
   }
@@ -55,10 +57,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   child: BlocBuilder<PNCubit, PNCubitState>(
                     builder: (context, state) {
                       if (state is PNCubitStateLoaded) {
-                        Fluttertoast.showToast(
-                          msg: state.requests.length.toString(),
-                        );
-
                         final request = state.requests.toList();
                         return Column(
                           children: [

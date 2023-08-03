@@ -42,7 +42,7 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                         //   height: 50.h,
                         // ),
                         Lottie.asset(
-                          Assets.lottie.animation12,
+                          'assets/lottie/point_reward.json',
                           height: 90,
                           width: 120,
                         ),

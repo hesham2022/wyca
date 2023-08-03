@@ -1,11 +1,11 @@
 // import material
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:wyca/features/user/home/domain/entities/package.dart';
 import 'package:wyca/features/user/order/presentation/pages/chosse_adresse_page.dart';
 import 'package:wyca/features/user/order/presentation/pages/isPackage_exist.dart';
 import 'package:wyca/imports.dart';
-
 import '../../../../auth/data/models/user_model.dart';
 import '../../../../auth/presentation/bloc/user_cubit.dart';
 import 'home_page.dart';
@@ -217,9 +217,20 @@ class OfferDetailsPage extends StatelessWidget {
                 SizedBox(
                   height: 50.h,
                 ),
-                AppButton(
-                  title: context.l10n.serviceRequest,
-                  onPressed: () {
+                SwipeButton.expand(
+                  thumb: Icon(
+                    Icons.double_arrow_rounded,
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    "Swipe to request",
+                    style: TextStyle(
+                      color: ColorName.primaryColor,
+                    ),
+                  ),
+                  activeThumbColor: ColorName.primaryColor,
+                  activeTrackColor: Colors.grey.shade300,
+                  onSwipe: () {
                     try {
                       Address? currentAdress = (context.read<UserCubit>().state
                               as UserCubitStateLoaded)
@@ -241,6 +252,7 @@ class OfferDetailsPage extends StatelessWidget {
                     }
                   },
                 ),
+
                 SizedBox(
                   height: 20.h,
                 ),

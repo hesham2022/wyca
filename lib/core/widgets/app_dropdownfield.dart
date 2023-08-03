@@ -24,7 +24,7 @@ class AppDropDownField extends StatefulWidget {
   final String? title;
   final String hint;
   final TextStyle? selectedStyle;
- final DropDownModel? initialValue;
+  final DropDownModel? initialValue;
 
   @override
   State<AppDropDownField> createState() => _AppDropDownFieldState();
@@ -42,7 +42,6 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,60 +57,65 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
           SizedBox(
             height: 4.h,
           ),
-        DropdownButtonFormField<DropDownModel>(
-          icon: Assets.svg.arrowDown3101.svg(
-            color: ColorName.primaryColor,
-            height: 12.h,
-            width: 12.w,
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
           ),
-          value: initialValue,
-          elevation: 0,
-          isExpanded: true,
-          selectedItemBuilder: (context) => widget.items
-              .map(
-                (e) => Text(
-                  initialValue?.name ?? 'Select User Type',
-                  style: widget.selectedStyle ??
-                      kHead1Style.copyWith(fontSize: 12.sp),
-                ),
-              )
-              .toList(),
-          dropdownColor: Colors.transparent,
-          onChanged: (value) {
-            setState(() {
-              initialValue = value;
-            });
-            widget.onChanged?.call(value);
-          },
-          validator: widget.validator,
-          items: widget.items.map((value) {
-            return DropdownMenuItem<DropDownModel>(
-              //   alignment: AlignmentDirectional.topStart,
-              value: value,
-              child: Container(
-                height: 53.h,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(10.sp),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
+          child: DropdownButtonFormField<DropDownModel>(
+            icon: Assets.svg.arrowDown3101.svg(
+              color: ColorName.primaryColor,
+              height: 12.h,
+              width: 12.w,
+            ),
+            value: initialValue,
+            elevation: 0,
+            isExpanded: true,
+            selectedItemBuilder: (context) => widget.items
+                .map(
+                  (e) => Text(
+                    initialValue?.name ?? 'Select User Type',
+                    style: widget.selectedStyle ??
+                        kHead1Style.copyWith(fontSize: 12.sp),
+                  ),
+                )
+                .toList(),
+            dropdownColor: Colors.transparent,
+            onChanged: (value) {
+              setState(() {
+                initialValue = value;
+              });
+              widget.onChanged?.call(value);
+            },
+            validator: widget.validator,
+            items: widget.items.map((value) {
+              return DropdownMenuItem<DropDownModel>(
+                //   alignment: AlignmentDirectional.topStart,
+                value: value,
+                child: Container(
+                  height: 53.h,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(10.sp),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  child: Text(
+                    value.name,
+                    style: kHead1Style.copyWith(fontSize: 12.sp),
                   ),
                 ),
-                child: Text(
-                  value.name,
-                  style: kHead1Style.copyWith(fontSize: 12.sp),
-                ),
-              ),
-            );
-          }).toList(),
-          decoration: InputDecoration(
-            errorBorder: kOutlinePrimaryColor,
-            focusedErrorBorder: kOutlinePrimaryColor,
-            enabledBorder: kOutlinePrimaryColor,
-            focusedBorder: kOutlinePrimaryColor,
-            border: kOutlinePrimaryColor,
-            hintText: widget.hint,
+              );
+            }).toList(),
+            decoration: InputDecoration(
+              errorBorder: kOutlinePrimaryColor,
+              focusedErrorBorder: kOutlinePrimaryColor,
+              enabledBorder: kOutlinePrimaryColor,
+              focusedBorder: kOutlinePrimaryColor,
+              border: OutlineInputBorder(borderSide: BorderSide.none),
+              hintText: widget.hint,
+            ),
           ),
         ),
       ],

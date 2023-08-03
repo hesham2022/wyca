@@ -27,7 +27,7 @@ class CompleteRequestPage extends StatelessWidget {
       child: BlocListener<PNCubit, PNCubitState>(
         listener: (context, state) {
           if (state is PNCubitStateLoaded) {
-            showAboutDialog(context: context, children: [const Text('done')]);
+            // showAboutDialog(context: context, children: [const Text('done')]);
 
             if (state.requests
                 .map((e) => e.id)

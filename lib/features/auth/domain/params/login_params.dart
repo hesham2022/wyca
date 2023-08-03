@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wyca/app/view/app.dart';
 
 class LoginParam {

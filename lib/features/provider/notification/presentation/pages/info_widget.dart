@@ -231,14 +231,16 @@ class _RequestInfoWidgetProviderState extends State<RequestInfoWidgetProvider> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              getTitleString(context), //  'Call Request',
-                              style: textStyleWithPrimarySemiBold.copyWith(
-                                fontSize: 14.sp,
-                                height: 1,
-                                color: kPrimaryColor,
+                            Expanded(
+                              child: Text(
+                                getTitleString(context), //  'Call Request',
+                                style: textStyleWithPrimarySemiBold.copyWith(
+                                  fontSize: 14.sp,
+                                  height: 1,
+                                  color: kPrimaryColor,
+                                ),
+                                textAlign: TextAlign.start,
                               ),
-                              textAlign: TextAlign.start,
                             ),
                           ],
                         ),
@@ -258,7 +260,7 @@ class _RequestInfoWidgetProviderState extends State<RequestInfoWidgetProvider> {
                                         widget.request.notificationDate!,
                                       )} ${context.l10n.ago}', //  'Call Request',
                                 style: textStyleWithPrimarySemiBold.copyWith(
-                                  fontSize: 14.sp,
+                                  fontSize: 12.sp,
                                   color: const Color(0xff5D6C7A),
                                 ),
                               ),

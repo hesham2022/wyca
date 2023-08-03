@@ -145,9 +145,13 @@
   "skip":"تخطي",
   "next":"التالي",
   "all_need_to_do":"كل ما عليك فعله هو ان تقوم بطلب الخدمة و سيصلك مندوبنا ",
+  "choose_service":"اختر الخدمة",
+  "select_your_car_image":"  (اجباري) اختر صورة سيارتك",
+  "pleaseSelectAddress":"الرجاء تحديد العنوان",
 "noPhotoSelectedYet":"ليس هناك صوره بعد",
 "numberMustNotBeEmpty":"الرقم لا يجب ان يكون فارغا",
 "colorMustNotBeEmty":"اللون لا يجب ان يكون فارغا",
+"pleaseRateOureProvider":"الرجاء تقييم مقدم الخدمة",
   "@counterAppBarTitle": {
     "description": "عنوان شريط التحكم لصفحة العداد"
   }

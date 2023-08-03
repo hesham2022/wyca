@@ -16,9 +16,9 @@ class LogoBar extends StatelessWidget {
     return Column(
       children: [
         Lottie.asset(
-          'assets/lottie/user.json',
-          width: 120.h,
-          height: 120.h,
+          'assets/lottie/welcome.json',
+          width: 200.h,
+          height: 200.h,
         ),
         SizedBox(
           height: 20.h,

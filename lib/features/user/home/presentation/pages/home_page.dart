@@ -1,11 +1,13 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:wyca/app/customer_service/view/customer_service_view.dart';
 import 'package:wyca/app/view/app.dart';
 import 'package:wyca/core/api_config/api_constants.dart';
+import 'package:wyca/core/routing/routes.gr.dart';
 import 'package:wyca/core/theme/theme.dart';
 import 'package:wyca/core/widgets/language_dialouge.dart';
 import 'package:wyca/core/widgets/package_dropdown.dart';
@@ -13,7 +15,6 @@ import 'package:wyca/core/widgets/widget.dart';
 import 'package:wyca/features/auth/presentation/bloc/user_cubit.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/about_us.dart';
 import 'package:wyca/features/companmy_setting/presentation/pages/calling_page.dart';
-import 'package:wyca/features/provider/about_us/presentation/pages/about_us_page.dart';
 import 'package:wyca/features/request/data/models/request_model.dart';
 import 'package:wyca/features/user/adresses/presentation/pages/adresses_page.dart';
 import 'package:wyca/features/user/home/presentation/packages_bloc/packages_bloc.dart';
@@ -42,6 +43,17 @@ class HomePAGE extends StatefulWidget {
   State<HomePAGE> createState() => _HomePAGEState();
 }
 
+Future<void> onNotificationCreatedMethod(
+  ReceivedAction receivedNotification,
+) async {
+  if (appRouter.current.name == NotificationsPageRoute.name) {
+    return;
+  }
+  // if NotificationsPageRoute is not in the stack push it
+
+  await appRouter.push(const NotificationsPageRoute());
+}
+
 class _HomePAGEState extends State<HomePAGE> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,6 +69,8 @@ class _HomePAGEState extends State<HomePAGE> {
         );
       });
     }
+    AwesomeNotifications()
+        .setListeners(onActionReceivedMethod: onNotificationCreatedMethod);
     super.initState();
   }
 
@@ -107,14 +121,10 @@ class _HomePAGEState extends State<HomePAGE> {
                         shape: BoxShape.circle,
                         color: Colors.blue,
                       ),
-                      child: Positioned(
-                        top: -10,
-                        right: -4,
-                        child: Text(
-                          state.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+                      child: Text(
+                        state.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
                         ),
                       ),
                     )
@@ -131,8 +141,10 @@ class _HomePAGEState extends State<HomePAGE> {
       drawer: AppBrawer(
         items: [
           AppDrawerModel(
-            title: context.l10n.settings,
-            icon: Assets.drawerIcons.icons8Settings.svg(
+            title: 'Profile',
+            icon: const Icon(
+              Icons.person,
+              size: 20,
               color: Colors.white,
             ),
             page: const SettingPage(),
@@ -216,7 +228,6 @@ class _HomePAGEState extends State<HomePAGE> {
           final currentState = state as PackagesCubitStateLoaded;
           return Column(
             children: [
-              welcomeUser(),
               Expanded(
                 child: CustomScrollView(
                   slivers: [
@@ -225,85 +236,17 @@ class _HomePAGEState extends State<HomePAGE> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      context.l10n.ourPorividersOnYourWay,
-                                      style: kHead1Style.copyWith(
-                                        fontSize: 16.sp,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    AppButton(
-                                      w: 224.w,
-                                      h: 36.h,
-                                      title: context.l10n.details,
-                                      onPressed: () {
-                                        // commented for now
-                                        // Navigator.push<void>(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const NearesProviderScreen(),
-                                        //     // const AboutUsPage(),
-                                        //   ),
-                                        // );
-                                        Navigator.push<void>(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                // const NearesProviderScreen(),
-                                                const AboutUsPage(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * .30,
-                                  child: Lottie.asset(
-                                    'assets/lottie/car_wash.json',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 10,
-                            ),
-                            child: SectionTitile(
-                              context.l10n.offers,
-                              color: Colors.black,
-                            ),
-                          ),
                           const SizedBox(
-                            height: 180,
+                            height: 300,
                             child: HomeCursorSlider(),
                           ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 10,
                             ),
                             child: SectionTitile(
-                              context.l10n.orderNow,
+                              '${context.l10n.orderNow} 🔥',
                               color: Colors.black,
                             ),
                           ),
@@ -670,10 +613,9 @@ class _HomePAGEState extends State<HomePAGE> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorName.primaryColor,
-        child: const Icon(
-          Icons.message_rounded,
-          color: Colors.white,
-          size: 30,
+        child: SvgPicture.asset(
+          'assets/svg/message.svg',
+          width: 35,
         ),
         onPressed: () {
           Navigator.push<void>(
@@ -684,33 +626,6 @@ class _HomePAGEState extends State<HomePAGE> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Padding welcomeUser() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          autoSizeText(
-            text: '${context.l10n.hello} ',
-            fontWeight: FontWeight.w600,
-          ),
-          BlocBuilder<UserCubit, UserCubitState>(
-            builder: (context, state) {
-              if (state is UserCubitStateLoaded) {
-                return autoSizeText(
-                  text: state.user.name,
-                  color: ColorName.primaryColor,
-                  fontWeight: FontWeight.w600,
-                );
-              }
-              return const Loader();
-            },
-          ),
-        ],
       ),
     );
   }
