@@ -66,8 +66,11 @@ Either<EmailValidationError, void> emailOrPhoneValidator(String value) {
     return const Left(EmailValidationError.empty);
   }
   if (value.contains('@')) {
+    print('njwnjf');
     if (!ValidationsPatterns.emailValidate.hasMatch(value)) {
       return const Left(EmailValidationError.inValid);
+    } else {
+      return const Right(null);
     }
   }
   if (!phoneRegx.hasMatch(value)) {

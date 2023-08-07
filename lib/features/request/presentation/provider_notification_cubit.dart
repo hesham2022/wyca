@@ -42,9 +42,7 @@ class PNCubit extends Cubit<PNCubitState> {
       );
 
       emit(PNCubitStateLoaded(r));
-    } catch (e, s) {
-      print(e);
-      print(s);
+    } catch (e) {
       emit(PNCubitStateError(NetworkExceptions(e)));
     }
   }

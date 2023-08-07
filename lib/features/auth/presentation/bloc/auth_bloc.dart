@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wyca/core/api_config/index.dart';
 import 'package:wyca/features/auth/data/models/cars_model.dart';
 import 'package:wyca/features/auth/data/models/user_model.dart';
 import 'package:wyca/features/auth/domain/entities/provider_entity.dart';
@@ -128,12 +129,12 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     final user = await _providerRepository.updateProvider(event.params);
-    user.fold(
-      (l) {
-        Fluttertoast.showToast(msg: l.errorMessege);
-      },
-      _providerubit.addProvider,
-    );
+    user.fold((l) {
+      Fluttertoast.showToast(msg: l.errorMessege);
+    }, (r) {
+      DebugConstants.setUser(r);
+      _providerubit.addProvider(r);
+    });
   }
 
   Future<void> _onAuthenticationUpdateAddresses(
@@ -141,12 +142,13 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     final user = await _userRepository.updateUserAddresses(event.params);
-    user.fold(
-      (l) {
-        Fluttertoast.showToast(msg: l.errorMessege);
-      },
-      _userCubit.addUser,
-    );
+
+    user.fold((l) {
+      Fluttertoast.showToast(msg: l.errorMessege);
+    }, (r) {
+      DebugConstants.setUser(r);
+      _userCubit.addUser(r);
+    });
   }
 
   Future<void> _onAuthenticationUpdateCars(
@@ -154,12 +156,13 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     final user = await _userRepository.updateUserCars(event.params);
-    user.fold(
-      (l) {
-        Fluttertoast.showToast(msg: l.errorMessege);
-      },
-      _userCubit.addUser,
-    );
+
+    user.fold((l) {
+      Fluttertoast.showToast(msg: l.errorMessege);
+    }, (r) {
+      DebugConstants.setUser(r);
+      _userCubit.addUser(r);
+    });
   }
 
   Future<void> _onToggleProviderActive(
@@ -167,12 +170,13 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     final user = await _providerRepository.toggleActive(event.params);
-    user.fold(
-      (l) {
-        Fluttertoast.showToast(msg: l.errorMessege);
-      },
-      _providerubit.addProvider,
-    );
+
+    user.fold((l) {
+      Fluttertoast.showToast(msg: l.errorMessege);
+    }, (r) {
+      DebugConstants.setUser(r);
+      _providerubit.addProvider(r);
+    });
   }
 
   Future<User?> _tryGetUser() async {
@@ -181,6 +185,8 @@ class AuthenticationBloc
 
       return user.fold((l) => null, (r) {
         _userCubit.addUser(r);
+        DebugConstants.setUser(r);
+
         _userRepository.updateUser(
           UpdateUserParameter(
             user: r,
@@ -206,11 +212,12 @@ class AuthenticationBloc
 
       // print(user);
       return user.fold((l) => null, (r) {
+        DebugConstants.setUser(r);
+
         _providerubit.addProvider(r);
         _providerRepository.updateProvider(
           UpdateProviderParameter(
             provider: r,
-        
           ),
         );
         return r;

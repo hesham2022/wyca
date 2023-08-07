@@ -61,7 +61,28 @@ class ProviderModel extends Provider {
   });
   factory ProviderModel.fromJson(String source) =>
       ProviderModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
+  factory ProviderModel.fromEntity(
+    Provider provider,
+  ) {
+    return ProviderModel(
+      gender: provider.gender,
+      role: provider.role,
+      isEmailVerified: provider.isEmailVerified,
+      name: provider.name,
+      email: provider.email,
+      fcm: provider.fcm,
+      id: provider.id,
+      address: provider.address,
+      ratingsAverage: provider.ratingsAverage,
+      ratingsQuantity: provider.ratingsQuantity,
+      active: provider.active,
+      criminalFish: provider.criminalFish,
+      photo: provider.photo,
+      frontId: provider.frontId,
+      backId: provider.backId,
+      balance: provider.balance,
+    );
+  }
   factory ProviderModel.fromMap(Map<String, dynamic> map) {
     print(map);
     return ProviderModel(

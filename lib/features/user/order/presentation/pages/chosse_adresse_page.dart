@@ -27,6 +27,7 @@ class _ChosseAdressePageState extends State<ChosseAdressePage> {
   Address? _currentAdress;
   @override
   void initState() {
+    // context.read<OrderBloc>().add(const RequestOrders());
     _currentAdress = (context.read<UserCubit>().state as UserCubitStateLoaded)
             .user
             .addresses

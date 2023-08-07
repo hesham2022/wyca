@@ -4,13 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
-import 'package:lottie/lottie.dart';
-import 'package:wyca/app/app.dart';
 import 'package:wyca/di/get_it.dart';
 import 'package:wyca/features/auth/presentation/login_bloc/login_bloc.dart';
 import 'package:wyca/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:wyca/features/auth/presentation/pages/provider/provider_sign_up_page.dart';
-import 'package:wyca/features/auth/presentation/widgets/login_bar.dart';
 import 'package:wyca/features/auth/presentation/widgets/password_field.dart';
 import 'package:wyca/imports.dart';
 
@@ -82,7 +79,7 @@ class _ProviderLoginState extends State<ProviderLogin> {
                       width: 200.h,
                       height: 180.h,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -112,26 +109,24 @@ class _ProviderLoginState extends State<ProviderLogin> {
                           onPressed: () {},
                           icon: SvgPicture.asset('assets/svg/profile.svg'),
                         ),
-                        hintStyle: TextStyle(color: ColorName.primaryColor),
-                        border: OutlineInputBorder(
+                        hintStyle:
+                            const TextStyle(color: ColorName.primaryColor),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: ColorName
                                 .primaryColor, // Set the desired border color here
-                            width: 1.0, // Set the border width
                           ),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: ColorName
                                 .primaryColor, // Set the desired border color here
-                            width: 1.0, // Set the border width
                           ),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                             color: ColorName
                                 .primaryColor, // Set the desired border color here
-                            width: 1.0, // Set the border width
                           ),
                         ),
                         hintText: context

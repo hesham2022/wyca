@@ -44,7 +44,20 @@ class UserModel extends User {
       id: json['id'] as String,
     );
   }
-
+// from entity
+  factory UserModel.fromEntity(User user) {
+    return UserModel(
+      gender: user.gender,
+      role: user.role,
+      isEmailVerified: user.isEmailVerified,
+      name: user.name,
+      email: user.email,
+      fcm: user.fcm,
+      addresses: user.addresses,
+      id: user.id,
+      cars: user.cars,
+    );
+  }
   Map<String, dynamic> toJson() => <String, dynamic>{
         'gender': gender,
         'role': role,
@@ -109,4 +122,3 @@ class Address extends Equatable {
   @override
   List<Object?> get props => [address, description];
 }
-

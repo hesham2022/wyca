@@ -129,7 +129,8 @@ class _RequestInfoWidgetProviderState extends State<RequestInfoWidgetProvider> {
     final confrimed = widget.request.isConfired;
     final disconfermed = widget.request.isDisConfired;
 
-    final name = widget.request.userModel!.name;
+    final name =
+        widget.request.userModel == null ? '' : widget.request.userModel!.name;
     if (status == 2) return 'You have started washing for $name';
     if (status == 3 && !confrimed) {
       return 'You have done washing for $name wait until customer confirm request';
@@ -225,6 +226,7 @@ class _RequestInfoWidgetProviderState extends State<RequestInfoWidgetProvider> {
                   // const SizedBox(
                   //   width: 10,
                   // ),
+
                   Expanded(
                     child: Column(
                       children: [

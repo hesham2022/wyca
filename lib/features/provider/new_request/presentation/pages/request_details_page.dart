@@ -36,7 +36,7 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
   @override
   bool get wantKeepAlive => true;
   final googeHelper = MapHelper();
-  late UserModel user;
+  UserModel? user;
   Car? car;
   bool startWashing = false;
   bool done = false;
@@ -48,9 +48,9 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
     setState(() {
       _req = widget.request;
     });
-    user = _req.userModel!;
-    if (user.cars.isNotEmpty) {
-      car = user.cars.last;
+    user = _req.userModel;
+    if (user != null && user!.cars.isNotEmpty) {
+      car = user!.cars.last;
     }
     googeHelper.addListener(() {
       setState(() {});
@@ -205,15 +205,16 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Center(
-                                    child: CircleAvatar(
-                                      radius: 70,
-                                      backgroundImage: NetworkImage(
-                                        '$domain/img/cars/${user.cars.last.photo}',
-                                        //   'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                                  if (user != null)
+                                    Center(
+                                      child: CircleAvatar(
+                                        radius: 70,
+                                        backgroundImage: NetworkImage(
+                                          '$domain/img/cars/${user!.cars.last.photo}',
+                                          //   'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                                        ),
                                       ),
                                     ),
-                                  ),
                                   if (car != null)
                                     Padding(
                                       padding: const EdgeInsets.all(16),
@@ -470,20 +471,22 @@ class _RequestDetailsPageState extends State<RequestDetailsPage>
                                                 ),
                                                 title: 'Start Chat',
                                                 onPressed: () {
-                                                  context.router.push(
-                                                    ChatScreenRoute(
-                                                      name: user.name,
-                                                      recieverId: user.id,
-                                                      recieverImage: '',
-                                                      senderId: context
-                                                          .read<
-                                                              AuthenticationBloc>()
-                                                          .state
-                                                          .provider!
-                                                          .id,
-                                                      recieverType: 'user',
-                                                    ),
-                                                  );
+                                                  if (user != null) {
+                                                    context.router.push(
+                                                      ChatScreenRoute(
+                                                        name: user!.name,
+                                                        recieverId: user!.id,
+                                                        recieverImage: '',
+                                                        senderId: context
+                                                            .read<
+                                                                AuthenticationBloc>()
+                                                            .state
+                                                            .provider!
+                                                            .id,
+                                                        recieverType: 'user',
+                                                      ),
+                                                    );
+                                                  }
                                                 },
                                               );
                                             },
